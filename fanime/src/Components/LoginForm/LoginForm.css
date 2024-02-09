@@ -1,0 +1,116 @@
+.wrapper{
+    width: 420px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(30px);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 30px;
+}
+
+.wrapper h1{
+    font-size: 36px;
+    text-align: center;
+}
+
+.wrapper .inputbox{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.inputbox input{
+    width: 100%;
+    height: 100%;
+    background: rgba(164, 128, 231, 0.5);
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+}
+
+.inputbox input::placeholder{
+    opacity: 80%;
+    color: #fff;
+}
+
+.inputbox .icon{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+.wrapper .remember{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember label input{
+    accent-color: #4a377c;
+    margin-right: 4px;
+}
+
+.remember label{
+    color: #000;
+}
+
+.remember a{
+    color: #4c3199;
+    text-decoration: none;
+}
+
+.remember a:hover{
+    text-decoration: underline;
+}
+
+#login-button{
+    width: 100%;
+    height: 45px;
+    background: rgba(48, 45, 224, 0.6);
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    transition: 0.2s all;
+}
+
+#login-button:hover{
+    transform: translateX(-0.5%);
+    box-shadow: 3px 1px 5px rgba(86, 47, 109, 0.1);
+}
+
+.wrapper .register{
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register p{
+    color: #000;
+}
+
+.register p button{
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #4c3199;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register p button:hover{
+    text-decoration: underline;
+}
