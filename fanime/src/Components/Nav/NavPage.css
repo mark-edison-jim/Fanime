@@ -3,8 +3,9 @@
   nav{
       position: sticky;
       top: 0;
-        display: flex;
-        justify-content: space-between;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       background-image: linear-gradient(to right, rgb(115, 42, 233), #6183df);
       height: 60px;
   }
@@ -117,17 +118,16 @@
   }
   
   #midlinks{
-    height: 200px;
+    width: 500px;
     display: flex;
+    justify-content: space-between;
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
   }
     
   #midlinks > li{
     float: left;
-    padding-left: 30px;
   }
     
   #midlinks > li a {
@@ -150,7 +150,7 @@
     display: flex;
     justify-content: right;
     float: right;
-    align-items: center;
+    align-items: center;  
     height: 60px;
     width: 500%;
     /* background-color: blue; */
@@ -219,4 +219,24 @@
   
   .main img{
     width: 100%;
+  }
+
+  #app{
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #signlogBtn{
+    border: none;
+    border-radius: 20px;
+    height: 80%;
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  #modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
