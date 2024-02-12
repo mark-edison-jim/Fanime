@@ -6,22 +6,42 @@
         }
 
         /*Header Contents*/
+
         .website-header{
             display: flex;
             padding-bottom: 10px;
             padding-top: 7px;
             background-color: #123C69;
         }
+        .website-logo-link{
+            text-decoration: none;
+        }
+
+        .website-logo-link:visited{
+            text-decoration: none;
+        }
+
+
         .website-logo{
             display: flex;
             width: 20%;
             align-items: center; /* y-axis */ 
+            margin-right: 100px;
+            
         }
+
+        
         .website-logo > img{
             width: 80px;
             padding-left: 10px;
-            border-radius: 50%;
+            border-radius: 30%;
+            margin-right:5px;
         }
+        
+        .website-logo > a {
+            display: inline-block; /* or display: block; */
+        }
+
         .website-logo strong {
             font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
             color: #FEFFFF; 
@@ -70,6 +90,7 @@
         #logout-button, #user-profile{
             border-radius: 20px;
         }
+
         .website-user-profile button{
             padding: 10px 20px; /* 1.top-buttom, 2.left-right */
             border-color: #AC3B61;
