@@ -1,20 +1,65 @@
-.wrapper{
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family:'Poppins', sans-serif;
+}
+
+.main{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    visibility: hidden;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.4);
+    transition: 0.2s ease-in;
+}
+
+.loginDiv{
+    display: none;
+    opacity: 0;
     width: 420px;
-    background: transparent;
+    background: rgba(25, 0, 255, 0.247);
     border: 2px solid rgba(255, 255, 255, .2);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(50px);
     color: #fff;
     border-radius: 10px;
     padding: 30px 30px;
+    transition: 0.2s ease-in-out;
+}
+.registerDiv{
+    opacity: 0;
+    width: 420px;
+    background: rgba(25, 0, 255, 0.247);
+    border: 2px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(50px);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 30px;
+    transition: 0.2s ease-in-out;
 }
 
-.wrapper h1{
+.loginDiv h1{
+    font-size: 36px;
+    text-align: center;
+}
+.registerDiv h1{
     font-size: 36px;
     text-align: center;
 }
 
-.wrapper .inputbox{
+.loginDiv .inputbox{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+.registerDiv .inputbox{
     position: relative;
     width: 100%;
     height: 50px;
@@ -31,6 +76,7 @@
     font-size: 16px;
     color: #fff;
     padding: 20px 45px 20px 20px;
+    box-sizing: border-box;
 }
 
 .inputbox input::placeholder{
@@ -38,7 +84,7 @@
     color: #fff;
 }
 
-.inputbox .icon{
+.inputbox i{
     position: absolute;
     top: 50%;
     right: 20px;
@@ -46,7 +92,13 @@
     font-size: 16px;
 }
 
-.wrapper .remember{
+.loginDiv .remember{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+.registerDiv .remember{
     display: flex;
     justify-content: space-between;
     font-size: 14.5px;
@@ -91,11 +143,12 @@
     box-shadow: 3px 1px 5px rgba(86, 47, 109, 0.1);
 }
 
-.wrapper .register{
+.register{
     font-size: 14.5px;
     text-align: center;
     margin: 20px 0 15px;
 }
+
 
 .register p{
     color: #000;
@@ -106,7 +159,7 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    color: #4c3199;
+    color: #9c82e2;
     text-decoration: none;
     font-weight: 600;
 }
