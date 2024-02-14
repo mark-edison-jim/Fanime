@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="stylesheet-mainpage.css">
 </head>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+    $(".toggle-comment-section").click(function() {
+        $(this).closest('.post').find(".comment").toggle();
+        $(this).closest('.post').find(".comment-section").toggle();
+    });
+});
+</script>
+
 <body>
 <div class="main-website-structure">
 <div class="website-header">
@@ -125,7 +136,113 @@
         <div class="content-header">
             <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
         </div>
+
+        <!--Create posts-->
+        <div class="post-margin">
+            <div class="post-create">
+                <form class="post-form">
+                <textarea rows="2" cols="50" placeholder="Write your post here..."></textarea>
+                <label for="file-input" class="post-image">
+                <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                </label>
+                <input id="file-input" type="file" />
+                <button type="submit" id="submitpost">Post</button>
+                </form>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                    <h4>Username *</h4>
+                    <h6>posted 5hrs ago</h6>
+                </div>
+                <div class="post-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                    Ex nobis expedita est iste, cumque unde quos omnis minus culpa et libero aperiam 
+                    assumenda ut! Doloribus, ut obcaecati. Doloribus, assumenda praesentium.
+                </div>
+                <div class="post-action">
+                    <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                    <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                    <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                    <button class="toggle-comment-section">Toggle Comment Section</button>
+                </div>
+                <div class="comment">
+                    <form class="comment-form">
+                        <textarea placeholder="Write your comment here..."></textarea>
+                        <button type="submit"><h4>Comment</h4></button>
+                    </form>
+                </div>
+                <div class="comment-section">
+                    <div class="comment-text">
+                        <div class="comment-user">
+                            <p>person 1</p>
+                        </div>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                            Perferendis, eum! Libero natus quisquam sint dicta alias 
+                            laudantium eos aperiam vel. 
+                            Labore enim officia illo,
+                             quibusdam culpa itaque unde vero amet.</p>
+                    </div>
+                    <div class="comment-text">
+                        <div class="comment-user">
+                            <p>person 2</p>
+                        </div>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                            Perferendis, eum! Libero natus quisquam sint dicta alias 
+                            laudantium eos aperiam vel. 
+                            Labore enim officia illo,
+                             quibusdam culpa itaque unde vero amet.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post-header">
+                    <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                    <h4>Username *</h4>
+                    <h6>posted 5hrs ago</h6>
+                </div>
+                <div class="post-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                    Ex nobis expedita est iste, cumque unde quos omnis minus culpa et libero aperiam 
+                    assumenda ut! Doloribus, ut obcaecati. Doloribus, assumenda praesentium.
+                </div>
+                <div class="post-action">
+                    <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                    <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                    <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                    <button class="toggle-comment-section">Toggle Comment Section</button>
+                </div>
+                <div class="comment">
+                    <form class="comment-form">
+                        <textarea placeholder="Write your comment here..."></textarea>
+                        <button type="submit"><h4>Comment</h4></button>
+                    </form>
+                </div>
+                <div class="comment-section">
+                    <div class="comment-text">
+                        <div class="comment-user">
+                            <p>person 1</p>
+                        </div>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                            Perferendis, eum! Libero natus quisquam sint dicta alias 
+                            laudantium eos aperiam vel. 
+                            Labore enim officia illo,
+                             quibusdam culpa itaque unde vero amet.</p>
+                    </div>
+                    <div class="comment-text">
+                        <div class="comment-user">
+                            <p>person 2</p>
+                        </div>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                            Perferendis, eum! Libero natus quisquam sint dicta alias 
+                            laudantium eos aperiam vel. 
+                            Labore enim officia illo,
+                             quibusdam culpa itaque unde vero amet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
 </div>
 </body>
