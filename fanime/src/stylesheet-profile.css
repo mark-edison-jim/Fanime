@@ -41,6 +41,7 @@
     margin-top: 50px;
     width: 50%;
     border: 5px black solid;
+    border-radius: 50px;
 }
 
 .prf-sidebar > a{
@@ -91,6 +92,7 @@ font-weight:bold;
     width: 100%; /* Adjust width as needed */
     height: 80%; /* Adjust height as needed */
     background-color: #badcffe5; /* Adjust background color as needed */
+    border-radius: 20px;
 }
 
 .prf-favs {
