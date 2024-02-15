@@ -280,6 +280,8 @@ height: 80px;
     background-color: #AC3B61;
     display: flex;
     border-radius: 10px;
+    display: flex;
+    justify-content: space-evenly;
 }
 .filter-user-post > button{
     height: 90%;
@@ -297,7 +299,7 @@ height: 80px;
     width: 90%;
     height: 20%;
     margin: 2% 5%;
-    background-color: brown;
+    background-color: #181a28;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -313,7 +315,7 @@ height: 80px;
     margin: 15px;
 }
 .user-post:hover{
-    background-color: black;
+    background-color: #4e4a69;
     color: white;
 }
 .user-post > button:hover {
