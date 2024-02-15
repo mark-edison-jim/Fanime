@@ -471,10 +471,8 @@
             /*Right side bar*/
                 
             .filter-outer{
-             
                 margin:50px;
                 height: 50%;
-
             }
 
             .filter-post{
@@ -482,9 +480,6 @@
                 display: flex;
                 width: 100%;
                 flex-direction: column;
-               
-                
-
             }
             .filter-button{
                 width: 100%;

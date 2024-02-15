@@ -7,14 +7,7 @@
     <link rel="stylesheet" href="stylesheet-mainpage.css">
     <link rel="stylesheet" href="logReg.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-    $(".toggle-comment-section").click(function() {
-        $(this).closest('.post').find(".comment").toggle();
-        $(this).closest('.post').find(".comment-section").toggle();
-    });
-});
-</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="main">
@@ -76,10 +69,9 @@
 <div class="website-header">
     <a href="mainpage.html" class="website-logo-link">
         <div class="website-logo">
-        
             <img src="./Assets/logo.png"/>
-            <strong>Fanime.tv</strong>
-        
+            <div id="logo"><div id="logo1">Fanime</div><div id="logo2">.tv</div></div>
+            <!-- <strong>Fanime.tv</strong> -->
         </div>
     </a>
     <div class="website-search-bar">
@@ -88,23 +80,31 @@
             <input type="submit" id="search-button" value="Search" />
         </form>
     </div>
-
-    <div class="website-user-profile">
-        <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="/>
-        <form>
-            <button type="button" id="user-profile">
-                <a href="profile.html">User Profile</a>
-            </button>
-        </form>
-    </div>
-
-    <div class="website-logout">
+    <div class="website-user-profile" id="webprof">
+        <button type="button" id="signup">Sign-up</button>
+        <img src="https://i.pinimg.com/564x/ba/a3/dd/baa3ddd24a354d10df6d795f012a3370.jpg" id="profpic" onclick="toggleDropdown()"/>
+        <div class="dropdown-wrap" id="drop">
+            <div class="dropdown">
+                <div class="userdd">
+                    <img src="https://cdn3.iconfinder.com/data/icons/accounting-1/80/Account-22-512.png">
+                    <h2>Kitsuuuu</h2>
+                </div>
+                <div class="linksdd">
+                    <ul id="d_links">
+                        <li><a href="profile.html">My Profile</a></li>
+                        <li><a href="#news">Settings</a></li>
+                        <li><a href="#contact">Something</a></li>
+                        <li><a href="#about">Logout</a></li>
+                      </ul>
+                </div>
+            </div>
+        </div>
+    <!--    <div class="website-logout">
         <img src="https://static-00.iconduck.com/assets.00/log-out-icon-512x512-74hrgn1x.png"/>
         <form>
-            <button type="button" id="signup">SignUp</button>
             <button type="button" id="logout-button">Logout</button>
-        </form>
-    </div>
+        </form>-->
+    </div> 
 </div>
 
 <div class="website-body">
@@ -198,16 +198,22 @@
                         <input type="text" name="post-title" placeholder="Title" required>
                         <select name="post-tag" required>
                             <option value="" disabled selected>Select Tag</option>
-                            <option value="tag1">Tag 1</option>
-                            <option value="tag2">Tag 2</option>
-                            <option value="tag3">Tag 3</option>
-                            <!-- Add more options as needed -->
+                            <option>Action</option>
+                            <option>Adventure</option>
+                            <option>Comedy</option>
+                            <option>Drama</option>
+                            <option>Fantasy</option>
+                            <option>Romance</option>
+                            <option>Slice of Life</option>
+                            <option>Science Fiction</option>
+                            <option>Horror</option>
+                            <option>Mystery</option>
                         </select>
                     </div>
                     <div class="post-row">
                         <textarea rows="2" cols="50" placeholder="Write your post here..."></textarea>
                         <label for="file-input" class="post-image">
-                        <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                        <img src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png"/>
                         </label>
                         <input id="file-input" type="file" />
                         <button type="submit" id="submitpost">Post</button>
@@ -219,7 +225,7 @@
                 <div class="post">
                     <div class="post-header">
                         <div class="post-title">
-                            <h2>This is post1</h2>
+                            <h2>This is post 1</h2>
                         </div>
                         <div class="post-profile">
                             <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
@@ -232,10 +238,9 @@
                         assumenda ut! Doloribus, ut obcaecati. Doloribus, assumenda praesentium.
                     </div>
                     <div class="post-action">
-                        <i class="fa fa-thumbs-up"></i>
-                        <i class="fa fa-thumbs-down"></i>
-                        <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
-                        <button class="toggle-comment-section">Toggle Comment Section</button>
+                        <i class="fa fa-thumbs-up"></i>0
+                        <i class="fa fa-thumbs-down"></i>5
+                        <button class="toggle-comment-section">Comments</button>
                     </div>
                     <div class="comment">
                         <form class="comment-form">
@@ -264,12 +269,42 @@
                                 Labore enim officia illo,
                                 quibusdam culpa itaque unde vero amet.</p>
                         </div>
+                        <div class="comment-text">
+                            <div class="comment-user">
+                                <p>person 3</p>
+                            </div>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                Perferendis, eum! Libero natus quisquam sint dicta alias 
+                                laudantium eos aperiam vel. 
+                                Labore enim officia illo,
+                                quibusdam culpa itaque unde vero amet.</p>
+                        </div>
+                        <div class="comment-text">
+                            <div class="comment-user">
+                                <p>person 4</p>
+                            </div>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                Perferendis, eum! Libero natus quisquam sint dicta alias 
+                                laudantium eos aperiam vel. 
+                                Labore enim officia illo,
+                                quibusdam culpa itaque unde vero amet.</p>
+                        </div>
+                        <div class="comment-text">
+                            <div class="comment-user">
+                                <p>person 5</p>
+                            </div>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                Perferendis, eum! Libero natus quisquam sint dicta alias 
+                                laudantium eos aperiam vel. 
+                                Labore enim officia illo,
+                                quibusdam culpa itaque unde vero amet.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
     <div class="sidebar">
         <div class="upper-right">
             
