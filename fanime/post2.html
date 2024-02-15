@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /*Website Structure*/
+        .main-website-structure{
+            margin:0px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /*Header Contents*/
+        .website-header{
+            display: flex;
+            padding-bottom: 10px;
+            padding-top: 7px;
+            background-color: #123C69;
+        }
+        .website-logo{
+            display: flex;
+            width: 20%;
+            align-items: center; /* y-axis */ 
+        }
+        .website-logo > img{
+            width: 80px;
+            padding-left: 10px;
+            border-radius: 50%;
+        }
+        .website-logo strong {
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+            color: #FEFFFF; 
+            font-size: 25px; 
+        }
+        .website-search-bar{ 
+            margin-left: 50px;
+            justify-content: center; /* x-axis */
+            display: flex;
+            width: 40%;
+            align-items: center; /* y-axis */ 
+            background-color: #eeeae8;
+            border-radius: 20px;
+        }
+        #search-field{ 
+            width: 450px; 
+            border-radius: 20px;
+            border-color: #AC3B61;
+        }
+        #search-button{
+            border-radius: 20px;
+            border-color: #AC3B61;
+            background-color: #d6c4b0;
+        }
+        .website-user-profile, .website-logout{
+            width: 20%;
+            display: flex;
+            align-items: center; /* y-axis */ 
+            justify-content: center; /* x-axis */
+        }
+        .website-user-profile{
+            justify-content: right; /* x-axis */
+        }
+        .website-user-profile > img{
+            width: 50px;
+            padding-left: 10px;
+            border-radius: 50%;
+            padding-right: 2px;
+        }
+        .website-logout > img{
+            width: 43px;
+            padding-left: 10px;
+            border-radius: 50%;
+            padding-right: 2px;
+        }
+        #logout-button, #user-profile{
+            border-radius: 20px;
+        }
+        .website-user-profile button{
+            padding: 10px 20px; /* 1.top-buttom, 2.left-right */
+            border-color: #AC3B61;
+            background-color:#eeeae8;
+        }
+        .website-logout button{
+            padding: 10px 20px; /* 1.top-buttom, 2.left-right */
+            border-color: #AC3B61;
+            background-color:#eeeae8;
+        }
+
+        /* Body Content */
+        .website-body{
+            display:flex;
+            padding-bottom: 10px;
+            border-top: 1px solid rgba(21, 20, 20, 0.972);
+        }
+
+        /* Body Sidebar Content */
+        .sidebar{
+            width: 23%;
+            border-right: 1px solid rgba(21, 20, 20, 0.972);
+            border-left: 1px solid rgba(21, 20, 20, 0.972);
+        }
+        .home-segment{
+            display: flex;
+            flex-direction: column;
+            padding-left: 20px;
+            border-bottom: 1px solid rgba(21, 20, 20, 0.972);
+            background-color: #eeeae8;
+        }
+        .tag{
+            display: flex;
+            align-items: center; /* y-axis */ 
+            margin-top: 10px;
+        }
+        .tag > img{
+            width: 50px;
+            padding-right: 10px;
+            border-radius: 50px;
+        }
+
+        .topics-segment{
+            display: flex;
+            flex-direction: column;
+            padding-left: 20px;
+            border-bottom: 1px solid rgba(21, 20, 20, 0.972);
+            padding-bottom: 20px;
+            background-color: #eeeae8;
+        }
+        .topics-segment > p {
+            color: black; 
+            font-size: 17px; 
+            font-family: 'Times New Roman', Times, serif, sans-serif; 
+        }
+        .topic{
+            display: flex;
+            align-items: center; /* y-axis */ 
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .topic > img{
+            width: 50px;
+            padding-right: 10px;
+            border-radius: 50px;
+        }
+
+        .about-segment{
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+            border-bottom: 1px solid rgba(21, 20, 20, 0.972);
+            padding-bottom: 20px;
+            background-color: #eeeae8;
+        }
+        .about-tag{
+            display: flex;
+            align-items: center; /* y-axis */ 
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .about-tag > img{
+            width: 50px;
+            padding-right: 10px;
+            border-radius: 50px;
+        }
+
+        .content{
+            flex-direction: column;
+            background-color: #e7dce0;
+            width: 77%;
+        }
+        .content-header{
+            display: flex;
+        }
+        .content-header > img{
+            width: 100%;
+            height: 150px;
+        }
+
+        /*For margin and entire body of posts*/
+        .post-margin{
+            width: 100%;
+            height: 82%;
+            padding-top: 1%;
+            display: flex;
+        }
+        .post-area{
+            width: 80%;
+            height: 100%;
+        }
+        .post-create{
+            background-color: wheat;
+            width: 95.5%;
+            margin: 0.5% 2%;
+            padding: 0.5% 0.25%;
+            height: auto;
+        }
+        .post-form{
+            height: auto;
+            flex-direction: column;
+        }
+        .post-row{
+            width: 100%;
+            display: flex;
+        }
+        .post-form textarea{
+            width: 90%;
+            height: 50px;
+            border-radius: 15px;
+            resize: none;
+        }
+        .post-row > input[type="file"]{
+            display: none;
+        }
+        .post-row > input[type="text"]{
+            width: 90%;
+            height: 25px;
+            border-radius: 15px;
+        }
+        .post-row > label > img,.post-row > button{
+            width: 50px;
+            height: 50px;
+        }
+        /*Content of post*/
+        .post{
+            background-color: white;
+            width: 95.5%;
+            margin: 1% 2%;
+            height: auto;
+            border-radius: 15px;
+            flex-direction: column;
+            border: 2px solid transparent;
+        }
+        .post:hover {
+            border-color: black;
+            border-width: 2px solid;
+        }
+        /*Profile pic name etc*/
+        .post-header{
+            width: 100%;
+            height: 40px;
+            display: flex;
+            background-color: orange;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom: black solid 1px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .post-title{
+            width: 70%;
+        }
+        .post-profile{
+            display: flex;
+        }
+        .post-profile > img{
+            margin-left: 5px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+        }
+        .post-body{
+            width: 100%;
+            height: auto;
+        }
+        .post-action{
+            width: 100%;
+            height: 20px;
+            padding: 2.5px 0px;
+            display: flex;
+        }
+        .post-action > img{
+            width: 15px;
+            height: 15px;
+            margin: 0px 5px;
+        }
+        .comment{
+            width: 100%;
+            height: auto;
+        }
+        .comment-form{
+            height: 100%;
+            display: flex;
+        }
+        .comment-form textarea{
+            width: 90%;
+            border-radius: 10px;
+            height: auto;
+            resize: none;
+        }
+        .comment-form > button{
+            width: 10%;
+            height: 100%;
+            border-radius: 10px;
+            margin: 0px 0px;
+            vertical-align: middle;
+        }
+        /*display comments*/
+        .comment-section{
+            width: 100%;
+            height: 100px;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .comment-text{
+            width: 100%;
+            display: flex;
+        }
+        .comment-user{
+            width: 20%;
+            height: auto;
+            margin: 0.1%
+        }
+        .hidden {
+            display: none;
+        }
+
+        /*Right side bar*/
+        .filter-post{
+            width: 20%;
+            height: auto;
+            flex-direction: column;
+        }
+        .filter-button{
+            width: 90%;
+            height: 8%;
+            display: flex;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $(".toggle-comment-section").click(function() {
+            $(this).closest('.post').find(".comment").toggle();
+            $(this).closest('.post').find(".comment-section").toggle();
+        });
+    });
+    </script>
+    
+</head>
+
+<body>
+<div class="main-website-structure">
+<div class="website-header">
+    <div class="website-logo">
+        <img src="https://assets.rpgsite.net/articles/images/000/015/065/original/42mini.jpg"/>
+        <strong>Fanime.tv</strong>
+    </div>
+
+    <div class="website-search-bar">
+        <form>
+            <input type="text" id="search-field" placeholder="Search Fanime..."/>
+            <input type="submit" id="search-button" value="Search" />
+        </form>
+    </div>
+
+    <div class="website-user-profile">
+        <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="/>
+        <form>
+            <button type="button" id="user-profile">User Profile</button>
+        </form>
+    </div>
+
+    <div class="website-logout">
+        <img src="https://static-00.iconduck.com/assets.00/log-out-icon-512x512-74hrgn1x.png"/>
+        <form>
+            <button type="button" id="logout-button">Logout</button>
+        </form>
+    </div>
+</div>
+
+<div class="website-body">
+    <div class="sidebar">
+        <div class="home-segment">
+            <div class="tag">
+                <img src="https://png.pngtree.com/png-clipart/20190630/original/pngtree-vector-house-icon-png-image_4163914.jpg"/>
+                <strong>Home Page</strong>
+            </div>
+
+            <div class="tag"></div> 
+        </div>
+
+        <div class="topics-segment">
+            <p><strong>Topics/Tags</strong></p>
+
+            <div class="topic">
+                <img src="https://derf9v1xhwwx1.cloudfront.net/image/upload/oth/FunimationStoreFront/1287817/Latvian/1287817_Latvian_AppleSquareCover_558fe364-f1e3-ea11-82a8-dd291e252010.png"/>
+                <strong>Action</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://hips.hearstapps.com/hmg-prod/images/frieren-anime-review-6516abe1c62ee.jpg?crop=0.563xw:1.00xh;0.276xw,0&resize=1200:*"/>
+                <strong>Adventure</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://i.ebayimg.com/images/g/ykgAAOSwxFtlcv1F/s-l1600.jpg"/>
+                <strong>Comedy</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://i.redd.it/today-is-violets-birthday-hbd-to-my-favorite-character-v0-kq5z3wysqh8b1.jpg?width=736&format=pjpg&auto=webp&s=5c83630adaafe635e9be71d4e60a3a708377725e"/>
+                <strong>Drama</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://imaging.broadway.com/images/square-11/w800/119442-11.jpg"/>
+                <strong>Fantasy</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSatr3Iw7_6Xb4kAmPvX1c3UakNjQPdlL_7WY37xl7NVlQbs7LNAX-bBzf8xli9RMUfBo&usqp=CAU"/>
+                <strong>Romance</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://dashgamer.com/wp-content/uploads/2020/10/wwysquaremob.png"/>
+                <strong>Slice of Life</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://cdn11.bigcommerce.com/s-6rs11v9w2d/images/stencil/1280x1280/products/2715/13961/302d01518aec7296461af22e8c4b7a81_1920_KR__23046.1683670520.jpg?c=1"/>
+                <strong>Science Fiction</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://pbs.twimg.com/profile_images/1684217553038589958/znkRVx4h_400x400.jpg"/>
+                <strong>Horror</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://i-ogp.pximg.net/c/540x540_70/img-master/img/2011/02/12/00/30/54/16596768_p0_square1200.jpg"/>
+                <strong>Mystery</strong>
+            </div>
+            
+        </div>
+
+        <div class="about-segment">
+            <div class="about-tag">
+                <img src="https://static-00.iconduck.com/assets.00/info-icon-2048x2048-tcgtx810.png"/>
+                <a href="www.example.com">About Fanime</a>
+            </div>
+
+            <div class="about-tag">
+                <img src="https://cdn-icons-png.freepik.com/256/189/189665.png"/>
+                <a href="www.example.com">Help</a>
+            </div>  
+        </div>
+    </div>
+
+    <div class="content"> <!--Posts to be added-->
+        <div class="content-header">
+            <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+        </div>
+        <div class="post-margin">
+            <div class="post-area">
+                <div class="post-create">
+                    <form class="post-form">
+                    <div class="post-row">
+                        <input type="text" name="post-title" placeholder="Title" required>
+                        <select name="post-tag" required>
+                            <option value="" disabled selected>Select Tag</option>
+                            <option value="tag1">Tag 1</option>
+                            <option value="tag2">Tag 2</option>
+                            <option value="tag3">Tag 3</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="post-row">
+                        <textarea rows="2" cols="50" placeholder="Write your post here..."></textarea>
+                        <label for="file-input" class="post-image">
+                        <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                        </label>
+                        <input id="file-input" type="file" />
+                        <button type="submit" id="submitpost">Post</button>
+                    </div>
+                    
+                    </form>
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-title">
+                            <h2>This is post2</h2>
+                        </div>
+                        <div class="post-profile">
+                            <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                        </div>
+                        <h4>Username *</h4>
+                        <h6>posted 5hrs ago</h6>
+                    </div>
+                    <div class="post-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                        Ex nobis expedita est iste, cumque unde quos omnis minus culpa et libero aperiam 
+                        assumenda ut! Doloribus, ut obcaecati. Doloribus, assumenda praesentium.
+                    </div>
+                    <div class="post-action">
+                        <i class="fa fa-thumbs-up"></i>
+                        <i class="fa fa-thumbs-down"></i>
+                        <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                        <button class="toggle-comment-section">Toggle Comment Section</button>
+                    </div>
+                    <div class="comment">
+                        <form class="comment-form">
+                            <textarea placeholder="Write your comment here..."></textarea>
+                            <button type="submit"><h4>Comment</h4></button>
+                        </form>
+                    </div>
+                    <div class="comment-section">
+                        <div class="comment-text">
+                            <div class="comment-user">
+                                <p>person 1</p>
+                            </div>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                Perferendis, eum! Libero natus quisquam sint dicta alias 
+                                laudantium eos aperiam vel. 
+                                Labore enim officia illo,
+                                quibusdam culpa itaque unde vero amet.</p>
+                        </div>
+                        <div class="comment-text">
+                            <div class="comment-user">
+                                <p>person 2</p>
+                            </div>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                Perferendis, eum! Libero natus quisquam sint dicta alias 
+                                laudantium eos aperiam vel. 
+                                Labore enim officia illo,
+                                quibusdam culpa itaque unde vero amet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-post">
+                <button class="filter-button" type="submit">
+                    <i class="fa fa-crown"></i>
+                    <h3>Top Posts</h3>
+                </button>
+                <button class="filter-button" type="submit">
+                    <i class="fa fa-crown"></i>
+                    <h3>Newest Posts</h3>
+                </button>
+                <button class="filter-button" type="submit">
+                    <i class="fa fa-crown"></i>
+                    <h3>Most Discussed</h3>
+                </button>
+                <button class="filter-button" type="submit">
+                    <i class="fa fa-crown"></i>
+                    <h3>Trending</h3>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+
+</html>
