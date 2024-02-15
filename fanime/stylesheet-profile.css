@@ -1,3 +1,4 @@
+
 body{
     margin: 0;
     padding: 0;
@@ -15,142 +16,169 @@ body{
     height: 100%; 
     object-fit: cover; 
     object-position: 0px -50px;
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
-.prf-body {
+
+
+
+.prf-side {
+    flex: 1;
+    /* Define styles for side divs if needed */
+    background-color: blue;
+    height: auto;
+}
+
+.prf-middle {
     display: flex;
-    flex-direction: row; /* Horizontal layout */
-    width: 75%;
-    flex-direction: column;
+    flex-direction: column; /* Optional, if you want items to stack vertically */
+    align-items: center; /* Optional, if you want items centered horizontally */
+    flex: 3; /* Adjust the width ratio as needed */
+    /* Other styles for the middle div */
+    margin: 0 auto; /* This centers the middle div horizontally */
+    background-color: skyblue; /* Example background color */
+    /* Define other styles for the middle div */
+    height: auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
     position: relative;
-    height: 100vh; /* Adjust the height as needed */
-  
 }
 
-.prf-sidebar {
- 
-    width: calc(25% - 2px);
+.profile-details {
     display: flex;
-    flex-direction: column; /* Vertical layout */
-    height:100vh;
-    float:left;
+    justify-content: center;
     align-items: center;
-    border-right: 2px solid black;
-    background-color:peachpuff;
-    
+    width: 100%;
 }
 
-.prf-sidebar > img{
-    margin-top: 50px;
-    width: 50%;
-    border: 5px black solid;
-    border-radius: 50px;
+.prf-container {
+    position: relative;
 }
 
-.prf-sidebar > a{
-    color: black;
-    font-size: 35px;
-    font-weight: bold;
-    margin-top: 20px;
-    
-}
-
-.prf-box{
-    border-top: 2px solid black;
-   
-}
-
-.prf-header {
+.profile-picture {
+    display: flex;
     position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 175px;
+    justify-content: center;
     align-items: center;
 }
 
-.prf-header > img {
-    width: 20px; /* Adjust icon size as needed */
-    margin-right: 5px; /* Add some spacing between the icon and text */
-}
-
-.prf-header > span {
-font-size: 20px;
-font-weight:bold;
-}
-.prf-desc {
+.profile-picture > img{
    
     width: 100%;
-    min-height: 30%;
-    padding: 10px;
-    box-sizing: border-box;
-    border-bottom: 2px solid black;
-    background-color: #93c9ffe5;
-    justify-content: center;
-    display: flex;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 1); 
 }
 
 
-.temporary-box {
-    margin-top:auto;
-    width: 100%; /* Adjust width as needed */
-    height: 80%; /* Adjust height as needed */
+.username{
+    margin-top:90px;
+    padding: 20px;
+    color: black;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+   
+}
+
+.bio-box {
+    width: 90%; /* Adjust width as needed */
     background-color: #badcffe5; /* Adjust background color as needed */
-    border-radius: 20px;
+    min-height: 200px;
+    border-radius: 10px;
+    padding: 30px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
+
 
 .prf-favs {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    justify-content:space-around;
+    margin-top: 30px;
+    align-items:baseline;
     width: 100%;
-    min-height: 30%;
-    background-color: #e7dce0;
-    border-bottom: 2px solid black;
+    max-width: 100%;
+    height: 300px;
+    background-color: skyblue;
+  
 }
 
-.favorite-category {
+.favs-inner{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
- 
+    align-items: center; /* Center items horizontally */
+
+    width: 200px;
+    height: auto;
+    
 }
 
-.favorite-category > h1{
-    margin-top:0px;
-
+.favs-inner > h2 {
+    margin: 0; /* Remove default margin */
+    text-align: center; /* Center the text */
 }
 
-.outer-bubble {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
+.tooltip {
+    position: relative;
+    display: inline-block;
 }
 
-
-
-.bubble {
-    width: 50px; 
-    height: 50px; 
-    border-radius: 50%; 
-    margin-right: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; 
-    border: 2px black solid;
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 30%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
-.bubble img {
-    max-width: 100%;
-    max-height: 100%; 
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
+
+.favs-inner > .tooltip > img {
+    margin: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    justify-content: space-around;
+    border: 2px solid black;
+    object-fit: cover;
+}
+
 
 .prf-posts {
-   
-    width: 100%;
-    height: 40%;
+   margin-top: 30px;
+    width: 90%;
+    height: auto;
     text-align: center;
-    background-color:#93c9ffe5;
+    border-radius: 10px;
+    background-color:cornflowerblue;
+}
+
+.prf-edit {
+
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 40px;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
+
+.prf-edit > img{
+width: 100%;
 }
