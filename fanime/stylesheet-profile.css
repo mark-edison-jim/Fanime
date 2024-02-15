@@ -4,7 +4,7 @@
 body{
     margin: 0;
     padding: 0;
-    color: white;
+    color: rgb(129, 120, 255);
 }
 
 .prf-banner {
@@ -212,4 +212,38 @@ body{
 .prf-edit a:hover::after {
     visibility: visible;
     opacity: 1;
+}
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    z-index: 9999; /* Ensure it's on top of other content */
+    
+}
+
+.popup-content {
+    height:50%;
+    font-weight: bold;
+    overflow: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.popup-content > h2{
+    margin-top: 5px;
+}
+
+.show-popup {
+    display: block; /* Show the popup overlay */
 }
