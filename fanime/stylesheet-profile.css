@@ -47,6 +47,7 @@ body{
     height: auto;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
     position: relative;
+ 
 }
 
 .profile-details {
@@ -263,3 +264,57 @@ body{
 resize: none;
 height: 80px;
 }
+
+
+            /*for edit post*/
+            .filter-user-post{
+                height: 15%;
+                width: 90%;
+                margin: 2% 5%;
+                background-color: #AC3B61;
+                display: flex;
+                border-radius: 10px;
+            }
+            .filter-user-post > button{
+                height: 90%;
+                width: 25%;
+                margin: 0.5% 3%;
+                background-color: white;
+                border-radius: 15px;
+            }
+            .filter-user-post > button:hover {
+                background-color: #3498db;
+                color: white;
+            }
+            .user-post{
+               
+                width: 90%;
+                height: 20%;
+                margin: 2% 5%;
+                background-color: brown;
+                border-radius: 10px;
+                display: flex;
+            }
+            .user-post-title{
+                width: 80%;
+            }
+            .user-post > button{
+                width: 20%;
+                border-radius: 10px;
+                align-items: center;
+            }
+            .user-post:hover{
+                background-color: black;
+                color: white;
+            }
+            .user-post > button:hover {
+                background-color: black;
+                color: white;
+            }
+
+            .userposts {
+                height:70%;
+                width:80%;
+                overflow: auto;
+            }
+
