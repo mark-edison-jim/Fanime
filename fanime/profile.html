@@ -57,7 +57,74 @@
                     </div> <!-- Profile picture div -->
                     <div class="profile-details">
                         <div class="username">Kitsuuuu</div>
-                        <div class="prf-edit"><img src="https://cdn-icons-png.flaticon.com/512/3597/3597088.png"></div>
+                      
+                        <div class="prf-edit">
+                            <a id="edit-profile-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3597/3597088.png"></a>
+                        </div>
+                        <div id="edit-profile-popup" class="popup-overlay">
+                            <div class="popup-content">
+                                <!-- Edit Profile Form -->
+                                <h2>Edit Profile</h2>
+                                <form id="edit-profile-form">
+                                    <label for="profile-pic">Profile Picture:</label><br>
+                                    <input type="file" id="profile-pic" name="profile-pic"><br>
+                                    <label for="username">Username:</label><br>
+                                    <input type="text" id="username" name="username"><br>
+                                    <label for="profile-banner">Profile Banner:</label><br>
+                                    <input type="file" id="profile-banner" name="profile-banner"><br>
+                                    <label for="bio">Bio:</label><br>
+                                    <textarea id="bio" name="bio"></textarea><br>
+                                    <label for="fav-img1">Favorite Anime 1 (Icon):</label><br>
+                                    <input type="file" id="fav-img1" name="fav-img1"><br>
+                                    <label for="fav-text1">Favorite Anime 1 (Title):</label><br>
+                                    <input type="text" id="fav-text1" name="fav-text1"><br>
+                                    <label for="fav-img1">Favorite Anime 2 (Icon):</label><br>
+                                    <input type="file" id="fav-img1" name="fav-img1"><br>
+                                    <label for="fav-text1">Favorite Anime 2 (Title):</label><br>
+                                    <input type="text" id="fav-text1" name="fav-text1"><br>
+                                    <label for="fav-img1">Favorite Anime 3 (Icon):</label><br>
+                                    <input type="file" id="fav-img1" name="fav-img1"><br>
+                                    <label for="fav-text1">Favorite Anime 3 (Title):</label><br>
+                                    <input type="text" id="fav-text1" name="fav-text1"><br>
+                                    <label for="fav-img1">Favorite Manga 1 (Icon):</label><br>
+                                    <input type="file" id="fav-img1" name="fav-img1"><br>
+                                    <label for="fav-text1">Favorite Manga 1 (Title):</label><br>
+                                    <input type="text" id="fav-text1" name="fav-text1"><br>
+                                    <label for="fav-img1">Favorite Manga 2 (Icon):</label><br>
+                                    <input type="file" id="fav-img1" name="fav-img1"><br>
+                                    <label for="fav-text1">Favorite Manga 2 (Title):</label><br>
+                                    <input type="text" id="fav-text1" name="fav-text1"><br>
+                                    <label for="fav-img1">Favorite Manga 3 (Icon):</label><br>
+                                    <input type="file" id="fav-img1" name="fav-img1"><br>
+                                    <label for="fav-text1">Favorite Manga 3 (Title):</label><br>
+                                    <input type="text" id="fav-text1" name="fav-text1"><br>
+                                    <label for="fav-img1">Favorite Genre 1 (Icon):</label><br>
+                                    <input type="file" id="fav-img1" name="fav-img1"><br>
+                                    <label for="fav-text1">Favorite Genre 1 (Title):</label><br>
+                                    <input type="text" id="fav-text1" name="fav-text1"><br>
+                                    <label for="fav-img1">Favorite Genre 2 (Icon):</label><br>
+                                    <input type="file" id="fav-img1" name="fav-img1"><br>
+                                    <label for="fav-text1">Favorite Genre 2 (Title):</label><br>
+                                    <input type="text" id="fav-text1" name="fav-text1"><br>
+                                    <label for="fav-img1">Favorite Genre 3 (Icon):</label><br>
+                                    <input type="file" id="fav-img1" name="fav-img1"><br>
+                                    <label for="fav-text1">Favorite Genre 3 (Title):</label><br>
+                                    <input type="text" id="fav-text1" name="fav-text1"><br>
+                                    
+                                    
+                                
+                                    
+                                    
+                                    <!-- Repeat for each favorite -->
+                                    <input type="submit" value="Submit">
+                                </form>
+                            </div>
+                        </div>
+                        
+                        
+                    
+                        
                     </div> <!-- Content of the middle div -->
        
                 <div class="bio-box">
@@ -123,7 +190,7 @@
         </div>
     </div>
 </div>
-
+<script src="editprofile.js"></script>
 </body>
 
 </html>

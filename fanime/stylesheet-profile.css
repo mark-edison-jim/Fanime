@@ -4,6 +4,7 @@
 body{
     margin: 0;
     padding: 0;
+    color: rgb(129, 120, 255);
 }
 
 .prf-banner {
@@ -29,7 +30,7 @@ body{
 .prf-side {
     flex: 1;
     /* Define styles for side divs if needed */
-    background-color: blue;
+    background-color: #192428;
     height: auto;
 }
 
@@ -40,7 +41,7 @@ body{
     flex: 3; /* Adjust the width ratio as needed */
     /* Other styles for the middle div */
     margin: 0 auto; /* This centers the middle div horizontally */
-    background-color: skyblue; /* Example background color */
+    background-color: rgb(68, 71, 145); /* Example background color */
     /* Define other styles for the middle div */
     height: auto;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
@@ -88,7 +89,7 @@ body{
 
 .bio-box {
     width: 90%; /* Adjust width as needed */
-    background-color: #badcffe5; /* Adjust background color as needed */
+    background-color: #192428;; /* Adjust background color as needed */
     min-height: 200px;
     border-radius: 10px;
     padding: 30px;
@@ -104,7 +105,7 @@ body{
     width: 100%;
     max-width: 100%;
     height: 300px;
-    background-color: skyblue;
+
   
 }
 
@@ -171,16 +172,91 @@ body{
 }
 
 .prf-edit {
-
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    width: 40px;
     position: absolute;
     top: 15px;
     right: 10px;
+ 
 }
 
-.prf-edit > img{
-width: 100%;
+.prf-edit a {
+    display: inline-block; /* Ensure the <a> tag takes up the specified width and height */
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 50px; /* Width of the <a> tag */
+    
+}
+
+.prf-edit img {
+    max-width: 100%; /* Ensure the image doesn't exceed the width of its container */
+    height: auto; /* Maintain the aspect ratio of the image */
+}
+
+.prf-edit a::after {
+    content: "Edit Profile"; /* Tooltip text */
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    width: 100px;
+}
+
+.prf-edit a:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    z-index: 9999; /* Ensure it's on top of other content */
+    
+}
+
+.popup-content {
+    height:50%;
+
+    font-weight: bold;
+    overflow: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(43, 43, 53);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#edit-profile-form{
+    display: flex;
+    
+    flex-direction: column;
+    
+}
+.popup-content > h2{
+    margin-top: 5px;
+}
+
+.show-popup {
+    display: block; /* Show the popup overlay */
+}
+
+
+#bio{
+resize: none;
+height: 80px;
 }
