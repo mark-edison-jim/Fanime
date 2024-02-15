@@ -228,6 +228,7 @@ body{
 
 .popup-content {
     height:50%;
+
     font-weight: bold;
     overflow: auto;
     position: absolute;
@@ -240,10 +241,22 @@ body{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+#edit-profile-form{
+    display: flex;
+    
+    flex-direction: column;
+    
+}
 .popup-content > h2{
     margin-top: 5px;
 }
 
 .show-popup {
     display: block; /* Show the popup overlay */
+}
+
+
+#bio{
+resize: none;
+height: 80px;
 }
