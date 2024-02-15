@@ -294,27 +294,30 @@ height: 80px;
                 background-color: brown;
                 border-radius: 10px;
                 display: flex;
+                align-items: center;
             }
             .user-post-title{
                 width: 80%;
             }
             .user-post > button{
                 width: 20%;
+                height: 70%;
                 border-radius: 10px;
-                align-items: center;
+          
+                margin: 15px;
             }
             .user-post:hover{
                 background-color: black;
                 color: white;
             }
             .user-post > button:hover {
-                background-color: black;
+                background-color: #3498db;
                 color: white;
             }
 
             .userposts {
-                height:70%;
-                width:80%;
+                height:80%;
+                width:100%;
                 overflow: auto;
             }
 
