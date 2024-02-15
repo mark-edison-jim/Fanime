@@ -4,6 +4,7 @@
 body{
     margin: 0;
     padding: 0;
+    color: white;
 }
 
 .prf-banner {
@@ -29,7 +30,7 @@ body{
 .prf-side {
     flex: 1;
     /* Define styles for side divs if needed */
-    background-color: blue;
+    background-color: #192428;
     height: auto;
 }
 
@@ -40,7 +41,7 @@ body{
     flex: 3; /* Adjust the width ratio as needed */
     /* Other styles for the middle div */
     margin: 0 auto; /* This centers the middle div horizontally */
-    background-color: skyblue; /* Example background color */
+    background-color: rgb(68, 71, 145); /* Example background color */
     /* Define other styles for the middle div */
     height: auto;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
@@ -88,7 +89,7 @@ body{
 
 .bio-box {
     width: 90%; /* Adjust width as needed */
-    background-color: #badcffe5; /* Adjust background color as needed */
+    background-color: #192428;; /* Adjust background color as needed */
     min-height: 200px;
     border-radius: 10px;
     padding: 30px;
@@ -104,7 +105,7 @@ body{
     width: 100%;
     max-width: 100%;
     height: 300px;
-    background-color: skyblue;
+
   
 }
 
