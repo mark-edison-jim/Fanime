@@ -223,13 +223,10 @@
                /* Body Content */
                .website-body{
                 display:flex;
-             
-              
             }
 
             /* Body Sidebar Content */
             .sidebar{
-      
                 border-right: 1px solid rgba(21, 20, 20, 0.972);
                 border-left: 1px solid rgba(21, 20, 20, 0.972);
                 flex:1;
