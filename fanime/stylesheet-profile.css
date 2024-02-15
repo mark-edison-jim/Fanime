@@ -4,9 +4,10 @@
 body{
     margin: 0;
     padding: 0;
-    color: rgb(129, 120, 255);
-}
+    color: white;
 
+}
+/*color: */
 .prf-banner {
     width: 100%; 
     height: 200px;
@@ -30,7 +31,7 @@ body{
 .prf-side {
     flex: 1;
     /* Define styles for side divs if needed */
-    background-color: #192428;
+    background-color: #181a28;
     height: auto;
 }
 
@@ -41,7 +42,7 @@ body{
     flex: 3; /* Adjust the width ratio as needed */
     /* Other styles for the middle div */
     margin: 0 auto; /* This centers the middle div horizontally */
-    background-color: rgb(68, 71, 145); /* Example background color */
+    background-color: #1d1f2f; /* Example background color */
     /* Define other styles for the middle div */
     height: auto;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
@@ -80,7 +81,7 @@ body{
 .username{
     margin-top:90px;
     padding: 20px;
-    color: black;
+    color: rgb(129, 120, 255);
     font-size: 40px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -89,7 +90,7 @@ body{
 
 .bio-box {
     width: 90%; /* Adjust width as needed */
-    background-color: #192428;; /* Adjust background color as needed */
+    background-color: rgb(89, 100, 185); /* Adjust background color as needed */
     min-height: 200px;
     border-radius: 10px;
     padding: 30px;
@@ -113,7 +114,10 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center; /* Center items horizontally */
-
+    background-color: rgb(89, 100, 185);
+    border-radius: 20px;
+    padding: 10px;
+    box-sizing: border-box;
     width: 200px;
     height: auto;
     
@@ -168,14 +172,14 @@ body{
     height: auto;
     text-align: center;
     border-radius: 10px;
-    background-color:cornflowerblue;
+    background-color: rgb(89, 100, 185); 
 }
 
 .prf-edit {
     position: absolute;
     top: 15px;
     right: 10px;
- 
+    
 }
 
 .prf-edit a {
@@ -183,6 +187,7 @@ body{
     padding: 5px 10px;
     border-radius: 5px;
     width: 50px; /* Width of the <a> tag */
+    background-color: rgb(89, 100, 185);
     
 }
 
