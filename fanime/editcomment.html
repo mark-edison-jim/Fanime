@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="stylesheet-mainpage.css">
+    <link rel="stylesheet" href="logReg.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $(".toggle-comment-section").click(function() {
+        $(this).closest('.post').find(".comment").toggle();
+        $(this).closest('.post').find(".comment-section").toggle();
+    });
+});
+</script>
+</head>
+<body>
+    <div class="main">
+        <div class='loginDiv'>
+            <form>
+                <h1>Login</h1>
+                <div class='inputbox'>
+                    <input type="email" placeholder='Email' id='email' name='email'/>
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class='inputbox'>
+                    <input type = "password" placeholder='Password' id='pass'/>
+                    <i class="fa fa-eye"></i>
+                </div>
+                <div class='remember'>
+                    <label><input type="checkbox" />Remember me</label>
+                    <a href="#">Recover Password</a>
+                </div>
+                <button id='login-button' type='submit'>Login</button>
+                <div class='register'>
+                    <p>Don't have an account? <button id="regAcc" type="button">Register</button></p>
+                </div>
+            </form>
+        </div>
+        <div class='registerDiv'>
+            <form>
+                <h1>Register Account</h1>
+                <div class='inputbox'>
+                    <input onChange="handleNameChange" placeholder='Username' id='Username'/>
+                    <!-- <FaUser class='icon'/> -->
+                    <i class="fa fa-user" style="font-size:17px"></i>
+                </div>
+                <div class='inputbox'>
+                    <input onChange="handleEmailChange" type="email" placeholder='Email' id='email' name='email'/>
+                    <!-- <MdEmail  class='icon'/> -->
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class='inputbox'>
+                    <input onChange="handlePassChange" type = password placeholder='Password' id='pass'/>
+                    <!-- "viewPass ? <FaRegEyeSlash onClick="() => setViewPass(!viewPass)" class='icon'/> : <FaRegEye onClick="() => setViewPass(!viewPass)" class='icon'/>" -->
+                    <i class="fa fa-eye"></i>
+                </div>
+                <div class='inputbox'>
+                    <input onChange="handleConPassChange" type = "password" placeholder='Confirm Password' id='pass'/>
+                    <!-- "viewConPass ? <FaRegEyeSlash onClick="() => setViewConPass(!viewConPass)" class='icon'/> : <FaRegEye onClick="() => setViewConPass(!viewConPass)" class='icon'/>" -->
+                    <i class="fa fa-eye"></i>
+                </div>
+        
+                <button id='login-button' type='submit'>Register</button>
+                
+                <div class='register'>
+                    <p>Have an account? <button id="logAcc" type="button">Login</button></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div class="main-website-structure">
+<div class="website-header">
+    <a href="mainpage.html" class="website-logo-link">
+        <div class="website-logo">
+        
+            <img src="./Assets/logo.png"/>
+            <strong>Fanime.tv</strong>
+        
+        </div>
+    </a>
+    <div class="website-search-bar">
+        <form>
+            <input type="text" id="search-field" placeholder="Search Fanime..."/>
+            <input type="submit" id="search-button" value="Search" />
+        </form>
+    </div>
+
+    <div class="website-user-profile">
+        <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="/>
+        <form>
+            <button type="button" id="user-profile">
+                <a href="profile.html">User Profile</a>
+            </button>
+        </form>
+    </div>
+
+    <div class="website-logout">
+        <img src="https://static-00.iconduck.com/assets.00/log-out-icon-512x512-74hrgn1x.png"/>
+        <form>
+            <button type="button" id="signup">SignUp</button>
+            <button type="button" id="logout-button">Logout</button>
+        </form>
+    </div>
+</div>
+
+<div class="website-body">
+    <div class="sidebar">
+        <div class="home-segment">
+            <div class="tag">
+                <img src="https://png.pngtree.com/png-clipart/20190630/original/pngtree-vector-house-icon-png-image_4163914.jpg"/>
+                <strong>Home Page</strong>
+            </div>
+
+            <div class="tag"></div> 
+        </div>
+
+        <div class="topics-segment">
+            <p><strong>Topics/Tags</strong></p>
+
+            <div class="topic">
+                <img src="https://derf9v1xhwwx1.cloudfront.net/image/upload/oth/FunimationStoreFront/1287817/Latvian/1287817_Latvian_AppleSquareCover_558fe364-f1e3-ea11-82a8-dd291e252010.png"/>
+                <strong>Action</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://hips.hearstapps.com/hmg-prod/images/frieren-anime-review-6516abe1c62ee.jpg?crop=0.563xw:1.00xh;0.276xw,0&resize=1200:*"/>
+                <strong>Adventure</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://i.ebayimg.com/images/g/ykgAAOSwxFtlcv1F/s-l1600.jpg"/>
+                <strong>Comedy</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://i.redd.it/today-is-violets-birthday-hbd-to-my-favorite-character-v0-kq5z3wysqh8b1.jpg?width=736&format=pjpg&auto=webp&s=5c83630adaafe635e9be71d4e60a3a708377725e"/>
+                <strong>Drama</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://imaging.broadway.com/images/square-11/w800/119442-11.jpg"/>
+                <strong>Fantasy</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSatr3Iw7_6Xb4kAmPvX1c3UakNjQPdlL_7WY37xl7NVlQbs7LNAX-bBzf8xli9RMUfBo&usqp=CAU"/>
+                <strong>Romance</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://dashgamer.com/wp-content/uploads/2020/10/wwysquaremob.png"/>
+                <strong>Slice of Life</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://cdn11.bigcommerce.com/s-6rs11v9w2d/images/stencil/1280x1280/products/2715/13961/302d01518aec7296461af22e8c4b7a81_1920_KR__23046.1683670520.jpg?c=1"/>
+                <strong>Science Fiction</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://pbs.twimg.com/profile_images/1684217553038589958/znkRVx4h_400x400.jpg"/>
+                <strong>Horror</strong>
+            </div>
+
+            <div class="topic">
+                <img src="https://i-ogp.pximg.net/c/540x540_70/img-master/img/2011/02/12/00/30/54/16596768_p0_square1200.jpg"/>
+                <strong>Mystery</strong>
+            </div>
+            
+        </div>
+
+        <div class="about-segment">
+            <div class="about-tag">
+                <img src="https://static-00.iconduck.com/assets.00/info-icon-2048x2048-tcgtx810.png"/>
+                <a href="www.example.com">About Fanime</a>
+            </div>
+
+            <div class="about-tag">
+                <img src="https://cdn-icons-png.freepik.com/256/189/189665.png"/>
+                <a href="www.example.com">Help</a>
+            </div>  
+        </div>
+    </div>
+
+    <div class="content"> <!--Posts to be added-->
+        <div class="content-header">
+            <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+        </div>
+        <div class="post-margin">
+            <div class="post-area">
+                <div class="post-create">
+                    <div class="comment">
+                        <form class="comment-form">
+                            <textarea placeholder="Write your comment here..."></textarea>
+                            <button type="submit"><h4>Comment</h4></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="upper-right">
+            
+        </div>
+        <div class="filter-outer">
+            <div class="filter-post">
+                <button class="filter-button" type="submit">
+                    <h3>Top Posts</h3>
+                </button>
+                <button class="filter-button" type="submit">
+                    <h3>Newest Posts</h3>
+                </button>
+                <button class="filter-button" type="submit">
+                    <h3>Most Discussed</h3>
+                </button>
+                <button class="filter-button" type="submit">
+                    <h3>Trending</h3>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="logReg.js"></script>
+</body>
+
+</html>
