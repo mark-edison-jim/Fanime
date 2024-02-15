@@ -116,23 +116,27 @@
                /* Body Content */
                .website-body{
                 display:flex;
-                padding-bottom: 10px;
+             
                 border-top: 1px solid rgba(21, 20, 20, 0.972);
             }
-    
+
             /* Body Sidebar Content */
             .sidebar{
-                width: 23%;
+      
                 border-right: 1px solid rgba(21, 20, 20, 0.972);
                 border-left: 1px solid rgba(21, 20, 20, 0.972);
                 flex:1;
+                height:1000px;
+                background-color: #eeeae8;
+                max-height: 1000px;
             }
-            .home-segment{
+            .home-segment, .upper-right{
                 display: flex;
                 flex-direction: column;
                 padding-left: 20px;
                 border-bottom: 1px solid rgba(21, 20, 20, 0.972);
-                background-color: #eeeae8;
+              
+                height:15%;
             }
             .tag{
                 display: flex;
@@ -143,6 +147,7 @@
                 width: 50px;
                 padding-right: 10px;
                 border-radius: 50px;
+              
             }
     
             .topics-segment{
@@ -150,8 +155,9 @@
                 flex-direction: column;
                 padding-left: 20px;
                 border-bottom: 1px solid rgba(21, 20, 20, 0.972);
-                padding-bottom: 20px;
-                background-color: #eeeae8;
+        
+         
+                height:70%;
             }
             .topics-segment > p {
                 color: black; 
@@ -166,17 +172,19 @@
             }
             .topic > img{
                 width: 50px;
-                padding-right: 10px;
+                margin-right: 10px;
                 border-radius: 50px;
+                border: 2px solid black;
             }
     
             .about-segment{
                 display: flex;
                 flex-direction: column;
                 padding-left: 10px;
-                border-bottom: 1px solid rgba(21, 20, 20, 0.972);
-                padding-bottom: 20px;
-                background-color: #eeeae8;
+              
+       
+               
+                height: 15%;
             }
             .about-tag{
                 display: flex;
@@ -193,8 +201,9 @@
             .content{
                 flex-direction: column;
                 background-color: #e7dce0;
-                width: 77%;
-                height: 885px;
+            
+                height: 1000px;
+                max-height: 1000px;
                 flex:3;
             }
             .content-header{
@@ -203,6 +212,8 @@
             .content-header > img{
                 width: 100%;
                 height: 150px;
+                object-fit: cover;
+                object-position: 0px -120px;
             }
     
             /*For margin and entire body of posts*/
@@ -214,6 +225,7 @@
                 justify-content: center;
                 overflow: scroll;
                 overflow-x: hidden;
+                overflow-y:auto;
             }
             .post-area{
                 width: 80%;
@@ -347,14 +359,30 @@
             }
     
             /*Right side bar*/
+
+                
+            .filter-outer{
+             
+                margin:50px;
+                height: 50%;
+
+            }
+
+
             .filter-post{
-                width: 20%;
-                height: auto;
+        
+                display: flex;
+                width: 100%;
                 flex-direction: column;
+               
+                
+
             }
             .filter-button{
-                width: 90%;
-                height: 8%;
+                width: 100%;
                 display: flex;
+                margin-bottom  : 20px;
+              
+                justify-content: center;
             }
         
