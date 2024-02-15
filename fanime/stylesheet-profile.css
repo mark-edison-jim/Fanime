@@ -1,0 +1,156 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.prf-banner {
+    width: 100%; 
+    height: 200px;
+    overflow: hidden;
+    position: relative; 
+}
+
+.prf-banner img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover; 
+    object-position: 0px -50px;
+}
+
+.prf-body {
+    display: flex;
+    flex-direction: row; /* Horizontal layout */
+    width: 75%;
+    flex-direction: column;
+    position: relative;
+    height: 100vh; /* Adjust the height as needed */
+  
+}
+
+.prf-sidebar {
+ 
+    width: calc(25% - 2px);
+    display: flex;
+    flex-direction: column; /* Vertical layout */
+    height:100vh;
+    float:left;
+    align-items: center;
+    border-right: 2px solid black;
+    background-color:peachpuff;
+    
+}
+
+.prf-sidebar > img{
+    margin-top: 50px;
+    width: 50%;
+    border: 5px black solid;
+    border-radius: 50px;
+}
+
+.prf-sidebar > a{
+    color: black;
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 20px;
+    
+}
+
+.prf-box{
+    border-top: 2px solid black;
+   
+}
+
+.prf-header {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.prf-header > img {
+    width: 20px; /* Adjust icon size as needed */
+    margin-right: 5px; /* Add some spacing between the icon and text */
+}
+
+.prf-header > span {
+font-size: 20px;
+font-weight:bold;
+}
+.prf-desc {
+   
+    width: 100%;
+    min-height: 30%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 2px solid black;
+    background-color: #93c9ffe5;
+    justify-content: center;
+    display: flex;
+}
+
+
+.temporary-box {
+    margin-top:auto;
+    width: 100%; /* Adjust width as needed */
+    height: 80%; /* Adjust height as needed */
+    background-color: #badcffe5; /* Adjust background color as needed */
+    border-radius: 20px;
+}
+
+.prf-favs {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    min-height: 30%;
+    background-color: #e7dce0;
+    border-bottom: 2px solid black;
+}
+
+.favorite-category {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+ 
+}
+
+.favorite-category > h1{
+    margin-top:0px;
+
+}
+
+.outer-bubble {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+
+
+.bubble {
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+    border: 2px black solid;
+}
+
+.bubble img {
+    max-width: 100%;
+    max-height: 100%; 
+}
+
+.prf-posts {
+   
+    width: 100%;
+    height: 40%;
+    text-align: center;
+    background-color:#93c9ffe5;
+}
