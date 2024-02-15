@@ -74,39 +74,46 @@
     </div>
 
 <div class="main-website-structure">
-<div class="website-header">
-    <a href="mainpage.html" class="website-logo-link">
-        <div class="website-logo">
-        
-            <img src="./Assets/logo.png"/>
-            <strong>Fanime.tv</strong>
-        
+    <div class="website-header">
+        <a href="mainpage.html" class="website-logo-link">
+            <div class="website-logo">
+                <img src="./Assets/logo.png"/>
+                <div id="logo"><div id="logo1">Fanime</div><div id="logo2">.tv</div></div>
+                <!-- <strong>Fanime.tv</strong> -->
+            </div>
+        </a>
+        <div class="website-search-bar">
+            <form>
+                <input type="text" id="search-field" placeholder="Search Fanime..."/>
+                <input type="submit" id="search-button" value="Search" />
+            </form>
         </div>
-    </a>
-    <div class="website-search-bar">
-        <form>
-            <input type="text" id="search-field" placeholder="Search Fanime..."/>
-            <input type="submit" id="search-button" value="Search" />
-        </form>
+        <div class="website-user-profile" id="webprof">
+            <button type="button" id="signup">Sign-up</button>
+            <img src="https://i.pinimg.com/564x/ba/a3/dd/baa3ddd24a354d10df6d795f012a3370.jpg" id="profpic" onclick="toggleDropdown()"/>
+            <div class="dropdown-wrap" id="drop">
+                <div class="dropdown">
+                    <div class="userdd">
+                        <img src="https://cdn3.iconfinder.com/data/icons/accounting-1/80/Account-22-512.png">
+                        <h2>Kitsuuuu</h2>
+                    </div>
+                    <div class="linksdd">
+                        <ul id="d_links">
+                            <li><a href="profile.html">My Profile</a></li>
+                            <li><a href="#news">Settings</a></li>
+                            <li><a href="#contact">Something</a></li>
+                            <li><a href="#about">Logout</a></li>
+                          </ul>
+                    </div>
+                </div>
+            </div>
+        <!--    <div class="website-logout">
+            <img src="https://static-00.iconduck.com/assets.00/log-out-icon-512x512-74hrgn1x.png"/>
+            <form>
+                <button type="button" id="logout-button">Logout</button>
+            </form>-->
+        </div> 
     </div>
-
-    <div class="website-user-profile">
-        <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="/>
-        <form>
-            <button type="button" id="user-profile">
-                <a href="profile.html">User Profile</a>
-            </button>
-        </form>
-    </div>
-
-    <div class="website-logout">
-        <img src="https://static-00.iconduck.com/assets.00/log-out-icon-512x512-74hrgn1x.png"/>
-        <form>
-            <button type="button" id="signup">SignUp</button>
-            <button type="button" id="logout-button">Logout</button>
-        </form>
-    </div>
-</div>
 
 <div class="website-body">
     <div class="sidebar">
