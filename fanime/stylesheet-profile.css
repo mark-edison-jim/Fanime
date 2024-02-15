@@ -232,8 +232,8 @@ body{
 }
 
 .popup-content {
-    height:50%;
-
+    height: 50%;
+    width: 15%;
     font-weight: bold;
     overflow: auto;
     position: absolute;
@@ -248,9 +248,8 @@ body{
 
 #edit-profile-form{
     display: flex;
-    
     flex-direction: column;
-    
+    row-gap: 0.7em;
 }
 .popup-content > h2{
     margin-top: 5px;
@@ -259,7 +258,6 @@ body{
 .show-popup {
     display: block; /* Show the popup overlay */
 }
-
 
 #bio{
 resize: none;
