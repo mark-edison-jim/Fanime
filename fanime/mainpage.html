@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link rel="stylesheet" href="stylesheet-mainpage.css">
-</head>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="logReg.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
     $(".toggle-comment-section").click(function() {
@@ -17,14 +15,69 @@
     });
 });
 </script>
-
+</head>
 <body>
+    <div class="main">
+        <div class='loginDiv'>
+            <form>
+                <h1>Login</h1>
+                <div class='inputbox'>
+                    <input type="email" placeholder='Email' id='email' name='email'/>
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class='inputbox'>
+                    <input type = "password" placeholder='Password' id='pass'/>
+                    <i class="fa fa-eye"></i>
+                </div>
+                <div class='remember'>
+                    <label><input type="checkbox" />Remember me</label>
+                    <a href="#">Recover Password</a>
+                </div>
+                <button id='login-button' type='submit'>Login</button>
+                <div class='register'>
+                    <p>Don't have an account? <button id="regAcc" type="button">Register</button></p>
+                </div>
+            </form>
+        </div>
+        <div class='registerDiv'>
+            <form>
+                <h1>Register Account</h1>
+                <div class='inputbox'>
+                    <input onChange="handleNameChange" placeholder='Username' id='Username'/>
+                    <!-- <FaUser class='icon'/> -->
+                    <i class="fa fa-user" style="font-size:17px"></i>
+                </div>
+                <div class='inputbox'>
+                    <input onChange="handleEmailChange" type="email" placeholder='Email' id='email' name='email'/>
+                    <!-- <MdEmail  class='icon'/> -->
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class='inputbox'>
+                    <input onChange="handlePassChange" type = password placeholder='Password' id='pass'/>
+                    <!-- "viewPass ? <FaRegEyeSlash onClick="() => setViewPass(!viewPass)" class='icon'/> : <FaRegEye onClick="() => setViewPass(!viewPass)" class='icon'/>" -->
+                    <i class="fa fa-eye"></i>
+                </div>
+                <div class='inputbox'>
+                    <input onChange="handleConPassChange" type = "password" placeholder='Confirm Password' id='pass'/>
+                    <!-- "viewConPass ? <FaRegEyeSlash onClick="() => setViewConPass(!viewConPass)" class='icon'/> : <FaRegEye onClick="() => setViewConPass(!viewConPass)" class='icon'/>" -->
+                    <i class="fa fa-eye"></i>
+                </div>
+        
+                <button id='login-button' type='submit'>Register</button>
+                
+                <div class='register'>
+                    <p>Have an account? <button id="logAcc" type="button">Login</button></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
 <div class="main-website-structure">
 <div class="website-header">
     <a href="mainpage.html" class="website-logo-link">
         <div class="website-logo">
         
-            <img src="Components\Assets\logo.png"/>
+            <img src="./Assets/logo.png"/>
             <strong>Fanime.tv</strong>
         
         </div>
@@ -48,6 +101,7 @@
     <div class="website-logout">
         <img src="https://static-00.iconduck.com/assets.00/log-out-icon-512x512-74hrgn1x.png"/>
         <form>
+            <button type="button" id="signup">SignUp</button>
             <button type="button" id="logout-button">Logout</button>
         </form>
     </div>
@@ -242,9 +296,9 @@
             </div>
         </div>
     </div>
-
 </div>
 </div>
+<script src="logReg.js"></script>
 </body>
 
 </html>

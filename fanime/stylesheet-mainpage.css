@@ -93,7 +93,14 @@
         #logout-button, #user-profile{
             border-radius: 20px;
         }
-
+        #signup{
+            border-radius: 20px;
+            padding: 10px 20px; /* 1.top-buttom, 2.left-right */
+            border-color: #AC3B61;
+            background-color:#eeeae8;
+            text-decoration: none;
+            color: black;
+        }
         .website-user-profile button{
             padding: 10px 20px; /* 1.top-buttom, 2.left-right */
             border-color: #AC3B61;
