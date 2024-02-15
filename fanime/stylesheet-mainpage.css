@@ -129,6 +129,7 @@
                 height:1000px;
                 background-color: #eeeae8;
                 max-height: 1000px;
+               
             }
             .home-segment, .upper-right{
                 display: flex;
@@ -180,10 +181,7 @@
             .about-segment{
                 display: flex;
                 flex-direction: column;
-                padding-left: 10px;
-              
-       
-               
+                padding-left: 20px;       
                 height: 15%;
             }
             .about-tag{
