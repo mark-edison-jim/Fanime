@@ -1,21 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
         /*Website Structure*/
         .main-website-structure{
             margin:0px;
             display: flex;
             flex-direction: column;
         }
-        body{
-            margin:0px;
-        }
-
-        
         /*Header Contents*/
-
         .website-header{
             display: flex;
             padding-bottom: 10px;
             padding-top: 7px;
             background-color: #0054ae;
+            justify-content: space-between;
         }
         .website-logo-link{
             text-decoration: none;
@@ -25,7 +22,6 @@
             text-decoration: none;
         }
 
-
         .website-logo{
             display: flex;
             width: 20%;
@@ -33,7 +29,6 @@
             margin-right: 100px;
             
         }
-
         
         .website-logo > img{
             width: 80px;
@@ -45,12 +40,52 @@
         .website-logo > a {
             display: inline-block; /* or display: block; */
         }
-
-        .website-logo strong {
+        #logo{
+            display: flex;
+            width: 180px;
+            background-color: 20px;
+          }
+          
+          @font-face {
+            font-family: "Gagalin-Regular";
+            src: url("https://db.onlinewebfonts.com/t/240a7cb10b49b02c94ceddc459d385a9.eot");
+            src: url("https://db.onlinewebfonts.com/t/240a7cb10b49b02c94ceddc459d385a9.eot?#iefix")format("embedded-opentype"),
+            url("https://db.onlinewebfonts.com/t/240a7cb10b49b02c94ceddc459d385a9.woff2")format("woff2"),
+            url("https://db.onlinewebfonts.com/t/240a7cb10b49b02c94ceddc459d385a9.woff")format("woff"),
+            url("https://db.onlinewebfonts.com/t/240a7cb10b49b02c94ceddc459d385a9.ttf")format("truetype"),
+            url("https://db.onlinewebfonts.com/t/240a7cb10b49b02c94ceddc459d385a9.svg#Gagalin-Regular")format("svg");
+          }
+          
+          #logo1{
+            letter-spacing: 2px;
+            padding-left: 10px;
+            color:rgb(255, 255, 255);
+            font-size: 40px;
+            font-weight: bold;
+            font-family: "Gagalin-Regular", Helvetica, sans-serif;
+            background-image: linear-gradient(to right, #8c52ff, #5ce1e6);
+            height: 50px;
+            width: 136px;
+          }
+          
+          #logo2{
+            padding-right: 9px;
+            color:yellow;
+            display: flex;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            font-family: "Gagalin-Regular", Helvetica, sans-serif;
+            background-image: linear-gradient(to right, #5ce1e6, #5ce1e6);
+            height: 50px;
+            width: 40px;
+            max-width:180px;
+          }
+        /* .website-logo strong {
             font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
             color: #FEFFFF; 
             font-size: 25px; 
-        }
+        } */
         .website-search-bar{ 
             margin-left: 50px;
             justify-content: center; /* x-axis */
@@ -70,21 +105,93 @@
             border-color: #AC3B61;
             background-color: #d6c4b0;
         }
-        .website-user-profile, .website-logout{
-            width: 20%;
+        .website-logout{
+            width: 15%;
             display: flex;
             align-items: center; /* y-axis */ 
             justify-content: center; /* x-axis */
         }
         .website-user-profile{
+            width: 15%;
+            display: flex;
+            align-items: center; /* y-axis */ 
+            justify-content: center; /* x-axis */
+            position: none;
+            gap: 10px;
+            padding-right: 60px;
             justify-content: right; /* x-axis */
         }
         .website-user-profile > img{
-            width: 50px;
-            padding-left: 10px;
-            border-radius: 50%;
-            padding-right: 2px;
+            border: 5px solid rgb(255, 255, 255);
+            width: 70px;
+            border-radius: 100%;
         }
+        .dropdown-wrap{
+            position: absolute;
+            border-radius: 20px;
+            top: 101%;
+            right: 0%;
+            width: 225px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s;
+        }
+        .dropdown-wrap.open-d{
+            max-height: 400px;
+        }
+        .userdd{
+            height: 200px;
+            background-image: url("./Assets/polybg-blue.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .userdd img{
+            width: 100px;
+        }
+        .userdd h2{
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        #d_links{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #0054ae;
+            margin: 0px;
+            padding-left: 0px;
+            border-radius: 0 0 15px 15px ;
+            overflow: hidden;
+          }
+          
+          #d_links > li{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0px;
+            height: 50px;
+            width: 100%;
+            transition: 0.1s;
+          }
+          
+          #d_links > li a{
+            display: flex;
+            color: white;
+            text-decoration: none;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            font-size: 18px;
+            font-family:'Poppins', sans-serif;
+          }
+          
+          #d_links > li:hover {
+            background-color: rgb(94, 135, 248);
+          }
         .website-logout > img{
             width: 43px;
             padding-left: 80px;
@@ -116,13 +223,10 @@
                /* Body Content */
                .website-body{
                 display:flex;
-             
-              
             }
 
             /* Body Sidebar Content */
             .sidebar{
-      
                 border-right: 1px solid rgba(21, 20, 20, 0.972);
                 border-left: 1px solid rgba(21, 20, 20, 0.972);
                 flex:1;
@@ -357,7 +461,6 @@
             }
     
             /*Right side bar*/
-
                 
             .filter-outer{
              
@@ -365,7 +468,6 @@
                 height: 50%;
 
             }
-
 
             .filter-post{
         
