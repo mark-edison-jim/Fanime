@@ -1,0 +1,85 @@
+{{>logReg}}
+<div class="main-website-structure">
+{{>nav1}}
+<div class="website-body">
+    {{>topics}}
+    <div class="content"> <!--Posts to be added-->
+        <div class="content-header">
+            <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+        </div>
+        <div class="post-margin">
+            <div class="post-area">
+                <div class="post-create">
+                    <form class="post-form">
+                    <div class="post-row">
+                        <input type="text" name="post-title" placeholder="Title" required>
+                        <select name="post-tag" required>
+                            <option value="" disabled selected>Select Tag</option>
+                            <option>Action</option>
+                            <option>Adventure</option>
+                            <option>Comedy</option>
+                            <option>Drama</option>
+                            <option>Fantasy</option>
+                            <option>Romance</option>
+                            <option>Slice of Life</option>
+                            <option>Science Fiction</option>
+                            <option>Horror</option>
+                            <option>Mystery</option>
+                        </select>
+                    </div>
+                    <div class="post-row">
+                        <textarea rows="2" cols="50" placeholder="Write your post here..."></textarea>
+                        <label for="file-input" class="post-image">
+                        <img src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png"/>
+                        </label>
+                        <input id="file-input" type="file"/>
+                        <button type="submit" id="submitpost">Post</button>
+                    </div>
+                    </form>
+                </div>
+                {{#each posts}}
+                <div class="post">
+                    <div class="post-header" onclick="window.location.href = '/post/{{post-id}}';">
+                        <div class="post-title">
+                            <h2>{{post-title}}</h2>
+                        </div>
+                        <div class="post-profile">
+                            <img src={{post-profile}}>
+                        </div>
+                        <h4>{{username}}</h4>
+                        <h6>{{post-time}}</h6>
+                    </div>
+                    <div class="post-body">{{post-desc}}</div>
+                    <div class="post-img">
+                        <img src={{post-image}}>
+                    </div>
+                    <div class="post-action">
+                        <i class="fa fa-thumbs-up"></i>{{post-thumbs.up}}
+                        <i class="fa fa-thumbs-down"></i>{{post-thumbs.down}}
+                        <button class="toggle-comment-section">Comments</button>
+                    </div>
+                    <div class="comment">
+                        <form class="comment-form">
+                            <textarea placeholder="Write your comment here..."></textarea>
+                            <button type="submit"><h4>Comment</h4></button>
+                        </form>
+                    </div>
+                    <div class="comment-section">
+                        {{#each post-comments}}
+                        <div class="comment-text">
+                            <div class="comment-user">
+                                <p>{{commentUser}}</p>
+                            </div>
+                            <p>{{comment}}</p>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    {{>filterPosts}}
+</div>
+</div>

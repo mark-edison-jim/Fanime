@@ -141,7 +141,7 @@
         }
         .userdd{
             height: 200px;
-            background-image: url("./Assets/polybg-blue.jpg");
+            background-image: url("/polybg-blue.jpg");
             background-size: cover;
             background-position: center;
             display: flex;
