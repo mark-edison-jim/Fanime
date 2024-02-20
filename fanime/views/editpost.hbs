@@ -1,0 +1,48 @@
+{{>logReg}}
+<div class="main-website-structure">
+{{>nav1}}
+<div class="website-body">
+    {{>topics}}
+    <div class="content"> <!--Posts to be added-->
+        <div class="content-header">
+            <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+        </div>
+        <div class="post-margin">
+            <div class="post-area">
+                <div class="post-create">
+                    <form class="post-form">
+                    <div class="post-row">
+                        <input type="text" name="post-title" placeholder="Title" required>
+                        <select name="post-tag" required>
+                            <option value="" disabled selected>Select Tag</option>
+                            <option>Action</option>
+                            <option>Adventure</option>
+                            <option>Comedy</option>
+                            <option>Drama</option>
+                            <option>Fantasy</option>
+                            <option>Romance</option>
+                            <option>Slice of Life</option>
+                            <option>Science Fiction</option>
+                            <option>Horror</option>
+                            <option>Mystery</option>
+                        </select>
+                    </div>
+                    <div class="post-row">
+                        <textarea rows="2" cols="50" placeholder="Write your post here..."></textarea>
+                        <label for="file-input" class="post-image">
+                        <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
+                        </label>
+                        <input id="file-input" type="file" />
+                        <button type="submit" id="submitpost">Edit</button>
+                    </div>
+                    
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{{>filterPosts}}
+</div>
+</div>
