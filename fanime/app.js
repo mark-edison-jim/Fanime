@@ -29,7 +29,7 @@ server.get('/profile', function(req, resp){
     resp.render('profile', {
         layout: 'profileIndex',
         title: 'Profile Page',
-        user: data.users.person1,
+        user: data.users.person1
     });
 });
 
