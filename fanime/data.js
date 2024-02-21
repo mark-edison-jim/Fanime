@@ -145,22 +145,22 @@ let users = {
             'comment-content': 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, eum! Libero natus quisquam sint dicta alias laudant'
             },
             {
-            'comment-id': posts[1]['post-id'],
+            'post-id': posts[1]['post-id'],
             'comment-title': 'comment2',
             'comment-content': 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, eum! Libero natus quisquam sint dicta alias laudant'
             },
             {
-            'comment-id': posts[2]['post-id'],
+            'post-id': posts[2]['post-id'],
             'comment-title': 'comment3',
             'comment-content': 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, eum! Libero natus quisquam sint dicta alias laudant'
             },
             {
-            'comment-id': posts[3]['post-id'],
+            'post-id': posts[3]['post-id'],
             'comment-title': 'comment4',
             'comment-content': 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, eum! Libero natus quisquam sint dicta alias laudant'
             },
             {
-            'comment-id': posts[4]['post-id'],
+            'post-id': posts[4]['post-id'],
             'comment-title': 'comment5',
             'comment-content': 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, eum! Libero natus quisquam sint dicta alias laudant'
             }
@@ -169,28 +169,5 @@ let users = {
     }
 };
 
-const data_friend = [
-	{
-    	'friend-name'   : 'Amy',
-    	'friend-img'	: 'https://cdn.pixabay.com/photo/2023/12/09/10/09/woman-8438999_960_720.png'
-	},{
-    	'friend-name'   : 'Cindy',
-    	'friend-img'	: 'https://cdn.pixabay.com/photo/2021/04/07/17/01/woman-6159648_960_720.jpg'
-	},{
-    	'friend-name'   : 'Emily',
-    	'friend-img'	: 'https://cdn.pixabay.com/photo/2021/10/08/13/02/woman-6691311_960_720.jpg'
-	},{
-    	'friend-name'   : 'Freya',
-    	'friend-img'	: 'https://cdn.pixabay.com/photo/2021/04/07/17/01/woman-6159648_960_720.jpg'
-	},{
-    	'friend-name'   : 'Gina',
-    	'friend-img'	: 'https://cdn.pixabay.com/photo/2021/10/08/13/02/woman-6691311_960_720.jpg'
-	},{
-    	'friend-name'   : 'Hellen',
-    	'friend-img'	: 'https://cdn.pixabay.com/photo/2023/12/09/10/09/woman-8438999_960_720.png'
-	}
-];
-
 module.exports.posts = posts;
 module.exports.users = users;
-module.exports.data_friend = data_friend;
