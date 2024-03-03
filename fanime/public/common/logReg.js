@@ -20,6 +20,14 @@ $(document).ready(function() {
       $(this).closest('.post').find(".comment").toggle();
       $(this).closest('.post').find(".comment-section").toggle();
   });
+  if($('.notification div').text() != ''){
+    $("#exit-noti").click(function(){
+      $(".notification").toggle();
+    })
+  }else{
+    $('.notification').hide();
+  }
+  
 });
 
 let modal = document.querySelector(".main");
@@ -59,4 +67,38 @@ function toggleDropdown(){
     toggleD = false;
   }
   dropdown.classList.toggle("open-d");
+}
+
+// $(document).ready(function() {
+//   $("#reg-button").click(function(){
+//     $.post('register',
+//           {user: $(".registerDiv #user").val(), email: $(".registerDiv #email").val(), pass: $(".registerDiv #pass").val(), confirmpass: $(".registerDiv #confirmpass").val()},
+//           function(data, status){
+//             if(status === "success"){
+//               if(data.err != "True")
+//                 alert(data.err);
+//               else
+//                 console.log(data.err)
+//             }
+//           });
+//   });
+// });
+
+function validateRegForm(){
+  let username = document.forms["regForm"]["user"].value;
+  let pass = document.forms["regForm"]["pass"].value;
+  let confirmpass = document.forms["regForm"]["confirmpass"].value;
+  if (username == "") {
+    alert("Name must be filled out!");
+    return false;
+  }
+  if(pass !== confirmpass){
+    alert("Passwords must be the same!");
+    return false;
+  }
+  if(pass.length<8){
+    alert("Password must be atleast 8 characters long!");
+    return false;
+  } 
+  return true;
 }
