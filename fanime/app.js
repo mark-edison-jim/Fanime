@@ -58,6 +58,18 @@ server.get('/editcomment', function(req, resp){
     
 });
 
+server.post('/create_post', function(req, resp){
+    const {title, genre, description} = req.body;
+
+    const responseData = {
+        title: title,
+        genre: genre,
+        description: description
+    };
+    console.log(responseData);
+    resp.send(responseData);
+});
+
 const port = process.env.PORT | 9090;
 server.listen(port, function(){
     console.log('Listening at port '+port);
