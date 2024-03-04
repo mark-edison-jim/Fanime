@@ -67,6 +67,11 @@ server.get('/', function(req, resp){
 //     return true;
 // }
 
+function setLogIn(username, email){
+    data.loggedIn.username = username;
+    data.loggedIn.email = email;
+}
+
 server.post('/register', function(req, resp){
     const userInstance = userModel({
         user: req.body.user,
@@ -83,6 +88,7 @@ server.post('/register', function(req, resp){
               msg: 'Email already linked with an Account or Wrong Login Credentials...'
           });
       }else{
+        setLogIn(req.body.user, req.body.email);
           userInstance.save().then(function(user) {
               console.log('User created');
               resp.render('main',{
@@ -99,8 +105,8 @@ server.post('/register', function(req, resp){
 server.post('/login', function(req, resp){
       const searchQuery = {email : req.body.email, pass: req.body.pass};
       userModel.findOne(searchQuery).then(function(user){
-        
         if(user != undefined && user._id != null){
+            setLogIn(user.user, req.body.email);
             resp.render('main',{
                 layout: 'index',
                 title: 'Main Page',
@@ -122,6 +128,7 @@ server.get('/profile', function(req, resp){
     resp.render('profile', {
         layout: 'profileIndex',
         title: 'Profile Page',
+        username: data.loggedIn.username,
         user: data.users.person1
     });
 });
