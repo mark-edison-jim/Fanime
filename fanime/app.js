@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   },{ versionKey: false });
 
 const userModel = mongoose.model('user', userSchema);
+const postModel = mongoose.model('post', userSchema);
 
 function errorFn(err){
     console.log('Error fond. Please trace!');
@@ -71,28 +72,28 @@ server.post('/register', function(req, resp){
         user: req.body.user,
         email: req.body.email,
         pass: req.body.pass
-      });
-      const searchQuery = { email : req.body.email };
-      userModel.findOne(searchQuery).then(function(user){
-        if(user != undefined && user._id != null){
-            resp.render('unregMain',{
-                layout: 'index',
-                title: 'Main Page',
-                posts: data.posts,
-                msg: 'Email already linked with an Account or Wrong Login Credentials...'
-            });
-        }else{
-            userInstance.save().then(function(user) {
-                console.log('User created');
-                resp.render('main',{
-                    layout: 'index',
-                    title: 'Main Page',
-                    username: req.body.user,
-                    posts: data.posts
-                });
-              }).catch(errorFn);
-        }
-      });
+    });
+    const searchQuery = { email : req.body.email };
+    userModel.findOne(searchQuery).then(function(user){
+      if(user != undefined && user._id != null){
+          resp.render('unregMain',{
+              layout: 'index',
+              title: 'Main Page',
+              posts: data.posts,
+              msg: 'Email already linked with an Account or Wrong Login Credentials...'
+          });
+      }else{
+          userInstance.save().then(function(user) {
+              console.log('User created');
+              resp.render('main',{
+                  layout: 'index',
+                  title: 'Main Page',
+                  username: req.body.user,
+                  posts: data.posts
+               });
+             }).catch(errorFn);
+       }
+    });
 });
 
 server.post('/login', function(req, resp){
