@@ -162,6 +162,17 @@ server.post('/create_post', function(req, resp){
     resp.send(responseData);
 });
 
+
+server.post('/create_comment', function(req, resp){
+    const {text} = req.body;
+    console.log("hi");
+    const responseData = {
+        comment: text
+    };
+    console.log(responseData);
+    resp.send(responseData);
+});
+
 function finalClose(){
     console.log('Close connection at the end!');
     mongoose.connection.close();
