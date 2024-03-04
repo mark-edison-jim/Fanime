@@ -16,20 +16,20 @@ $(document).ready(function(){
 }); 
 
 $(document).ready(function() {
+  $('.notification').hide();
   $(".toggle-comment-section").click(function() {
       $(this).closest('.post').find(".comment").toggle();
       $(this).closest('.post').find(".comment-section").toggle();
   });
   if($('.notification div').text() != ''){
+    $('.notification').show();
     $("#exit-noti").click(function(){
       $(".notification").toggle();
     })
-  }else{
-    $('.notification').hide();
   }
-  
 });
 
+//UserDropdown
 let modal = document.querySelector(".main");
 let btn = document.getElementById("signup");
 let login = document.querySelector(".loginDiv");
@@ -69,6 +69,7 @@ function toggleDropdown(){
   dropdown.classList.toggle("open-d");
 }
 
+//alternate for logreg mongodb
 // $(document).ready(function() {
 //   $("#reg-button").click(function(){
 //     $.post('register',
@@ -83,6 +84,20 @@ function toggleDropdown(){
 //           });
 //   });
 // });
+
+//post scroll animate
+// const observer = new IntersectionObserver((entries) =>{
+//   entries.forEach((entry)=>{
+//     if(entry.isIntersecting){
+//       entry.target.classList.add('post-show');
+//     }else{
+//       entry.target.classList.remove('post-show');
+//     }
+//   })
+// });
+
+// const postElements = document.querySelectorAll(".post");
+// postElements.forEach((e)=>observer.observe(e));
 
 function validateRegForm(){
   let username = document.forms["regForm"]["user"].value;
