@@ -34,7 +34,7 @@ server.use(express.static('Assets'));
 server.get('/', function(req, resp){
     resp.render('unregMain', {
         layout: 'index',
-        title: 'Main Page',
+        title: 'Unregistered Page',
         posts: data.posts
     });
 });

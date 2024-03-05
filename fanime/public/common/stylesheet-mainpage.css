@@ -536,7 +536,7 @@
 
 .upper-right{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     overflow: hidden;
 }
 

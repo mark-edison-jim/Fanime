@@ -37,6 +37,42 @@ let reg = document.querySelector(".registerDiv");
 let dropdown = document.getElementById("drop");
 let webprof = document.getElementById("webprof");
 let toggleD = false;
+const eyesDiv = document.getElementById('eyes');
+const anchor = document.getElementById('anchor');
+
+eyesDiv.addEventListener('mouseenter', ()=>{
+  eyesDiv.style.transform = 'translateY(30%)';
+  anchor.style.transform = 'translateY(30%)';
+});
+
+eyesDiv.addEventListener('mouseleave', ()=>{
+  eyesDiv.style.transform = 'translateY(0)';
+  anchor.style.transform = 'translateY(0)';
+});
+
+document.addEventListener('mousemove', (e)=>{
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
+
+  const rect = anchor.getBoundingClientRect();
+  const anchorX = rect.left + rect.width / 2;
+  const anchorY = rect.top + rect.height / 2;
+  
+  const angleDeg = getAngle(mouseX,mouseY,anchorX,anchorY);
+
+  const eyes = document.querySelectorAll('.eye');
+  eyes.forEach(eye =>{
+    eye.style.transform =`rotate(${90 + angleDeg}deg)`;
+  }); 
+});
+
+function getAngle(mx,my,ax,ay){
+  const dy = ay-my;
+  const dx = ax-mx;
+  const rad = Math.atan2(dy,dx);
+  const deg = rad * 180 / Math.PI;
+  return deg;
+}
 
 btn.onclick = function() {
   webprof.style.removeProperty("position");
@@ -116,41 +152,4 @@ function validateRegForm(){
     return false;
   } 
   return true;
-}
-
-const eyesDiv = document.getElementById('eyes');
-const anchor = document.getElementById('anchor');
-
-eyesDiv.addEventListener('mouseenter', ()=>{
-  eyesDiv.style.transform = 'translateY(30%)';
-  anchor.style.transform = 'translateY(30%)';
-});
-
-eyesDiv.addEventListener('mouseleave', ()=>{
-  eyesDiv.style.transform = 'translateY(0)';
-  anchor.style.transform = 'translateY(0)';
-});
-
-document.addEventListener('mousemove', (e)=>{
-  const mouseX = e.clientX;
-  const mouseY = e.clientY;
-
-  const rect = anchor.getBoundingClientRect();
-  const anchorX = rect.left + rect.width / 2;
-  const anchorY = rect.top + rect.height / 2;
-  
-  const angleDeg = getAngle(mouseX,mouseY,anchorX,anchorY);
-
-  const eyes = document.querySelectorAll('.eye');
-  eyes.forEach(eye =>{
-    eye.style.transform =`rotate(${90 + angleDeg}deg)`;
-  }); 
-});
-
-function getAngle(mx,my,ax,ay){
-  const dy = ay-my;
-  const dx = ax-mx;
-  const rad = Math.atan2(dy,dx);
-  const deg = rad * 180 / Math.PI;
-  return deg;
 }
