@@ -1,33 +1,30 @@
 $(document).ready(function(){
-    let curForm = 'register';
-    let login = $(".loginDiv");
-    let reg = $(".registerDiv");
-    
-    $("#logAcc").click(function(){
-        login.show(); 
-        reg.hide();
-    });
-
-    $("#regAcc").click(function(){
-        login.hide(); 
-        reg.show();
-    });
-
-}); 
-
-$(document).ready(function() {
-  $('.notification').hide();
   $(".toggle-comment-section").click(function() {
       $(this).closest('.post').find(".comment").toggle();
       $(this).closest('.post').find(".comment-section").toggle();
   });
-  if($('.notification div').text() != ''){
+  
+  $('.notification').hide();
+  if($('.notification #notiMsgDiv').text() != ''){
     $('.notification').show();
     $("#exit-noti").click(function(){
       $(".notification").toggle();
     })
   }
-});
+
+  let curForm = 'register';
+  let login = $(".loginDiv");
+  let reg = $(".registerDiv");
+  
+  $("#logAcc").click(function(){
+      login.show(); 
+      reg.hide();
+  });
+  $("#regAcc").click(function(){
+      login.hide(); 
+      reg.show();
+  });
+}); 
 
 //UserDropdown
 let modal = document.querySelector(".main");

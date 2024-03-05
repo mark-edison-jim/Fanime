@@ -234,18 +234,25 @@
                 background-color: #eeeae8;
                 max-height: 1000px;
             }
-            .home-segment, .upper-right{
+            .home-segment{
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 5em;
                 padding-left: 20px;
                 border-bottom: 1px solid rgba(21, 20, 20, 0.972);
-              
                 height:15%;
             }
             .tag{
                 display: flex;
                 align-items: center; /* y-axis */ 
                 margin-top: 10px;
+            }
+            .upper-left{
+                display: flex;
+                align-items: flex-start;
+                overflow: hidden;
+                width: 35%;
             }
             .tag > img{
                 width: 50px;
@@ -487,14 +494,21 @@
                 margin-bottom  : 20px;
                 justify-content: center;
             }
-        
+
+.upper-right{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(21, 20, 20, 0.972);
+    height:15%;
+}
+
 .notification{
-    margin-left: 50px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    margin-top: 20px;
     width: 85%;
-    height: 10%;
+    height: 65%;
     background-color: rgb(126, 126, 255);
     border: 1px solid black;
     border-radius: 10px;
@@ -512,32 +526,28 @@
     }
   }
 
+.notification #notiBtnDiv{
+    display: flex;
+    justify-content: flex-end;
+}
+
 .notification button{
-    padding-top: 5px;
-    padding-left: 20px;
-    width: 15%;
-    height: 20%;
-    background: transparent;
+    height: 100%;
     cursor: pointer;
     border: none;
+    background: transparent;
+    margin-right: 10px;
     font-size: 20px;
 }
 
-.notification div{
+.notification #notiMsgDiv{
     color:#ffffff;
     font-weight: bold;
-    padding-left: 20px;
-    padding-right: 30px;
     height: 60%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.upper-right{
-    display: flex;
     align-items: flex-start;
-    overflow: hidden;
+    padding-left: 20px;
+    font-size: 18px;
 }
 
 #anchor{

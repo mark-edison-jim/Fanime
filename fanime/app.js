@@ -85,7 +85,7 @@ server.post('/register', function(req, resp){
               layout: 'index',
               title: 'Main Page',
               posts: data.posts,
-              msg: 'Email already linked with an Account or Wrong Login Credentials...'
+              msg: 'Email already linked with an Account...'
           });
       }else{
         setLogIn(req.body.user, req.body.email);
@@ -118,7 +118,7 @@ server.post('/login', function(req, resp){
                 layout: 'index',
                 title: 'Main Page',
                 posts: data.posts,
-                msg: 'Email already linked with an Account or Wrong Login Credentials...'
+                msg: 'Wrong Credentials, User does not exist...'
             });
         }
       });
