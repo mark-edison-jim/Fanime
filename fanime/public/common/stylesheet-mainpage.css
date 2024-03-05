@@ -533,3 +533,42 @@
     align-items: center;
     justify-content: center;
 }
+
+.upper-right{
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+#anchor{
+    position: relative;
+    transition: 0.5s all;
+}
+
+#eyes{
+    transition: 0.5s all;
+    height: 150px;
+    width: 150px;
+}
+
+#eyes, #eyes img{
+    position: absolute;
+}
+
+.eye:nth-child(1){
+    top: 72px;
+    right: 88px;
+}
+
+.eye:nth-child(2){
+    top: 74px;
+    right: 55px;
+}
+
+.eye{
+    width: 13px;
+}
+
+#anchor{
+    width: 150px;
+}
