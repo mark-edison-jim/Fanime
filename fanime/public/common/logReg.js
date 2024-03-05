@@ -79,10 +79,12 @@ btn.onclick = function() {
   login.style.opacity = "100%";
   reg.style.opacity = "100%";
   dropdown.classList.remove("open-d");
+  $('#speech-bubble').show();
 }
                 
 window.onclick = function(event) {
   if (event.target == modal) {
+    $('#speech-bubble').hide(200);
     modal.style.visibility = "hidden";
     modal.style.background = "rgba(0,0,0,0)";
     login.style.opacity = "0";
