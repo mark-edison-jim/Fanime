@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+
 body{
     margin: 0;
     padding: 0;
@@ -112,7 +113,7 @@ body{
 }
 
 .remember label{
-    color: #000;
+    color: #cccccc;
 }
 
 .remember a{
@@ -152,7 +153,7 @@ body{
 
 
 .register p{
-    color: #000;
+    color: #ffffff;
 }
 
 .register p button{
