@@ -16,6 +16,7 @@
             background-color: #0054ae;
             justify-content: space-between;
         }
+        
         .website-logo-link{
             text-decoration: none;
         }
@@ -29,7 +30,6 @@
             width: 20%;
             align-items: center; /* y-axis */ 
             margin-right: 100px;
-            
         }
         
         .website-logo > img{
@@ -240,7 +240,6 @@
                 display: flex;
                 flex-direction: row;
                 align-items: flex-start;
-                position: relative;
                 gap: 2em;
                 padding-left: 20px;
                 border-bottom: 1px solid rgba(21, 20, 20, 0.972);
@@ -613,10 +612,10 @@
     position: absolute;
     background-image: linear-gradient(to left, rgba(153, 90, 255, 0.842) , #304fffb9);
     border-radius: 10px 10px 0 10px;
-    bottom: 5px;
-    right: 150px;
-    width: 53%;
-    height: 40%;
+    top: 165px;
+    left: 6px;
+    width: 11%;
+    height: 5%;
     color: white;
     display: none;
     font-weight: 400;
