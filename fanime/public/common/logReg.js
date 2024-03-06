@@ -1,3 +1,5 @@
+document.body.style.transform = 'scale(1)';
+
 $(document).ready(function(){
   $(".toggle-comment-section").click(function() {
       $(this).closest('.post').find(".comment").toggle();
@@ -34,6 +36,7 @@ let reg = document.querySelector(".registerDiv");
 let dropdown = document.getElementById("drop");
 let webprof = document.getElementById("webprof");
 let toggleD = false;
+
 const eyesDiv = document.getElementById('eyes');
 const anchor = document.getElementById('anchor');
 
