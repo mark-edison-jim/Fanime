@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
+        html{
+            zoom:70%;
+        }
         /*Website Structure*/
         .main-website-structure{
-            margin:0px;
+            margin: 0px;
             display: flex;
             flex-direction: column;
         }
@@ -239,7 +241,7 @@
                 flex-direction: row;
                 align-items: flex-start;
                 position: relative;
-                gap: 5em;
+                gap: 2em;
                 padding-left: 20px;
                 border-bottom: 1px solid rgba(21, 20, 20, 0.972);
                 height:15%;
@@ -545,15 +547,28 @@
     font-size: 18px;
 }
 
+@keyframes popUp {
+    0% {
+        opacity: 0.5;
+        transform: translateY(50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 #anchor{
     position: relative;
     transition: 0.5s all;
+    animation: 0.4s ease-out 0s 1 popUp;
 }
 
 #eyes{
     transition: 0.5s all;
     height: 150px;
     width: 150px;
+    animation: 0.4s ease-out 0s 1 popUp;
 }
 
 #eyes, #eyes img{
@@ -600,12 +615,11 @@
     border-radius: 10px 10px 0 10px;
     bottom: 5px;
     right: 150px;
-    width: 55%;
+    width: 53%;
     height: 40%;
     color: white;
     display: none;
     font-weight: 400;
-    font-size: 17px;
     padding: 10px 10px;
     padding-bottom: 5px;
     animation: 0.4s ease-out 0s 1 slideInLeftBubble;
