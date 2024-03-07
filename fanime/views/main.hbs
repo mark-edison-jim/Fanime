@@ -58,14 +58,16 @@
                         <button class="toggle-comment-section">Comments</button>
                     </div>
                     <div class="comment-section">
-                        {{#each post-comments}}
-                        <div class="comment-text">
-                            <div class="comment-user">
-                                <p>{{commentUser}}</p>
+                        <div class="comment-container">
+                            {{#each post-comments}}
+                            <div class="comment-text">
+                                <div class="comment-user">
+                                    <p>{{commentUser}}</p>
+                                </div>
+                                <p>{{comment}}</p>
                             </div>
-                            <p>{{comment}}</p>
-                        </div>
                         {{/each}}
+                        </div>
                     </div>
                 </div>
                 {{/each}}
