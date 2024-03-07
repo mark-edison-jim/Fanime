@@ -91,12 +91,7 @@ server.post('/register', function(req, resp){
         setLogIn(req.body.user, req.body.email);
           userInstance.save().then(function(user) {
               console.log('User created');
-              resp.render('main',{
-                  layout: 'index',
-                  title: 'Main Page',
-                  username: req.body.user,
-                  posts: data.posts
-               });
+              resp.redirect('/main');
              }).catch(errorFn);
        }
     });
@@ -107,12 +102,7 @@ server.post('/login', function(req, resp){
       userModel.findOne(searchQuery).then(function(user){
         if(user != undefined && user._id != null){
             setLogIn(user.user, req.body.email);
-            resp.render('main',{
-                layout: 'index',
-                title: 'Main Page',
-                username: user.user,
-                posts: data.posts
-            });
+            resp.redirect('/main');
         }else{
             resp.render('unregMain',{
                 layout: 'index',
@@ -122,6 +112,15 @@ server.post('/login', function(req, resp){
             });
         }
       });
+});
+
+server.get('/main', function(req, resp){
+    resp.render('main',{
+        layout: 'index',
+        title: 'Main Page',
+        username: data.loggedIn.username,
+        posts: data.posts
+     });
 });
 
 server.get('/profile', function(req, resp){
