@@ -38,26 +38,32 @@
                 </div>
                 {{#each posts}}
                 <div class="post">
-                    <div class="post-header" onclick="window.location.href = '/post/{{post-id}}';">
+                    <div class="post-header" onclick="window.location.href = '/post/{{_id}}';">
                         <div class="post-title">
-                            <h2>{{post-title}}</h2>
+                            <h2>{{title}}</h2>
                         </div>
                         <div class="post-profile">
                             <img src={{post-profile}}>
                         </div>
                         <h4>{{username}}</h4>
-                        <h6>{{post-time}}</h6>
+                        <h6>{{date}}</h6>
                     </div>
-                    <div class="post-body">{{post-desc}}</div>
+                    <div class="post-body">{{description}}</div>
                     <div class="post-img">
-                        <img src={{post-image}}>
+                        <img src={{image}}>
                     </div>
                     <div class="post-action">
                         <i class="fa fa-thumbs-up"></i>{{post-thumbs.up}}
                         <i class="fa fa-thumbs-down"></i>{{post-thumbs.down}}
                         <button class="toggle-comment-section">Comments</button>
                     </div>
-                    <div class="comment-section">
+                    <div class="comment">
+                        <div class="comment-form">
+                            <textarea id="comment-text" placeholder="Write your comment here..."></textarea>
+                            <button id="submit-comment"><h4>Comment</h4></button>
+                        </div>
+                    </div>
+                    <div id="comment-section" class="comment-section">
                         {{#each post-comments}}
                         <div class="comment-text">
                             <div class="comment-user">
