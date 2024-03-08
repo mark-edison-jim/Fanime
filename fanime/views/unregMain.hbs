@@ -11,7 +11,7 @@
             <div class="post-area">
                 {{#each posts}}
                 <div class="post">
-                    <div class="post-header" onclick="window.location.href = '/post/{{_id}}';">
+                    <div class="post-header">
                         <div class="post-title">
                             <h2>{{title}}</h2>
                         </div>
@@ -30,13 +30,7 @@
                         <i class="fa fa-thumbs-down"></i>{{post-thumbs.down}}
                         <button class="toggle-comment-section">Comments</button>
                     </div>
-                    <div class="comment">
-                        <div class="comment-form">
-                            <textarea id="comment-text" placeholder="Write your comment here..."></textarea>
-                            <button id="submit-comment"><h4>Comment</h4></button>
-                        </div>
-                    </div>
-                    <div id="comment-section" class="comment-section">
+                    <div class="comment-section">
                         {{#each post-comments}}
                         <div class="comment-text">
                             <div class="comment-user">
@@ -55,4 +49,3 @@
     {{>filterPosts}}
 </div>
 </div>
-<script src="./../app.js"></script>

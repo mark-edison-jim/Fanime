@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
+        html{
+            zoom:70%;
+        }
         /*Website Structure*/
         .main-website-structure{
-            margin:0px;
+            margin: 0px;
             display: flex;
             flex-direction: column;
         }
@@ -14,6 +16,7 @@
             background-color: #0054ae;
             justify-content: space-between;
         }
+        
         .website-logo-link{
             text-decoration: none;
         }
@@ -27,7 +30,6 @@
             width: 20%;
             align-items: center; /* y-axis */ 
             margin-right: 100px;
-            
         }
         
         .website-logo > img{
@@ -234,12 +236,13 @@
                 background-color: #eeeae8;
                 max-height: 1000px;
             }
-            .home-segment, .upper-right{
+            .home-segment{
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 50px;
                 padding-left: 20px;
                 border-bottom: 1px solid rgba(21, 20, 20, 0.972);
-              
                 height:15%;
             }
             .tag{
@@ -375,6 +378,7 @@
                 flex-direction: column;
                 border: 2px solid transparent;
             }
+            
             .post:hover {
                 border-color: black;
                 border-width: 2px solid;
@@ -486,14 +490,21 @@
                 margin-bottom  : 20px;
                 justify-content: center;
             }
-        
+
+.upper-right{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(21, 20, 20, 0.972);
+    height:15%;
+}
+
 .notification{
-    margin-left: 50px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    margin-top: 20px;
     width: 85%;
-    height: 10%;
+    height: 65%;
     background-color: rgb(126, 126, 255);
     border: 1px solid black;
     border-radius: 10px;
@@ -503,32 +514,112 @@
 @keyframes slideInLeft {
     0% {
         opacity: 0;
-      transform: translateX(100%);
+        transform: translateX(200%);
     }
     100% {
         opacity: 1;
-      transform: translateX(0);
+        transform: translateX(0);
     }
   }
 
+.notification #notiBtnDiv{
+    display: flex;
+    justify-content: flex-end;
+}
+
 .notification button{
-    padding-top: 5px;
-    padding-left: 20px;
-    width: 15%;
-    height: 20%;
-    background: transparent;
+    height: 100%;
     cursor: pointer;
     border: none;
+    background: transparent;
+    margin-right: 10px;
     font-size: 20px;
 }
 
-.notification div{
+.notification #notiMsgDiv{
     color:#ffffff;
     font-weight: bold;
-    padding-left: 20px;
-    padding-right: 30px;
     height: 60%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    padding-left: 20px;
+    font-size: 18px;
+}
+
+@keyframes popUp {
+    0% {
+        opacity: 0.5;
+        transform: translateY(50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#anchor{
+    position: relative;
+    transition: 0.5s all;
+    animation: 0.4s ease-out 0s 1 popUp;
+}
+
+#eyes{
+    transition: 0.5s all;
+    height: 150px;
+    width: 150px;
+    animation: 0.4s ease-out 0s 1 popUp;
+}
+
+#eyes, #eyes img{
+    position: absolute;
+}
+
+.eye:nth-child(1){
+    top: 72px;
+    right: 88px;
+}
+
+.eye:nth-child(2){
+    top: 74px;
+    right: 55px;
+}
+
+.eye{
+    width: 13px;
+}
+.upper-left{
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+    width: 35%;
+}
+#anchor{
+    width: 150px;
+}
+
+@keyframes slideInLeftBubble{
+    0% {
+        opacity: 0;
+        transform: translateX(50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+#speech-bubble{
+    position: absolute;
+    background-image: linear-gradient(to left, rgba(153, 90, 255, 0.842) , #304fffb9);
+    border-radius: 10px 10px 0 10px;
+    top: 165px;
+    left: 6px;
+    width: 11%;
+    height: 5%;
+    color: white;
+    display: none;
+    font-weight: 400;
+    padding: 10px 10px;
+    padding-bottom: 5px;
+    animation: 0.4s ease-out 0s 1 slideInLeftBubble;
 }

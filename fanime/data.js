@@ -169,5 +169,11 @@ let users = {
     }
 };
 
+let loggedIn = {
+    'username' : "",
+    'email' : ""
+}
+
 module.exports.posts = posts;
 module.exports.users = users;
+module.exports.loggedIn = loggedIn;
