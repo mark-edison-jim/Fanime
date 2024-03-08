@@ -10,7 +10,32 @@ const userSchema = new mongoose.Schema({
     pass: { type: String }
   },{ versionKey: false });
 
+const postSchema = new mongoose.Schema({
+    username: { type: String },
+    date: { type: String},
+    title: { type: String },
+    genre: { type: String },
+    description: { type: String},
+    image: { type: String}
+},{ versionKey: false });
+
+// const commentSchema = new mongoose.Schema({
+//     user: { type: String },
+//     description: { type: String},
+//     post_id: {type: String}
+// },{ versionKey: false });
+
+// const likeSchema =  new mongoose.Schema({
+//     user: { type: String },
+//     isLiked: { type: Boolean},
+//     isDisliked: {type: Boolean},
+//     post_id: { type: String }
+// },{ versionKey: false });
+
 const userModel = mongoose.model('user', userSchema);
+const postModel = mongoose.model('post', postSchema);
+// const commentModel = mongoose.model('comment', commentSchema);
+// const likeModel = mongoose.model('like', likeSchema);
 
 function errorFn(err){
     console.log('Error fond. Please trace!');
@@ -31,10 +56,26 @@ server.use(express.static('public'));
 server.use(express.static('Assets'));
 
 server.get('/', function(req, resp){
-    resp.render('unregMain', {
-        layout: 'index',
-        title: 'Main Page',
-        posts: data.posts
+    postModel.find({}).then(function(posts){
+    console.log('Loading posts from database');
+    let vals = new Array();
+        for(const post of posts){
+            vals.push({
+                _id : post._id.toString(),
+                username: post.username,
+                date: post.date,
+                title: post.title,
+                genre: post.genre,
+                description: post.description,
+                image: post.image
+            });
+        }
+
+        resp.render('unregMain', {
+            layout: 'index',
+            title: 'Main Page',
+            posts: vals
+        });
     });
 });
 
