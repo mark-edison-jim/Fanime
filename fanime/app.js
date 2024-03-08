@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   },{ versionKey: false });
 
 const userModel = mongoose.model('user', userSchema);
+const postModel = mongoose.model('post', userSchema);
 
 function errorFn(err){
     console.log('Error fond. Please trace!');
@@ -33,7 +34,7 @@ server.use(express.static('Assets'));
 server.get('/', function(req, resp){
     resp.render('unregMain', {
         layout: 'index',
-        title: 'Main Page',
+        title: 'Unregistered Page',
         posts: data.posts
     });
 });
@@ -66,61 +67,67 @@ server.get('/', function(req, resp){
 //     return true;
 // }
 
+function setLogIn(username, email){
+    data.loggedIn.username = username;
+    data.loggedIn.email = email;
+}
+
 server.post('/register', function(req, resp){
     const userInstance = userModel({
         user: req.body.user,
         email: req.body.email,
         pass: req.body.pass
-      });
-      const searchQuery = { email : req.body.email };
-      userModel.findOne(searchQuery).then(function(user){
-        if(user != undefined && user._id != null){
-            resp.render('unregMain',{
-                layout: 'index',
-                title: 'Main Page',
-                posts: data.posts,
-                msg: 'Email already linked with an Account or Wrong Login Credentials...'
-            });
-        }else{
-            userInstance.save().then(function(user) {
-                console.log('User created');
-                resp.render('main',{
-                    layout: 'index',
-                    title: 'Main Page',
-                    username: req.body.user,
-                    posts: data.posts
-                });
-              }).catch(errorFn);
-        }
-      });
+    });
+    const searchQuery = { email : req.body.email };
+    userModel.findOne(searchQuery).then(function(user){
+      if(user != undefined && user._id != null){
+          resp.render('unregMain',{
+              layout: 'index',
+              title: 'Main Page',
+              posts: data.posts,
+              msg: 'Email already linked with an Account...'
+          });
+      }else{
+        setLogIn(req.body.user, req.body.email);
+          userInstance.save().then(function(user) {
+              console.log('User created');
+              resp.redirect('/main');
+             }).catch(errorFn);
+       }
+    });
 });
 
 server.post('/login', function(req, resp){
       const searchQuery = {email : req.body.email, pass: req.body.pass};
       userModel.findOne(searchQuery).then(function(user){
-        
         if(user != undefined && user._id != null){
-            resp.render('main',{
-                layout: 'index',
-                title: 'Main Page',
-                username: user.user,
-                posts: data.posts
-            });
+            setLogIn(user.user, req.body.email);
+            resp.redirect('/main');
         }else{
             resp.render('unregMain',{
                 layout: 'index',
                 title: 'Main Page',
                 posts: data.posts,
-                msg: 'Email already linked with an Account or Wrong Login Credentials...'
+                msg: 'Wrong Credentials, User does not exist...'
             });
         }
       });
+});
+
+server.get('/main', function(req, resp){
+    resp.render('main',{
+        layout: 'index',
+        title: 'Main Page',
+        username: data.loggedIn.username,
+        posts: data.posts
+     });
 });
 
 server.get('/profile', function(req, resp){
     resp.render('profile', {
         layout: 'profileIndex',
         title: 'Profile Page',
+        username: data.loggedIn.username,
         user: data.users.person1
     });
 });
