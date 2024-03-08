@@ -357,7 +357,7 @@
             height: 100%;
         }
         .post-create{
-            background-color: wheat;
+            background-color: #2649a9;
             width: 95.5%;
             margin: 0.5% 2%;
             padding: 0.5% 0.25%;
@@ -366,55 +366,110 @@
         }
         .post-form{
             height: auto;
-            flex-direction: column;
-        }
-        .post-row{
-            width: 100%;
             display: flex;
+        }
+        .post-texts{
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            
+        }
+        .post-buttons{
+            width: 20%;
+            display: flex;
+            flex-direction: column;
             margin-bottom: 5px;
             margin-top: 5px;
 
         }
-        .post-form textarea{
-            width: 90%;
-            height: 50px;
+        .enter-post-desc{
+            margin-top:10px;
+            height: 50%;
             border-radius: 15px;
             resize: none;
             padding:10px;
             margin-left:10px;
             margin-right:10px;
+            background-color: #252744;
+            color: white;
+            font-size: larger;
+
+
         }
-        .post-row > input[type="file"]{
+        #file-input{
             display: none;
         }
-        .post-row > input[type="text"]{
-            width: 80%;
-            height: 25px;
+        .enter-post-title{
+            height: 20%;
             border-radius: 15px;
             padding:10px;
             margin-right:10px;
             margin-left:10px;
+            background-color: #252744;
+            color:white;
+            font-size: larger;
         }
-        .post-row > label > img,.post-row > button{
-            width: 50px;
-            height: 50px;
+
+        .post-buttons-top {
+            height: 50%;
+            display: flex;
+            justify-content: center;
+        }
+
+        #post-genre{
+            height:75%;
+            width:80%;
+            background-color: #252744;
+            color:white;
+            text-align: center;
+
+        }
+        .post-buttons-bottom {
+            height: 50%;
+            display: flex;
+            
+        }
+
+        label.post-image{
+            width:50%;
+            
+        }
+        #filepic {
+            width:62%;
             border: 1px solid black;
+            margin-left: 18px;
+            background-color: #252744;
+            color:white;
+
         }
 
 
-        .post-image{
-            padding:5px;
-            padding-top:8px;
+        .post-buttons-bottom > button{
+            width:40%;
+            border: 1px solid black;
+            background-color: #252744;
+            color:white;
+            border-radius: 15px;
+            font-size: larger;
         }
-        #submitpost{
-            margin:5px;
-            margin-top:8px;
+
+        .post-buttons-bottom > button:hover{
+   
+            border: 1px solid white;
+            background-color: #f3c02a;
+            color: black;
+           
+        
         }
+
+
 
         
         /*Content of post*/
         .post{
-            background-color: #28438d;
+            background-color: #2649a9;
             width: 95.5%;
             margin: 1% 2%;
             height: auto;
