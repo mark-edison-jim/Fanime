@@ -98,17 +98,35 @@ body{
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-
-.prf-favs {
+.prf-favs{
+    margin-top: 20px;
     display: flex;
-    justify-content:space-around;
+    flex-direction: column;
+    width:85%;
+    margin-bottom: 20px;
+}
+
+.favs-body {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
     margin-top: 30px;
     align-items:baseline;
     width: 100%;
     max-width: 100%;
-    height: 300px;
+    max-height: 300px;
 
   
+}
+
+.favs-header{
+    display: flex;
+    justify-content: center;
+}
+.favs-header > h1{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
 }
 
 .favs-inner{
@@ -120,7 +138,7 @@ body{
     padding: 10px;
     box-sizing: border-box;
     width: 200px;
-    height: auto;
+    height: 100%;
     
 }
 
