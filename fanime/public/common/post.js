@@ -25,11 +25,11 @@ $(document).ready(function(){
                 </div>
                 <div class="post-body">${data.description}</div>
                 <div class="post-img">
-                    <img src=${data.file}>
+                    <img src=${data.image}>
                 </div>
                 <div class="post-action">
-                    <i class="fa fa-thumbs-up">0</i>
-                    <i class="fa fa-thumbs-down">0</i>
+                    <i class="fa fa-thumbs-up like" data-post-id="${data._id}">${data.like}</i>
+                    <i class="fa fa-thumbs-down dislike" id="${data._id}">${data.dislike}</i>
                     <button class="toggle-comment-section">Comments</button>
                 </div>
                 <div class="comment">

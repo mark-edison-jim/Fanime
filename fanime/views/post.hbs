@@ -9,24 +9,24 @@
         <div class="post-margin">
             <div class="post-area">
                 {{#with post}}
-                <div class="post" name="id" value="hi">
+                <div class="post">
                     <div class="post-header">
                         <div class="post-title">
-                            <h2>{{post-title}}</h2>
+                            <h2>{{title}}</h2>
                         </div>
                         <div class="post-profile">
-                            <img src={{post-profile}}>
+                            <img src={{profile}}>
                         </div>
                         <h4>{{username}}</h4>
-                        <h6>{{post-time}}</h6>
+                        <h6>{{date}}</h6>
                     </div>
-                    <div class="post-body">{{post-desc}}</div>
+                    <div class="post-body">{{description}}</div>
                     <div class="post-img">
-                        <img src={{post-image}}>
+                        <img src={{image}}>
                     </div>
                     <div class="post-action">
-                        <i class="fa fa-thumbs-up"></i>{{post-thumbs.up}}
-                        <i class="fa fa-thumbs-down"></i>{{post-thumbs.down}}
+                        <i class="fa fa-thumbs-up like" data-post-id="{{_id}}">{{like}}</i>
+                        <i class="fa fa-thumbs-down dislike" id="{{_id}}">{{dislike}}</i>
                         <button class="toggle-comment-section">Comments</button>
                     </div>
                     <div class="comment">

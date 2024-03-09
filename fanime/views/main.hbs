@@ -52,11 +52,11 @@
                     </div>
                     <div class="post-body">{{description}}</div>
                     <div class="post-img">
-                        <img src="{{image}}/">
+                        <img src={{image}}>
                     </div>
                     <div class="post-action">
-                        <i class="fa fa-thumbs-up" id="likes"></i>0$
-                        <i class="fa fa-thumbs-down" id="dislikes"></i>0$
+                        <i class="fa fa-thumbs-up like" data-post-id="{{_id}}">{{like}}</i>
+                        <i class="fa fa-thumbs-down dislike" id="{{_id}}">{{dislike}}</i>
                         <button class="toggle-comment-section">Comments</button>
                     </div>
                     <div id="comment-section"  class="comment-section">
