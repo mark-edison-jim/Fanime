@@ -24,11 +24,11 @@
                         <img src={{image}}>
                     </div>
                     <div class="post-action">
-                        <i class="fa fa-thumbs-up"></i>{{post-thumbs.up}}
-                        <i class="fa fa-thumbs-down"></i>{{post-thumbs.down}}
+                        <i class="fa fa-thumbs-up" id="like"></i>{{like}}
+                        <i class="fa fa-thumbs-down" id="dislike"></i>{{dislike}}
                         <button class="toggle-comment-section">Comments</button>
                     </div>
-                    <div class="comment-section">
+                    <div id="comment-section" class="comment-section">
                         <div class="comment-container">
                             {{#each post-comments}}
                             <div class="comment-text">
