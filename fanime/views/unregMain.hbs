@@ -26,15 +26,9 @@
                         <img src={{image}}>
                     </div>
                     <div class="post-action">
-                        <i class="fa fa-thumbs-up"></i>{{post-thumbs.up}}
-                        <i class="fa fa-thumbs-down"></i>{{post-thumbs.down}}
+                        <i class="fa fa-thumbs-up" id="like"></i>{{like}}
+                        <i class="fa fa-thumbs-down" id="dislike"></i>{{dislike}}
                         <button class="toggle-comment-section">Comments</button>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-form">
-                            <textarea id="comment-text" placeholder="Write your comment here..."></textarea>
-                            <button id="submit-comment"><h4>Comment</h4></button>
-                        </div>
                     </div>
                     <div id="comment-section" class="comment-section">
                         {{#each post-comments}}
