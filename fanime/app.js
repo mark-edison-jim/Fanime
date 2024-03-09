@@ -62,7 +62,9 @@ server.get('/', function(req, resp){
                 title: post.title,
                 genre: post.genre,
                 description: post.description,
-                image: post.image
+                image: post.image,
+                like: post.like.length,
+                dislike: post.dislike.length
             });
         }
 
@@ -139,23 +141,35 @@ server.post('/login', function(req, resp){
             setLogIn(user.user, req.body.email);
             resp.redirect('/main');
         }else{
-            resp.render('unregMain',{
-                layout: 'index',
-                title: 'Main Page',
-                posts: data.posts,
-                msg: 'Wrong Credentials, User does not exist...'
-            });
+            resp.redirect('/');
         }
       });
 });
 
 server.get('/main', function(req, resp){
-    resp.render('main',{
-        layout: 'index',
-        title: 'Main Page',
-        username: data.loggedIn.username,
-        posts: data.posts
-     });
+    postModel.find({}).then(function(posts){
+        console.log('Loading posts from database');
+        let vals = new Array();
+            for(const post of posts){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    like: post.like.length,
+                    dislike: post.dislike.length
+                });
+            }
+    
+            resp.render('main', {
+                layout: 'index',
+                title: 'Unregistered Page',
+                posts: vals
+            });
+        });
 });
 
 server.get('/profile', function(req, resp){
@@ -169,12 +183,28 @@ server.get('/profile', function(req, resp){
 
 //will fix this to get desired page
 server.get('/post/:id/', function(req, resp){
-    resp.render('post', {
-        layout: 'index',
-        title: 'Post Page',
-        post: data.posts[req.params.id]
-    });
-    
+    const searchQuery = {_id: req.params.id};
+
+    postModel.findOne(searchQuery).then(function(post){
+        console.log('Finding user');
+
+        const post_data = {
+            _id : post._id.toString(),
+            username: post.username,
+            date: post.date,
+            title: post.title,
+            genre: post.genre,
+            description: post.description,
+            image: post.image,
+            like: post.like.length,
+            dislike: post.dislike.length
+        };
+        resp.render('post', {
+            layout: 'index',
+            title: 'Post Page',
+            post: post_data
+        });
+      })
 });
 
 server.get('/editpost', function(req, resp){
@@ -203,7 +233,9 @@ server.post('/create_post', function(req, resp){
         date: date,
         genre: genre,
         description: description,
-        image: image
+        image: image,
+        like: 0,
+        dislike: 0
     };
 
     const postInstance = postModel({
@@ -232,6 +264,29 @@ server.post('/create_comment', function(req, resp){
     };
     console.log(responseData);
     resp.send(responseData);
+});
+
+server.post('/like', function(req, resp){
+    const {like, postId} = req.body;
+    console.log(data.loggedIn);
+    if(data.loggedIn.username === ''){
+        console.log("hi");
+    }else{
+        const searchQuery = {_id: postId};
+        postModel.findOne(searchQuery).then(function(user){
+            if(user != undefined){
+                console.log("Liked before");
+            }else{
+                console.log("Not yet liked");
+                // const responseData = {
+                //     likes: 
+                // };
+            }
+            console.log(user.like.length);
+            //resp.send(responseData);
+        });
+    }
+    
 });
 
 function finalClose(){
