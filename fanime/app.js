@@ -16,26 +16,21 @@ const postSchema = new mongoose.Schema({
     title: { type: String },
     genre: { type: String },
     description: { type: String},
-    image: { type: String}
+    image: { type: String},
+    comments: [{
+        user: { type: String },
+        text: { type: String }
+    }],
+    like: [{
+        user: { type: String}
+    }],
+    dislike: [{
+        user: { type: String}
+    }]
 },{ versionKey: false });
-
-// const commentSchema = new mongoose.Schema({
-//     user: { type: String },
-//     description: { type: String},
-//     post_id: {type: String}
-// },{ versionKey: false });
-
-// const likeSchema =  new mongoose.Schema({
-//     user: { type: String },
-//     isLiked: { type: Boolean},
-//     isDisliked: {type: Boolean},
-//     post_id: { type: String }
-// },{ versionKey: false });
 
 const userModel = mongoose.model('user', userSchema);
 const postModel = mongoose.model('post', postSchema);
-// const commentModel = mongoose.model('comment', commentSchema);
-// const likeModel = mongoose.model('like', likeSchema);
 
 function errorFn(err){
     console.log('Error fond. Please trace!');
@@ -172,6 +167,7 @@ server.get('/profile', function(req, resp){
     });
 });
 
+//will fix this to get desired page
 server.get('/post/:id/', function(req, resp){
     resp.render('post', {
         layout: 'index',
@@ -197,14 +193,32 @@ server.get('/editcomment', function(req, resp){
     
 });
 
+//will edit this to add post into the database
 server.post('/create_post', function(req, resp){
-    const {title, genre, description} = req.body;
+    const { title, date, genre, description, image} = req.body;
 
     const responseData = {
         title: title,
+        username: data.loggedIn.username,
+        date: date,
         genre: genre,
-        description: description
+        description: description,
+        image: image
     };
+
+    const postInstance = postModel({
+        title: title,
+        username: data.loggedIn.username,
+        date: date,
+        genre: genre,
+        description: description,
+        image: image
+    });
+
+    postInstance.save().then(function(login) {
+        console.log('Post created');
+    }).catch(errorFn);
+
     console.log(responseData);
     resp.send(responseData);
 });
