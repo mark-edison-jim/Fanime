@@ -4,9 +4,7 @@
 <div class="website-body">
     {{>topics}}
     <div class="content"> <!--Posts to be added-->
-        <div class="content-header">
-            <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
-        </div>
+        {{>contentheader}}
         <div class="post-margin">
             <div class="post-area">
                 {{#each posts}}
@@ -31,14 +29,16 @@
                         <button class="toggle-comment-section">Comments</button>
                     </div>
                     <div id="comment-section" class="comment-section">
-                        {{#each post-comments}}
-                        <div class="comment-text">
-                            <div class="comment-user">
-                                <p>{{commentUser}}</p>
+                        <div class="comment-container">
+                            {{#each post-comments}}
+                            <div class="comment-text">
+                                <div class="comment-user">
+                                    <p>{{commentUser}}</p>
+                                </div>
+                                <p>{{comment}}</p>
                             </div>
-                            <p>{{comment}}</p>
-                        </div>
                         {{/each}}
+                        </div>
                     </div>
                 </div>
                 {{/each}}
