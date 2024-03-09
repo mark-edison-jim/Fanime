@@ -3,37 +3,39 @@
 <div class="website-body">
     {{>topics}}
     <div class="content"> <!--Posts to be added-->
-        <div class="content-header">
-            <img src="https://i.pinimg.com/originals/14/b2/ca/14b2ca100b1b979983bdfdd24eac8a48.jpg"/>
-        </div>
+        {{>contentheader}}
         <div class="post-margin">
             <div class="post-area" id="post-area">
                 <div class="post-create">
                     <div class="post-form">
-                    <div class="post-row">
-                        <input type="text" name="post-title" id="post-title" placeholder="Title" required>
-                        <select name="post-tag" id="post-genre" required>
-                            <option value="" disabled selected>Select Tag</option>
-                            <option>Action</option>
-                            <option>Adventure</option>
-                            <option>Comedy</option>
-                            <option>Drama</option>
-                            <option>Fantasy</option>
-                            <option>Romance</option>
-                            <option>Slice of Life</option>
-                            <option>Science Fiction</option>
-                            <option>Horror</option>
-                            <option>Mystery</option>
-                        </select>
-                    </div>
-                    <div class="post-row">
-                        <textarea rows="2" cols="50" id="post-description" placeholder="Write your post here..."></textarea>
-                        <label for="file-input" class="post-image">
-                        <img src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png"/>
-                        </label>
-                        <input id="file-input" type="file"/>
-                        <button id="submit-post">Post</button>
-                    </div>
+                        <div class="post-texts">
+                        <input type="text" name="post-title" id="post-title" class="enter-post-title" placeholder="Title" required>
+                        <textarea rows="2" cols="50" id="post-description" class="enter-post-desc" placeholder="Write your post here..."></textarea>
+                        </div>
+                        <div class="post-buttons">
+                            <div class="post-buttons-top">
+                                <select name="post-tag" id="post-genre" required>
+                                    <option value="" disabled selected>Select Tag</option>
+                                    <option>Action</option>
+                                    <option>Adventure</option>
+                                    <option>Comedy</option>
+                                    <option>Drama</option>
+                                    <option>Fantasy</option>
+                                    <option>Romance</option>
+                                    <option>Slice of Life</option>
+                                    <option>Science Fiction</option>
+                                    <option>Horror</option>
+                                    <option>Mystery</option>
+                                </select>
+                            </div>
+                            <div class="post-buttons-bottom">
+                                <label for="file-input" class="post-image">
+                                    <img id="filepic" src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png"/>
+                                    </label>
+                                    <input id="file-input" type="file"/>
+                                    <button id="submit-post">Post</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {{#each posts}}
@@ -57,21 +59,18 @@
                         <i class="fa fa-thumbs-down"></i>{{post-thumbs.down}}
                         <button class="toggle-comment-section">Comments</button>
                     </div>
-                    <div class="comment">
-                        <div class="comment-form">
-                            <textarea id="comment-text" placeholder="Write your comment here..."></textarea>
-                            <button id="submit-comment"><h4>Comment</h4></button>
-                        </div>
-                    </div>
-                    <div id="comment-section" class="comment-section">
-                        {{#each post-comments}}
-                        <div class="comment-text">
-                            <div class="comment-user">
-                                <p>{{commentUser}}</p>
+                    <div id="comment-section"  class="comment-section">
+                        <div class="comment-container">
+                            {{#each post-comments}}
+                            <div class="comment-text">
+                                <div class="comment-user">
+                                    <p>{{commentUser}}</p>
+                                </div>
+                                <p>{{comment}}</p>
+
                             </div>
-                            <p>{{comment}}</p>
-                        </div>
                         {{/each}}
+                        </div>
                     </div>
                 </div>
                 {{/each}}
