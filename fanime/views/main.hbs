@@ -44,6 +44,7 @@
                         <div class="post-title">
                             <h2>{{title}}</h2>
                         </div>
+                            <h4>{{genre}}</h4>
                         <div class="post-profile">
                             <img src={{post-profile}}>
                         </div>
@@ -56,7 +57,7 @@
                     </div>
                     <div class="post-action">
                         <i class="fa fa-thumbs-up like" data-post-id="{{_id}}">{{like}}</i>
-                        <i class="fa fa-thumbs-down dislike" id="{{_id}}">{{dislike}}</i>
+                        <i class="fa fa-thumbs-down dislike" data-post-id="{{_id}}">{{dislike}}</i>
                         <button class="toggle-comment-section">Comments</button>
                     </div>
                     <div id="comment-section"  class="comment-section">
