@@ -211,7 +211,7 @@ server.get('/main', function(req, resp){
 
 async function getFile(filename){
     const file = await gfs.files.findOne({filename : filename});
-    return file;    
+    return file;
 }
 
 server.get('/image/:filename', (req, resp) => {
