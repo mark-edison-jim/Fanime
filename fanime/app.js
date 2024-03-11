@@ -223,7 +223,6 @@ server.get('/editcomment', function(req, resp){
     
 });
 
-//will edit this to add post into the database
 server.post('/create_post', function(req, resp){
     const { title, date, genre, description, image} = req.body;
 
@@ -255,7 +254,7 @@ server.post('/create_post', function(req, resp){
     resp.send(responseData);
 });
 
-
+//will edit this to add comments into db
 server.post('/create_comment', function(req, resp){
     const {text} = req.body;
     console.log("hi");
@@ -266,27 +265,65 @@ server.post('/create_comment', function(req, resp){
     resp.send(responseData);
 });
 
+//will fix like counter ajax
 server.post('/like', function(req, resp){
-    const {like, postId} = req.body;
+    const {postId} = req.body;
     console.log(data.loggedIn);
     if(data.loggedIn.username === ''){
-        console.log("hi");
+        console.log("not logged in, cant like");
     }else{
-        const searchQuery = {_id: postId};
-        postModel.findOne(searchQuery).then(function(user){
-            if(user != undefined){
-                console.log("Liked before");
-            }else{
-                console.log("Not yet liked");
-                // const responseData = {
-                //     likes: 
-                // };
+        const searchPost = {_id: postId};
+        postModel.findOne(searchPost).then(function(post){
+            const searchUser = {user: data.loggedIn.username};
+            console.log("likes: ",post.like);
+            const userLiked = post.like.some(like => like.user === searchUser.user);
+            if (userLiked) {
+                console.log("Post was already liked by this user");
+                return; // will do a remove user from array if pressed again
             }
-            console.log(user.like.length);
-            //resp.send(responseData);
+            post.like.push(searchUser);
+            post.save().then(function(savedPost) {
+                console.log('Post liked by user:', searchUser);
+                const responseData = {
+                    likes: savedPost.like.length,
+                    post_id: postId
+                };
+                console.log("Response data:",responseData);
+                resp.send(responseData);
+            });      
         });
     }
-    
+});
+
+server.post('/dislike', function(req, resp){
+    const {postId} = req.body;
+    console.log(data.loggedIn);
+    if(data.loggedIn.username === ''){
+        console.log("not logged in, cant dislike");
+    }else{
+        const searchPost = {_id: postId};
+        postModel.findOne(searchPost).then(function(post){
+            const searchUser = {user: data.loggedIn.username};
+            console.log("dislikes: ", post.dislike);
+            const userDisliked = post.dislike.some(dislike => dislike.user === searchUser.user);
+            if (userDisliked) {
+                console.log("Post was already liked by this user");
+                return; // will do a remove user from array if pressed again
+            }
+            if (!post.dislike) {
+                post.dislike = []; // If not, initialize it
+            }
+            post.dislike.push(searchUser);
+            post.save().then(function(savedPost) {
+                console.log('Post disliked by user:', searchUser);
+                const responseData = {
+                    dislikes: savedPost.dislike.length,
+                    post_id: postId
+                };
+                resp.send(responseData);
+            });      
+        });
+    }
 });
 
 function finalClose(){
