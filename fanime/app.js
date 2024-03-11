@@ -181,13 +181,10 @@ server.get('/profile', function(req, resp){
     });
 });
 
-//will fix this to get desired page
 server.get('/post/:id/', function(req, resp){
     const searchQuery = {_id: req.params.id};
 
     postModel.findOne(searchQuery).then(function(post){
-        console.log('Finding user');
-
         const post_data = {
             _id : post._id.toString(),
             username: post.username,
@@ -256,16 +253,17 @@ server.post('/create_post', function(req, resp){
 
 //will edit this to add comments into db
 server.post('/create_comment', function(req, resp){
-    const {text} = req.body;
-    console.log("hi");
+    const {comment} = req.body;
+    console.log("comment ");
+    console.log(comment);
     const responseData = {
-        comment: text
+        user: data.loggedIn.username,
+        comment: comment
     };
     console.log(responseData);
     resp.send(responseData);
 });
 
-//will fix like counter ajax
 server.post('/like', function(req, resp){
     const {postId} = req.body;
     console.log(data.loggedIn);
@@ -336,7 +334,7 @@ process.on('SIGTERM',finalClose);  //general termination signal
 process.on('SIGINT',finalClose);   //catches when ctrl + c is used
 process.on('SIGQUIT', finalClose); //catches other termination commands
 
-const port = process.env.PORT | 9090;
+const port = process.env.PORT | 3000;
 server.listen(port, function(){
     console.log('Listening at port '+port);
 });
