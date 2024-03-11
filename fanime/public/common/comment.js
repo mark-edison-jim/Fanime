@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $("#submit-comment").click(function(){
         var commentData = {
-            text: $("#comment-text").val()
+            comment: $("#comment-data").val()
         };
         
         $.post('create_comment', commentData,
@@ -10,11 +10,11 @@ $(document).ready(function(){
             let comment = `
             <div class="comment-text">
                 <div class="comment-user">
-                    <p>{commentUser}</p>
+                    <p>${data.user}</p>
                 </div>
                 <p>${data.comment}</p>
             </div>`;
-            $('#comment-section').append(comment);
+            $('#comment-container').append(comment);
           }//if
         });//fn+post
     });//btn

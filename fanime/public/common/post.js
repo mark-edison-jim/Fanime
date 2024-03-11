@@ -17,6 +17,7 @@ $(document).ready(function(){
                     <div class="post-title">
                         <h2>${data.title}</h2>
                     </div>
+                    <h4>${data.genre}</h4>
                     <div class="post-profile">
                         <img src={{post-profile}}>
                     </div>
@@ -31,12 +32,6 @@ $(document).ready(function(){
                     <i class="fa fa-thumbs-up like" data-post-id="${data._id}">${data.like}</i>
                     <i class="fa fa-thumbs-down dislike" id="${data._id}">${data.dislike}</i>
                     <button class="toggle-comment-section">Comments</button>
-                </div>
-                <div class="comment">
-                    <form class="comment-form">
-                        <textarea placeholder="Write your comment here..."></textarea>
-                        <button type="submit"><h4>Comment</h4></button>
-                    </form>
                 </div>
                 <div class="comment-section" id="comment-section">
                 </div>
