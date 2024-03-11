@@ -171,7 +171,8 @@ let users = {
 
 let loggedIn = {
     'username' : "",
-    'email' : ""
+    'email' : "", 
+    'profile_pic': ""
 }
 
 module.exports.posts = posts;

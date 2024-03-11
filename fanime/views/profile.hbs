@@ -8,7 +8,7 @@
             <div class="prf-side"></div>
             <div class="prf-middle">
                 <div class="profile-picture">        
-                    <img src="https://i.pinimg.com/564x/ba/a3/dd/baa3ddd24a354d10df6d795f012a3370.jpg"/>
+                    <img src="{{profile_pic}}" />
                    
                     </div> <!-- Profile picture div -->
                     <div class="profile-details">
@@ -22,7 +22,7 @@
                             <div class="popup-content">
                                 <!-- Edit Profile Form -->
                                 <h2>Edit Profile</h2>
-                                <form id="edit-profile-form">
+                                <form id="edit-profile-form" action="/upload" method="post" enctype="multipart/form-data">
                                     <label for="profile-pic">Profile Picture:</label><br>
                                     <input type="file" id="profile-pic" name="profile-pic"><br>
                                     <label for="username">Username:</label><br>
