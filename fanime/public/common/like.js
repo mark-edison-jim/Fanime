@@ -24,5 +24,5 @@ $(document).ready(function(){
             $clickedElement.text(data.dislikes);
           }
       });
-  });
+    });
 });//doc
