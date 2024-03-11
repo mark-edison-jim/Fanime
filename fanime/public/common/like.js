@@ -1,33 +1,27 @@
 $(document).ready(function(){
     $(".like").click(function(){
       let likeData = {
-        isLike: true,
         postId: $(this).data('post-id')
       }
+      let $clickedElement = $(this);
       $.post('like', likeData,
       function(data, status){
         if(status === 'success'){
-          let likes = parseInt($("#likes").text());
-          likes++;
-          $("#likes").text(likes);
-          console.log('Post liked!');
+          $clickedElement.text(data.likes);
         }//if
       });//fn+post
     });//btn
 
-    $("#dislike").click(function(){
+    $(".dislike").click(function(){
       // Increment the value of dislikes
-      let dislikes = parseInt($("#dislikes").text());
-      dislikes++;
-      $("#dislikes").text(dislikes);
-
+      let likeData = {
+        postId: $(this).data('post-id')
+      }
+      let $clickedElement = $(this);
       $.post('dislike', likeData, 
       function(data, status){
           if(status === 'success'){
-            let dislikes = parseInt($("#dislikes").text());
-            dislikes++;
-            $("#dislikes").text(dislikes);
-            console.log('Post disliked!');
+            $clickedElement.text(data.dislikes);
           }
       });
   });
