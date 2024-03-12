@@ -1,7 +1,10 @@
 $(document).ready(function(){
     $("#submit-comment").click(function(){
+        var postId = $(".post-head").data('post-id');
+
         var commentData = {
-            comment: $("#comment-data").val()
+            comment: $("#comment-data").val(),
+            id: postId
         };
         
         $.post('create_comment', commentData,
@@ -14,7 +17,7 @@ $(document).ready(function(){
                 </div>
                 <p>${data.comment}</p>
             </div>`;
-            $('#comment-container').append(comment);
+            $('.comment-container').append(comment);
           }//if
         });//fn+post
     });//btn
