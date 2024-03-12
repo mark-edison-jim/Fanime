@@ -11,7 +11,7 @@ $(document).ready(function(){
         console.log("hi");
         $.post('create_post', postData,
         function(data, status){
-          if(status === 'success'){
+          if(status === 'success'){//change post header to something else so it wont loop
             let post_content = `<div class="post">
                 <div class="post-header">
                     <div class="post-title">
@@ -40,4 +40,15 @@ $(document).ready(function(){
           }//if
         });//fn+post
     });//btn
+
+    $(".post-header").click(function() {
+        var postId = $(this).data("postid"); // Accessing data-postId attribute using jQuery
+        window.location.href = '/post?post_id=' + postId;
+    });
+        
+    $(".topic").click(function() {
+        var topic = $(this).find("strong").text();
+        window.location.href = '/filter?topic=' + topic;
+    });
+
 });//doc
