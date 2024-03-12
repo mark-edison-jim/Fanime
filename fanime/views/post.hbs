@@ -10,7 +10,7 @@
             <div class="post-area">
                 {{#with post}}
                 <div class="post">
-                    <div class="post-header">
+                    <div class="post-head" data-post-id="{{_id}}">
                         <div class="post-title">
                             <h2>{{title}}</h2>
                         </div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="post-action">
                         <i class="fa fa-thumbs-up like" data-post-id="{{_id}}">{{like}}</i>
-                        <i class="fa fa-thumbs-down dislike" id="{{_id}}">{{dislike}}</i>
+                        <i class="fa fa-thumbs-down dislike" data-post-id="{{_id}}">{{dislike}}</i>
                         <button class="toggle-comment-section">Comments</button>
                     </div>
                     <div class="comment">
@@ -38,12 +38,12 @@
                     </div>
                     <div class="comment-section">
                         <div class="comment-container">
-                            {{#each comment}}
+                            {{#each comments}}
                             <div class="comment-text">
                                 <div class="comment-user">
                                     <p>{{user}}</p>
                                 </div>
-                                <p>{{comment}}</p>
+                                <p>{{text}}</p>
                             </div>
                         {{/each}}
                         </div>
