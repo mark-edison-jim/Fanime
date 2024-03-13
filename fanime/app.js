@@ -7,7 +7,8 @@ mongoose.connect('mongodb://localhost:27017/fanimeDB');
 const userSchema = new mongoose.Schema({
     user: { type: String },
     email: { type: String},
-    pass: { type: String }
+    pass: { type: String },
+    profilepicture: { type: String }
   },{ versionKey: false });
 
 const postSchema = new mongoose.Schema({
@@ -105,16 +106,18 @@ server.get('/', function(req, resp){
 //     return true;
 // }
 
-function setLogIn(username, email){
+function setLogIn(username, email, profile){
     data.loggedIn.username = username;
     data.loggedIn.email = email;
+    data.loggedIn.profilepicture = profile;
 }
 
 server.post('/register', function(req, resp){
     const userInstance = userModel({
         user: req.body.user,
         email: req.body.email,
-        pass: req.body.pass
+        pass: req.body.pass,
+        profilepicture: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
     });
     const searchQuery = { email : req.body.email };
     userModel.findOne(searchQuery).then(function(user){
@@ -139,7 +142,7 @@ server.post('/login', function(req, resp){
       const searchQuery = {email : req.body.email, pass: req.body.pass};
       userModel.findOne(searchQuery).then(function(user){
         if(user != undefined && user._id != null){
-            setLogIn(user.user, req.body.email);
+            setLogIn(user.user, req.body.email, user.profilepicture);
             resp.redirect('/main');
         }else{
             resp.redirect('/');
@@ -152,6 +155,8 @@ server.get('/main', function(req, resp){
         console.log('Loading posts from database');
         let vals = new Array();
             for(const post of posts){
+                const searchQuery = { user: post.username}
+                userModel.findOne(searchQuery).lean().then(function(account){
                 vals.push({
                     _id : post._id.toString(),
                     username: post.username,
@@ -162,14 +167,19 @@ server.get('/main', function(req, resp){
                     image: post.image,
                     comments: post.comments,
                     like: post.like.length,
-                    dislike: post.dislike.length
+                    dislike: post.dislike.length,
+                    profilepicture: account.profilepicture
                 });
+                    
+                })
+                
             }
     
             resp.render('main', {
                 layout: 'index',
                 title: 'Unregistered Page',
-                posts: vals
+                posts: vals,
+                loggedprofilepicture: data.loggedIn.profilepicture
             });
         });
 });
