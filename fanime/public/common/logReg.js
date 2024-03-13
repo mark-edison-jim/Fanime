@@ -1,5 +1,24 @@
 document.body.style.transform = 'scale(1)';
 
+let logpass = 'password';
+let regpass = 'password';
+let conpass = 'password';
+
+document.getElementById('logPassEye').addEventListener('click', ()=>{
+  logpass = logpass == 'password' ? 'text' : 'password';
+  document.getElementById('logpass').type = logpass;
+});
+
+document.getElementById('regPassEye').addEventListener('click', ()=>{
+  regpass = regpass == 'password' ? 'text' : 'password';
+  document.getElementById('regpass').type = regpass;
+});
+
+document.getElementById('regConPassEye').addEventListener('click', ()=>{
+  conpass = conpass == 'password' ? 'text' : 'password';
+  document.getElementById('confirmpass').type = conpass;
+});
+
 $(document).ready(function(){
   $(".toggle-comment-section").click(function() {
       $(this).closest('.post').find(".comment").toggle();
@@ -106,22 +125,6 @@ function toggleDropdown(){
   }
   dropdown.classList.toggle("open-d");
 }
-
-//alternate for logreg mongodb
-// $(document).ready(function() {
-//   $("#reg-button").click(function(){
-//     $.post('register',
-//           {user: $(".registerDiv #user").val(), email: $(".registerDiv #email").val(), pass: $(".registerDiv #pass").val(), confirmpass: $(".registerDiv #confirmpass").val()},
-//           function(data, status){
-//             if(status === "success"){
-//               if(data.err != "True")
-//                 alert(data.err);
-//               else
-//                 console.log(data.err)
-//             }
-//           });
-//   });
-// });
 
 //post scroll animate
 // const observer = new IntersectionObserver((entries) =>{
