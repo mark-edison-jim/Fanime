@@ -10,26 +10,38 @@ function add(server){
             console.log(posts);
             let vals = new Array();
                 for(const post of posts){
-                    vals.push({
-                        _id : post._id.toString(),
-                        username: post.username,
-                        date: post.date,
-                        title: post.title,
-                        genre: post.genre,
-                        description: post.description,
-                        image: post.image,
-                        comments: post.comments,
-                        like: post.like.length,
-                        dislike: post.dislike.length
+                    const searchQuery = { user: post.username}
+                    userModel.findOne(searchQuery).lean().then(function(account){
+                        vals.push({
+                            _id : post._id.toString(),
+                            username: post.username,
+                            date: post.date,
+                            title: post.title,
+                            genre: post.genre,
+                            description: post.description,
+                            image: post.image,
+                            comments: post.comments,
+                            like: post.like.length,
+                            dislike: post.dislike.length,
+                            profilepicture: account.profilepicture
+                        });
                     });
                 }
 
-                resp.render('main', {
+                if(data.loggedIn.username === ''){
+                    resp.render('unregMain', {
                     layout: 'index',
-                    title: 'Main Page',
-                    posts: vals,
-                    loggedprofilepicture: data.loggedIn.profilepicture
-                });
+                    title: 'Unregistered Page',
+                    posts: vals
+                    });
+                }else{
+                    resp.render('main', {
+                        layout: 'index',
+                        title: 'Main Page',
+                        posts: vals,
+                        loggedprofilepicture: data.loggedIn.profilepicture
+                    });
+                }
             });
     });
 
@@ -40,6 +52,8 @@ function add(server){
             console.log('Loading posts from database');
             let vals = new Array();
                 for(const post of posts){
+                    const searchQuery = { user: post.username}
+                userModel.findOne(searchQuery).lean().then(function(account){
                     vals.push({
                         _id : post._id.toString(),
                         username: post.username,
@@ -50,8 +64,10 @@ function add(server){
                         image: post.image,
                         comments: post.comments,
                         like: post.like.length,
-                        dislike: post.dislike.length
+                        dislike: post.dislike.length,
+                        profilepicture: account.profilepicture
                     });
+                });
                 }
 
                 if(data.loggedIn.username === ''){
@@ -78,6 +94,8 @@ function add(server){
             console.log('Loading posts from database');
             let vals = new Array();
                 for(const post of posts){
+                    const searchQuery = { user: post.username}
+                userModel.findOne(searchQuery).lean().then(function(account){
                     vals.push({
                         _id : post._id.toString(),
                         username: post.username,
@@ -88,8 +106,10 @@ function add(server){
                         image: post.image,
                         comments: post.comments,
                         like: post.like.length,
-                        dislike: post.dislike.length
+                        dislike: post.dislike.length,
+                        profilepicture: account.profilepicture
                     });
+                });
                 }
                 
                 if(searchQuery === 'Mosted Liked'){
@@ -110,7 +130,7 @@ function add(server){
                 }else{
                     resp.render('main', {
                         layout: 'index',
-                        title: 'Unregistered Page',
+                        title: 'Main Page',
                         posts: vals,
                         loggedprofilepicture: data.loggedIn.profilepicture
                     });

@@ -107,22 +107,6 @@ function toggleDropdown(){
   dropdown.classList.toggle("open-d");
 }
 
-//alternate for logreg mongodb
-// $(document).ready(function() {
-//   $("#reg-button").click(function(){
-//     $.post('register',
-//           {user: $(".registerDiv #user").val(), email: $(".registerDiv #email").val(), pass: $(".registerDiv #pass").val(), confirmpass: $(".registerDiv #confirmpass").val()},
-//           function(data, status){
-//             if(status === "success"){
-//               if(data.err != "True")
-//                 alert(data.err);
-//               else
-//                 console.log(data.err)
-//             }
-//           });
-//   });
-// });
-
 //post scroll animate
 // const observer = new IntersectionObserver((entries) =>{
 //   entries.forEach((entry)=>{
