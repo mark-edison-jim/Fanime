@@ -5,7 +5,17 @@ const userSchema = new mongoose.Schema({
     user: { type: String },
     email: { type: String},
     pass: { type: String },
-    profilepicture: { type: String }
+    profilepicture: { type: String },
+    profilebanner: { type: String},
+    userbio: { type: String },
+    favAnime: [{
+        animeIcon: {type: String},
+        animeTitle: {type: String}
+    }],
+    favManga: [{
+        mangaIcon: {type: String},
+        mangaTitle: {type: String}
+    }]
   },{ versionKey: false });
 
 const postSchema = new mongoose.Schema({

@@ -1,5 +1,6 @@
-{{>nav2}}
+{{>nav2}}     
 <div class="prf-main">
+    {{#with account}}
     <div class="prf-banner">
         <img src="{{banner}}">
     </div>
@@ -7,8 +8,7 @@
         <div class="prf-container">
             <div class="prf-side"></div>
             <div class="prf-middle">
-                <div class="profile-picture">     
-                     
+                <div class="profile-picture">
                     <img src={{pfp}}>
                    
                     </div> <!-- Profile picture div -->
@@ -89,16 +89,10 @@
                     <!-- Posts content here -->
                         <h1>Posts</h1>
                         <div class="userposts">
-                            <div class="filter-user-post">
-                                <button>Top Posts</button>
-                                <button>Latest Posts</button>
-                                <button>Controversial</button>
-                            </div>
-                            
                             {{#each posts}}
                             <div class="user-post">
-                                <div class="user-post-title" onclick="window.location.href = '/post/{{post-id}}';">
-                                    <h2>{{post-title}}</h2>
+                                <div class="user-post-title" data-postId="{{_id}}">
+                                    <h2>{{title}}</h2>
                                 </div>
                                 <button onclick="window.location.href = '/editpost';">Edit</button>
                                 <button>Delete</button>
@@ -107,19 +101,12 @@
                         </div>
                 </div>
                 <div class="prf-posts">
-                    <!-- Posts content here -->
-                    
                         <h1>Comments</h1>
-                    
                         <div class="userposts">
-                            <div class="filter-user-post">
-                                <button>Oldest Comments</button>
-                                <button>Latest Comments</button>
-                            </div>
                             {{#each comments}}
                             <div class="user-post">
-                                <div class="user-post-title" onclick="window.location.href = '/post/{{post-id}}';">
-                                    <h2>{{comment-title}}</h2>
+                                <div class="user-post-title" data-postId="{{_id}}">
+                                    <h2>{{title}}</h2>
                                 </div>
                                 <button onclick="window.location.href = '/editcomment';">Edit</button>
                                 <button>Delete</button>
@@ -127,6 +114,7 @@
                             {{/each}}
                       
                         </div>
+                        {{/with}}
                 </div>
             </div>
             <div class="prf-side"></div>
