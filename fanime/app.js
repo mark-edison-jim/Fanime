@@ -56,17 +56,21 @@ server.get('/', function(req, resp){
     console.log('Loading posts from database');
     let vals = new Array();
         for(const post of posts){
-            vals.push({
-                _id : post._id.toString(),
-                username: post.username,
-                date: post.date,
-                title: post.title,
-                genre: post.genre,
-                description: post.description,
-                image: post.image,
-                comments: post.comments,
-                like: post.like.length,
-                dislike: post.dislike.length
+            const searchQuery = { user: post.username}
+            userModel.findOne(searchQuery).lean().then(function(account){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length,
+                    profilepicture: account.profilepicture
+                });
             });
         }
         //get all the post titles
@@ -115,6 +119,7 @@ function setLogIn(username, email, profile){
     data.loggedIn.profilepicture = profile;
 }
 
+//will fix later loading data json posts
 server.post('/register', function(req, resp){
     const userInstance = userModel({
         user: req.body.user,
@@ -390,12 +395,11 @@ server.post('/dislike', function(req, resp){
     }
 });
 
-server.get('/filter', function(req, resp){
+server.get('/genrefilter', function(req, resp){
     const searchQuery = {genre: req.query.topic};
     console.log(searchQuery);
     postModel.find(searchQuery).lean().then(function(posts){
         console.log('Loading posts from database');
-        console.log(posts);
         let vals = new Array();
             for(const post of posts){
                 vals.push({
@@ -412,11 +416,66 @@ server.get('/filter', function(req, resp){
                 });
             }
 
-            resp.render('unregMain', {
+            if(data.loggedIn.username === ''){
+                resp.render('unregMain', {
                 layout: 'index',
                 title: 'Unregistered Page',
                 posts: vals
-            });
+                });
+            }else{
+                resp.render('main', {
+                    layout: 'index',
+                    title: 'Main Page',
+                    posts: vals
+                    });
+            }
+            
+        });
+});
+
+server.get('/postfilter', function(req, resp){
+    const searchQuery = req.query.filter;
+    postModel.find({}).lean().then(function(posts){
+        console.log('Loading posts from database');
+        let vals = new Array();
+            for(const post of posts){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length
+                });
+            }
+            
+            if(searchQuery === 'Mosted Liked'){
+                vals.sort((a, b) => b.like - a.like);
+            }else if(searchQuery === 'Most Discussed'){
+                vals.sort((a,b) => b.comments.length - a.comments.length);
+            }else if(searchQuery === 'Top Posts'){
+                vals.sort((a, b) => (b.comments.length + b.like) - b.dislike - ((a.comments.length + a.like) - a.dislike));
+            }else{
+                vals.reverse();
+            }
+            if(data.loggedIn.username === ''){
+                resp.render('unregMain', {
+                    layout: 'index',
+                    title: 'Unregistered Page',
+                    posts: vals
+                });
+            }else{
+                resp.render('main', {
+                    layout: 'index',
+                    title: 'Unregistered Page',
+                    posts: vals
+                });
+            }
+      
         });
 });
 
