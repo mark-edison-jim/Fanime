@@ -8,8 +8,15 @@ function errorFn(err){
     console.error(err);
 }
 
+function resetLogIn(){
+    data.loggedIn.username = '';
+    data.loggedIn.email = '';
+    data.loggedIn.profilepicture = '';
+}
+
 function add(server){
     server.get('/', function(req, resp){
+        resetLogIn();
         postModel.find({}).lean().then(function(posts){
         console.log('Loading posts from database');
         let vals = new Array();
@@ -44,7 +51,7 @@ function add(server){
             console.log('Loading posts from database');
             let vals = new Array();
                 for(const post of posts){
-                    const searchQuery = {user: post.username}
+                    const searchQuery = {user: post.username};
                     userModel.findOne(searchQuery).lean().then(function(account){
                     vals.push({
                         _id : post._id.toString(),
@@ -60,12 +67,11 @@ function add(server){
                         profilepicture: account.profilepicture
                     });
                     })
-                    
                 }
                 console.log(data.loggedIn.profilepicture);
                 resp.render('main', {
                     layout: 'index',
-                    title: 'Unregistered Page',
+                    title: 'Main Page',
                     posts: vals,
                     loggedprofilepicture: data.loggedIn.profilepicture,
                     loggedusername: data.loggedIn.username
@@ -94,57 +100,13 @@ function add(server){
     //             });
     // });
 
-    server.get('/post', function(req, resp){
-        const searchQuery = req.query.post_id;
-        postModel.findById(searchQuery).lean().then(function(post){
-            const post_data = {
-                _id : post._id.toString(),
-                username: post.username,
-                date: post.date,
-                title: post.title,
-                genre: post.genre,
-                description: post.description,
-                image: post.image,
-                comments: post.comments,
-                like: post.like.length,
-                dislike: post.dislike.length
-            };
-            resp.render('post', {
-                layout: 'index',
-                title: 'Post Page',
-                post: post_data,
-                loggedprofilepicture: data.loggedIn.profilepicture
-            });
-        })
-    });
-
-    server.get('/editpost', function(req, resp){
-        let userData = data.users[data.loggedIn.username];  
-        let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
-        resp.render('editpost', {
-            layout: 'index',
-            title: 'Edit Post Page',
-            username: data.loggedIn.username,
-            pfp: profilePic
-
-        });
-        
-    });
-
-    server.get('/editcomment', function(req, resp){
-        let userData = data.users[data.loggedIn.username];  
-        let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
-        resp.render('editcomment', {
-            layout: 'index',
-            title: 'Edit Comment Page',
-            username: data.loggedIn.username,
-            pfp: profilePic
-        });
-        
-    });
-
-    server.post('/create_post', function(req, resp){
-        const { title, date, genre, description, image} = req.body;
+    server.post('/newPost', function(req,resp){
+        // const { title, date, genre, description, image} = req.body;
+        const title = req.body['post-title'];
+        const date = "5hrs ago";
+        const genre = req.body['post-tag'];
+        const description = req.body.postDesc;
+        const image = "https://cdn.pixabay.com/photo/2023/12/07/11/11/girl-8435340_1280.png";
 
         const responseData = {
             title: title,
@@ -168,11 +130,92 @@ function add(server){
 
         postInstance.save().then(function(login) {
             console.log('Post created');
+            resp.redirect('/main');
         }).catch(errorFn);
-
-        console.log(responseData);
-        resp.send(responseData);
     });
+
+    server.get('/post', function(req, resp){
+        const searchQuery = req.query.post_id;
+        postModel.findById(searchQuery).lean().then(function(post){
+            const searchQuery = {user: post.username};
+                userModel.findOne(searchQuery).lean().then(function(account){
+                    const post_data = {
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length,
+                    profilepicture: account.profilepicture
+                    };
+                    resp.render('post', {
+                        layout: 'index',
+                        title: 'Post Page',
+                        post: post_data,
+                        loggedprofilepicture: data.loggedIn.profilepicture
+                    });
+                })
+        })
+    });
+
+    server.get('/editpost', function(req, resp){
+        let userData = data.users[data.loggedIn.username];  
+        let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
+        resp.render('editpost', {
+            layout: 'index',
+            title: 'Edit Post Page',
+            username: data.loggedIn.username,
+            pfp: profilePic
+        });
+        
+    });
+
+    server.get('/editcomment', function(req, resp){
+        let userData = data.users[data.loggedIn.username];  
+        let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
+        resp.render('editcomment', {
+            layout: 'index',
+            title: 'Edit Comment Page',
+            username: data.loggedIn.username,
+            pfp: profilePic
+        });
+        
+    });
+
+    // server.post('/create_post', function(req, resp){
+    //     const { title, date, genre, description, image} = req.body;
+
+    //     const responseData = {
+    //         title: title,
+    //         username: data.loggedIn.username,
+    //         date: date,
+    //         genre: genre,
+    //         description: description,
+    //         image: image,
+    //         like: 0,
+    //         dislike: 0
+    //     };
+
+    //     const postInstance = postModel({
+    //         title: title,
+    //         username: data.loggedIn.username,
+    //         date: date,
+    //         genre: genre,
+    //         description: description,
+    //         image: image
+    //     });
+
+    //     postInstance.save().then(function(login) {
+    //         console.log('Post created');
+    //     }).catch(errorFn);
+
+    //     console.log(responseData);
+    //     resp.send(responseData);
+    // });
 
     server.post('/create_comment', function(req, resp){
         const comment = req.body.comment;
