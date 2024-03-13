@@ -39,7 +39,8 @@ function add(server){
                         layout: 'index',
                         title: 'Main Page',
                         posts: vals,
-                        loggedprofilepicture: data.loggedIn.profilepicture
+                        loggedprofilepicture: data.loggedIn.profilepicture,
+                        loggedusername: data.loggedIn.usernamee
                     });
                 }
             });
@@ -81,7 +82,8 @@ function add(server){
                         layout: 'index',
                         title: 'Main Page',
                         posts: vals,
-                        loggedprofilepicture: data.loggedIn.profilepicture
+                        loggedprofilepicture: data.loggedIn.profilepicture,
+                        loggedusername: data.loggedIn.username
                     });
                 }
                 
@@ -92,50 +94,53 @@ function add(server){
         const searchQuery = req.query.filter;
         postModel.find({}).lean().then(function(posts){
             console.log('Loading posts from database');
-            let vals = new Array();
-                for(const post of posts){
-                    const searchQuery = { user: post.username}
-                userModel.findOne(searchQuery).lean().then(function(account){
-                    vals.push({
-                        _id : post._id.toString(),
-                        username: post.username,
-                        date: post.date,
-                        title: post.title,
-                        genre: post.genre,
-                        description: post.description,
-                        image: post.image,
-                        comments: post.comments,
-                        like: post.like.length,
-                        dislike: post.dislike.length,
-                        profilepicture: account.profilepicture
-                    });
-                });
-                }
-                
+            const promises = posts.map(post => {
+                const searchQuery = { user: post.username};
+                return userModel.findOne(searchQuery).lean();
+            });
+    
+            Promise.all(promises).then(accounts => {
+                const vals = posts.map((post, index) => ({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length,
+                    profilepicture: accounts[index].profilepicture
+                }));
+    
                 if(searchQuery === 'Mosted Liked'){
                     vals.sort((a, b) => b.like - a.like);
-                }else if(searchQuery === 'Most Discussed'){
+                } else if(searchQuery === 'Most Discussed'){
                     vals.sort((a,b) => b.comments.length - a.comments.length);
-                }else if(searchQuery === 'Top Posts'){
+                } else if(searchQuery === 'Top Posts'){
                     vals.sort((a, b) => (b.comments.length + b.like) - b.dislike - ((a.comments.length + a.like) - a.dislike));
-                }else{
+                } else {
                     vals.reverse();
                 }
+    
                 if(data.loggedIn.username === ''){
                     resp.render('unregMain', {
                         layout: 'index',
                         title: 'Unregistered Page',
                         posts: vals
                     });
-                }else{
+                } else {
                     resp.render('main', {
                         layout: 'index',
                         title: 'Main Page',
                         posts: vals,
-                        loggedprofilepicture: data.loggedIn.profilepicture
+                        loggedprofilepicture: data.loggedIn.profilepicture,
+                        loggedusername: data.loggedIn.username
                     });
                 }
             });
+        });
     });
 }
 
