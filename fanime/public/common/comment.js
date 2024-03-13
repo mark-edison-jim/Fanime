@@ -6,7 +6,6 @@ $(document).ready(function(){
             comment: $("#comment-data").val(),
             id: postId
         };
-        
         $.post('create_comment', commentData,
         function(data, status){
           if(status === 'success'){

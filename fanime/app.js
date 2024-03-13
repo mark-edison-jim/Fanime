@@ -73,7 +73,10 @@ server.get('/', function(req, resp){
                 });
             });
         }
-
+        //get all the post titles
+        //foreach them
+        //check if .includes(search query from search bar) wowowowoowow
+        //make a server.post('/search', function...);
         resp.render('unregMain', {
             layout: 'index',
             title: 'Unregistered Page',
@@ -129,7 +132,7 @@ server.post('/register', function(req, resp){
       if(user != undefined && user._id != null){
           resp.render('unregMain',{
               layout: 'index',
-              title: 'Main Page',
+              title: 'Unregistered Page',
               posts: data.posts,
               msg: 'Email already linked with an Account...'
           });
@@ -150,7 +153,12 @@ server.post('/login', function(req, resp){
             setLogIn(user.user, req.body.email, user.profilepicture);
             resp.redirect('/main');
         }else{
-            resp.redirect('/');
+            resp.render('unregMain',{
+                layout: 'index',
+                title: 'Unregistered Page',
+                posts: data.posts,
+                msg: 'Wrong Credentials, User does not exist...'
+            });
         }
       });
 });
@@ -160,7 +168,7 @@ server.get('/main', function(req, resp){
         console.log('Loading posts from database');
         let vals = new Array();
             for(const post of posts){
-                const searchQuery = { user: post.username}
+                const searchQuery = {user: post.username}
                 userModel.findOne(searchQuery).lean().then(function(account){
                 vals.push({
                     _id : post._id.toString(),
@@ -186,6 +194,34 @@ server.get('/main', function(req, resp){
                 posts: vals,
                 loggedprofilepicture: data.loggedIn.profilepicture,
                 loggedusername: data.loggedIn.username
+            });
+        });
+});
+
+server.post('/search', function(req, resp){
+    postModel.find({ "title": { "$regex": req.body.search, "$options": "i" }} ).lean().then(function(posts){
+        console.log('Loading posts from database');
+        console.log(posts);
+        let vals = new Array();
+            for(const post of posts){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length
+                });
+            }
+
+            resp.render('main', {
+                layout: 'index',
+                title: 'Main Page',
+                posts: vals
             });
         });
 });
@@ -439,8 +475,7 @@ server.get('/postfilter', function(req, resp){
                     posts: vals
                 });
             }
-            
-            
+      
         });
 });
 
