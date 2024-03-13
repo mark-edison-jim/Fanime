@@ -48,7 +48,12 @@ $(document).ready(function(){
         
     $(".topic").click(function() {
         var topic = $(this).find("strong").text();
-        window.location.href = '/filter?topic=' + topic;
+        window.location.href = '/genrefilter?topic=' + topic;
+    });
+
+    $(".filter-button").click(function() {
+        var filter = $(this).find("h3").text();
+        window.location.href = '/postfilter?filter=' + filter;
     });
 
 });//doc
