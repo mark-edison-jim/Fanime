@@ -7,8 +7,8 @@
                     <i class="fa fa-envelope"></i>
                 </div>
                 <div class='inputbox'>
-                    <input type = "password" placeholder='Password' name='pass' id='pass' required/>
-                    <i class="fa fa-eye"></i>
+                    <input type = "password" placeholder='Password' name='pass' id='logpass' required/>
+                    <i id="logPassEye" class="fa fa-eye"></i>
                 </div>
                 <div class='remember'>
                     <label><input type="checkbox" />Remember me</label>
@@ -34,14 +34,14 @@
                     <i class="fa fa-envelope"></i>
                 </div>
                 <div class='inputbox'>
-                    <input type = "password" placeholder='Password' id='pass' name="pass"/>
+                    <input type = "password" placeholder='Password' id='regpass' name="pass"/>
                     <!-- "viewPass ? <FaRegEyeSlash onClick="() => setViewPass(!viewPass)" class='icon'/> : <FaRegEye onClick="() => setViewPass(!viewPass)" class='icon'/>" -->
-                    <i class="fa fa-eye"></i>
+                    <i id="regPassEye" class="fa fa-eye"></i>
                 </div>
                 <div class='inputbox'>
                     <input type = "password" placeholder='Confirm Password' id='confirmpass' name="confirmpass"/>
                     <!-- "viewConPass ? <FaRegEyeSlash onClick="() => setViewConPass(!viewConPass)" class='icon'/> : <FaRegEye onClick="() => setViewConPass(!viewConPass)" class='icon'/>" -->
-                    <i class="fa fa-eye"></i>
+                    <i id="regConPassEye" class="fa fa-eye"></i>
                 </div>
         
                 <button class="logregbutton" id='reg-button' type='submit'>Register</button>
