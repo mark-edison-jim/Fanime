@@ -292,7 +292,8 @@ height: 80px;
 
 /*for edit post*/
 .filter-user-post{
-    height: 15%;
+    height: 20%;
+    min-height: 20%;
     width: 90%;
     margin: 2% 5%;
     background-color: rgb(50, 54, 95);

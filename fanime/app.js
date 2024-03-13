@@ -168,7 +168,7 @@ server.get('/profile', function(req, resp){
         let userBio = userData['user-bio'] || 'Default bio';
         let favAnime = userData['fav-anime'] || [];
         let favManga = userData['fav-manga'] || [];
-            
+        let posts = userData['posts'];
             resp.render('profile', {
                 layout: 'profileIndex',
                 title: 'Profile Page',
@@ -177,33 +177,46 @@ server.get('/profile', function(req, resp){
                 banner: profileBanner,
                 bio: userBio,
                 favAnime: favAnime,
-                favManga: favManga
-                
+                favManga: favManga,
+                posts: posts
             });
 });
 
 //will fix this to get desired page
 server.get('/post/:id/', function(req, resp){
+    let userData = data.users[data.loggedIn.username];  
+    let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
     resp.render('post', {
         layout: 'index',
         title: 'Post Page',
-        post: data.posts[req.params.id]
+        post: data.posts[req.params.id],
+        username: data.loggedIn.username,
+        pfp: profilePic
     });
     
 });
 
 server.get('/editpost', function(req, resp){
+    let userData = data.users[data.loggedIn.username];  
+    let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
     resp.render('editpost', {
         layout: 'index',
-        title: 'Edit Post Page'
+        title: 'Edit Post Page',
+        username: data.loggedIn.username,
+        pfp: profilePic
+
     });
     
 });
 
 server.get('/editcomment', function(req, resp){
+    let userData = data.users[data.loggedIn.username];  
+    let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
     resp.render('editcomment', {
         layout: 'index',
-        title: 'Edit Comment Page'
+        title: 'Edit Comment Page',
+        username: data.loggedIn.username,
+        pfp: profilePic
     });
     
 });
