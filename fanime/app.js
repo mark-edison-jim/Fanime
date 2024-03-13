@@ -179,7 +179,8 @@ server.get('/main', function(req, resp){
                 layout: 'index',
                 title: 'Unregistered Page',
                 posts: vals,
-                loggedprofilepicture: data.loggedIn.profilepicture
+                loggedprofilepicture: data.loggedIn.profilepicture,
+                loggedusername: data.loggedIn.username
             });
         });
 });
