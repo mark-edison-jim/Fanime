@@ -7,7 +7,8 @@ mongoose.connect('mongodb://localhost:27017/fanimeDB');
 const userSchema = new mongoose.Schema({
     user: { type: String },
     email: { type: String},
-    pass: { type: String }
+    pass: { type: String },
+    profilepicture: { type: String }
   },{ versionKey: false });
 
 const postSchema = new mongoose.Schema({
@@ -51,25 +52,105 @@ server.use(express.static('public'));
 server.use(express.static('Assets'));
 
 server.get('/', function(req, resp){
-    postModel.find({}).then(function(posts){
+    postModel.find({}).lean().then(function(posts){
     console.log('Loading posts from database');
     let vals = new Array();
         for(const post of posts){
-            vals.push({
-                _id : post._id.toString(),
-                username: post.username,
-                date: post.date,
-                title: post.title,
-                genre: post.genre,
-                description: post.description,
-                image: post.image
+            const searchQuery = { user: post.username}
+            userModel.findOne(searchQuery).lean().then(function(account){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length,
+                    profilepicture: account.profilepicture
+                });
             });
         }
-
+        //get all the post titles
+        //foreach them
+        //check if .includes(search query from search bar) wowowowoowow
+        //make a server.post('/search', function...);
         resp.render('unregMain', {
             layout: 'index',
             title: 'Unregistered Page',
             posts: vals
+        });
+    });
+});
+
+server.get('/loginFailed', function(req, resp){
+    postModel.find({}).lean().then(function(posts){
+    console.log('Loading posts from database');
+    let vals = new Array();
+        for(const post of posts){
+            const searchQuery = { user: post.username}
+            userModel.findOne(searchQuery).lean().then(function(account){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length,
+                    profilepicture: account.profilepicture
+                });
+            });
+        }
+        //get all the post titles
+        //foreach them
+        //check if .includes(search query from search bar) wowowowoowow
+        //make a server.post('/search', function...);
+        resp.render('unregMain', {
+            layout: 'index',
+            title: 'Unregistered Page',
+            posts: vals,
+            msg: 'Wrong Credentials, User does not exist...'
+        });
+    });
+});
+
+server.get('/registerFailed', function(req, resp){
+    postModel.find({}).lean().then(function(posts){
+    console.log('Loading posts from database');
+    let vals = new Array();
+        for(const post of posts){
+            const searchQuery = { user: post.username}
+            userModel.findOne(searchQuery).lean().then(function(account){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length,
+                    profilepicture: account.profilepicture
+                });
+            });
+        }
+        //get all the post titles
+        //foreach them
+        //check if .includes(search query from search bar) wowowowoowow
+        //make a server.post('/search', function...);
+        resp.render('unregMain', {
+            layout: 'index',
+            title: 'Unregistered Page',
+            posts: vals,
+            msg: 'Email already linked with an Account...'
         });
     });
 });
@@ -102,26 +183,30 @@ server.get('/', function(req, resp){
 //     return true;
 // }
 
-function setLogIn(username, email){
+function setLogIn(username, email, profile){
     data.loggedIn.username = username;
     data.loggedIn.email = email;
+    data.loggedIn.profilepicture = profile;
 }
 
+//will fix later loading data json posts
 server.post('/register', function(req, resp){
     const userInstance = userModel({
         user: req.body.user,
         email: req.body.email,
-        pass: req.body.pass
+        pass: req.body.pass,
+        profilepicture: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
     });
     const searchQuery = { email : req.body.email };
     userModel.findOne(searchQuery).then(function(user){
       if(user != undefined && user._id != null){
-          resp.render('unregMain',{
-              layout: 'index',
-              title: 'Main Page',
-              posts: data.posts,
-              msg: 'Email already linked with an Account...'
-          });
+        resp.redirect('/registerFailed');
+        //   resp.render('unregMain',{
+        //       layout: 'index',
+        //       title: 'Unregistered Page',
+        //       posts: data.posts,
+        //       msg: 'Email already linked with an Account...'
+        //   });
       }else{
         setLogIn(req.body.user, req.body.email);
           userInstance.save().then(function(user) {
@@ -136,29 +221,80 @@ server.post('/login', function(req, resp){
       const searchQuery = {email : req.body.email, pass: req.body.pass};
       userModel.findOne(searchQuery).then(function(user){
         if(user != undefined && user._id != null){
-            setLogIn(user.user, req.body.email);
+            setLogIn(user.user, req.body.email, user.profilepicture);
             resp.redirect('/main');
         }else{
-            resp.render('unregMain',{
-                layout: 'index',
-                title: 'Main Page',
-                posts: data.posts,
-                msg: 'Wrong Credentials, User does not exist...'
-            });
+            resp.redirect('/loginFailed');
+            // resp.render('unregMain',{
+            //     layout: 'index',
+            //     title: 'Unregistered Page',
+            //     posts: data.posts,
+            //     msg: 'Wrong Credentials, User does not exist...'
+            // });
         }
       });
 });
 
 server.get('/main', function(req, resp){
-    let userData = data.users[data.loggedIn.username];  
-    let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
-    resp.render('main',{
-        layout: 'index',
-        title: 'Main Page',
-        username: data.loggedIn.username,
-        posts: data.posts,
-        pfp: profilePic
-     });
+    postModel.find({}).lean().then(function(posts){
+        console.log('Loading posts from database');
+        let vals = new Array();
+            for(const post of posts){
+                const searchQuery = {user: post.username}
+                userModel.findOne(searchQuery).lean().then(function(account){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length,
+                    profilepicture: account.profilepicture
+                });
+                })
+                
+            }
+            console.log(data.loggedIn.profilepicture);
+            resp.render('main', {
+                layout: 'index',
+                title: 'Unregistered Page',
+                posts: vals,
+                loggedprofilepicture: data.loggedIn.profilepicture,
+                loggedusername: data.loggedIn.username
+            });
+        });
+});
+
+server.post('/search', function(req, resp){
+    postModel.find({ "title": { "$regex": req.body.search, "$options": "i" }} ).lean().then(function(posts){
+        console.log('Loading posts from database');
+        console.log(posts);
+        let vals = new Array();
+            for(const post of posts){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length
+                });
+            }
+
+            resp.render('main', {
+                layout: 'index',
+                title: 'Main Page',
+                posts: vals
+            });
+        });
 });
 
 server.get('/profile', function(req, resp){
@@ -182,18 +318,29 @@ server.get('/profile', function(req, resp){
             });
 });
 
-//will fix this to get desired page
-server.get('/post/:id/', function(req, resp){
-    let userData = data.users[data.loggedIn.username];  
-    let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
-    resp.render('post', {
-        layout: 'index',
-        title: 'Post Page',
-        post: data.posts[req.params.id],
-        username: data.loggedIn.username,
-        pfp: profilePic
-    });
-    
+
+server.get('/post', function(req, resp){
+    const searchQuery = req.query.post_id;
+    postModel.findById(searchQuery).lean().then(function(post){
+        const post_data = {
+            _id : post._id.toString(),
+            username: post.username,
+            date: post.date,
+            title: post.title,
+            genre: post.genre,
+            description: post.description,
+            image: post.image,
+            comments: post.comments,
+            like: post.like.length,
+            dislike: post.dislike.length
+        };
+        resp.render('post', {
+            layout: 'index',
+            title: 'Post Page',
+            post: post_data,
+            loggedprofilepicture: data.loggedIn.profilepicture
+        });
+      })
 });
 
 server.get('/editpost', function(req, resp){
@@ -221,7 +368,6 @@ server.get('/editcomment', function(req, resp){
     
 });
 
-//will edit this to add post into the database
 server.post('/create_post', function(req, resp){
     const { title, date, genre, description, image} = req.body;
 
@@ -231,7 +377,9 @@ server.post('/create_post', function(req, resp){
         date: date,
         genre: genre,
         description: description,
-        image: image
+        image: image,
+        like: 0,
+        dislike: 0
     };
 
     const postInstance = postModel({
@@ -251,15 +399,178 @@ server.post('/create_post', function(req, resp){
     resp.send(responseData);
 });
 
-
 server.post('/create_comment', function(req, resp){
-    const {text} = req.body;
-    console.log("hi");
+    const comment = req.body.comment;
+    const postId = req.body.id
+
+    console.log(postId);
     const responseData = {
-        comment: text
+        user: data.loggedIn.username,
+        comment: comment
     };
-    console.log(responseData);
-    resp.send(responseData);
+
+    const searchQuery = postId;
+
+    postModel.findById(searchQuery).then(function(post){
+        
+        const commentData = {
+            user: data.loggedIn.username,
+            text: comment
+        }
+        post.comments.push(commentData);
+
+        post.save().then(function(instance) {
+            console.log('Comment Added');
+            console.log(responseData);
+            resp.send(responseData);
+        }).catch(errorFn);
+    });
+    
+
+});
+
+server.post('/like', function(req, resp){
+    const {postId} = req.body;
+    console.log(data.loggedIn);
+    if(data.loggedIn.username === ''){
+        console.log("not logged in, cant like");
+    }else{
+        const searchPost = {_id: postId};
+        postModel.findOne(searchPost).then(function(post){
+            const searchUser = {user: data.loggedIn.username};
+            console.log("likes: ",post.like);
+            const userLiked = post.like.some(like => like.user === searchUser.user);
+            if (userLiked) {
+                console.log("Post was already liked by this user");
+                return; // will do a remove user from array if pressed again
+            }
+            post.like.push(searchUser);
+            post.save().then(function(savedPost) {
+                console.log('Post liked by user:', searchUser);
+                const responseData = {
+                    likes: savedPost.like.length,
+                    post_id: postId
+                };
+                console.log("Response data:",responseData);
+                resp.send(responseData);
+            });      
+        });
+    }
+});
+
+server.post('/dislike', function(req, resp){
+    const {postId} = req.body;
+    console.log(data.loggedIn);
+    if(data.loggedIn.username === ''){
+        console.log("not logged in, cant dislike");
+    }else{
+        const searchPost = {_id: postId};
+        postModel.findOne(searchPost).then(function(post){
+            const searchUser = {user: data.loggedIn.username};
+            console.log("dislikes: ", post.dislike);
+            const userDisliked = post.dislike.some(dislike => dislike.user === searchUser.user);
+            if (userDisliked) {
+                console.log("Post was already liked by this user");
+                return; // will do a remove user from array if pressed again
+            }
+            if (!post.dislike) {
+                post.dislike = []; // If not, initialize it
+            }
+            post.dislike.push(searchUser);
+            post.save().then(function(savedPost) {
+                console.log('Post disliked by user:', searchUser);
+                const responseData = {
+                    dislikes: savedPost.dislike.length,
+                    post_id: postId
+                };
+                resp.send(responseData);
+            });      
+        });
+    }
+});
+
+server.get('/genrefilter', function(req, resp){
+    const searchQuery = {genre: req.query.topic};
+    console.log(searchQuery);
+    postModel.find(searchQuery).lean().then(function(posts){
+        console.log('Loading posts from database');
+        let vals = new Array();
+            for(const post of posts){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length
+                });
+            }
+
+            if(data.loggedIn.username === ''){
+                resp.render('unregMain', {
+                layout: 'index',
+                title: 'Unregistered Page',
+                posts: vals
+                });
+            }else{
+                resp.render('main', {
+                    layout: 'index',
+                    title: 'Main Page',
+                    posts: vals
+                    });
+            }
+            
+        });
+});
+
+server.get('/postfilter', function(req, resp){
+    const searchQuery = req.query.filter;
+    postModel.find({}).lean().then(function(posts){
+        console.log('Loading posts from database');
+        let vals = new Array();
+            for(const post of posts){
+                vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length
+                });
+            }
+            
+            if(searchQuery === 'Mosted Liked'){
+                vals.sort((a, b) => b.like - a.like);
+            }else if(searchQuery === 'Most Discussed'){
+                vals.sort((a,b) => b.comments.length - a.comments.length);
+            }else if(searchQuery === 'Top Posts'){
+                vals.sort((a, b) => (b.comments.length + b.like) - b.dislike - ((a.comments.length + a.like) - a.dislike));
+            }else{
+                vals.reverse();
+            }
+            if(data.loggedIn.username === ''){
+                resp.render('unregMain', {
+                    layout: 'index',
+                    title: 'Unregistered Page',
+                    posts: vals
+                });
+            }else{
+                resp.render('main', {
+                    layout: 'index',
+                    title: 'Unregistered Page',
+                    posts: vals
+                });
+            }
+      
+        });
 });
 
 function finalClose(){
@@ -272,7 +583,7 @@ process.on('SIGTERM',finalClose);  //general termination signal
 process.on('SIGINT',finalClose);   //catches when ctrl + c is used
 process.on('SIGQUIT', finalClose); //catches other termination commands
 
-const port = process.env.PORT | 9090;
+const port = process.env.PORT | 3000;
 server.listen(port, function(){
     console.log('Listening at port '+port);
 });
