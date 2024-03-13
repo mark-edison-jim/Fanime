@@ -108,17 +108,6 @@ function add(server){
         const description = req.body.postDesc;
         const image = "https://cdn.pixabay.com/photo/2023/12/07/11/11/girl-8435340_1280.png";
 
-        const responseData = {
-            title: title,
-            username: data.loggedIn.username,
-            date: date,
-            genre: genre,
-            description: description,
-            image: image,
-            like: 0,
-            dislike: 0
-        };
-
         const postInstance = postModel({
             title: title,
             username: data.loggedIn.username,
