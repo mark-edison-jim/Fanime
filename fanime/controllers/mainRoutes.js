@@ -86,16 +86,19 @@ function add(server){
             const postQuery = {username: account.user};
             postModel.find(postQuery).lean().then(function(posts){
                 console.log('Loading User data');
-                console.log(posts);
                 let userpost = new Array();
-                let usercomment = new Array();
+                let usercomments = new Array();
                 for(const post of posts){
-                    postModel.find(searchQuery).lean().then(function(posts){
-                        usercomment.push({
-                            _id : post._id.toString(),
-                            title: post.title
-                        })
+                    let usercomment = new Array();
+                    post.comments.forEach(function(comment) {
+                        if(comment.user === data.loggedIn.username) {
+                            usercomment.push({
+                                _id : post._id.toString(),
+                                title: post.title
+                            })
+                        }
                     });
+                    usercomments = usercomments.concat(usercomment);
                     userpost.push({
                         _id : post._id.toString(),
                         title: post.title
@@ -109,14 +112,15 @@ function add(server){
                     favAnime: account.favAnime,
                     favManga: account.favManga,
                     posts: userpost,
-                    comments: usercomment
+                    comments: usercomments,
+                    loggedprofilepicture: account.profilepicture
                 }
                 resp.render('profile', {
                     layout: 'profileIndex',
                     title: 'Profile Page',
                     account: userdata
                 });
-            })
+            });
         });
 
     });
