@@ -306,6 +306,7 @@ server.get('/profile', function(req, resp){
     });
 });
 
+//needs profile pics
 server.get('/post', function(req, resp){
     const searchQuery = req.query.post_id;
     postModel.findById(searchQuery).lean().then(function(post){
