@@ -1,9 +1,8 @@
 $(document).ready(function(){
     $("#submit-comment").click(function(){
-        var commentData = {
+        let commentData = {
             comment: $("#comment-data").val()
         };
-        
         $.post('create_comment', commentData,
         function(data, status){
           if(status === 'success'){
