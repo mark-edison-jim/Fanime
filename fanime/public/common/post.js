@@ -55,7 +55,13 @@ $(document).ready(function(){
     // });//btn
 
     $(".post-header").click(function() {
-        var postId = $(this).data("postid"); // Accessing data-postId attribute using jQuery
+        var postId = $(this).data("postid");
+        window.location.href = '/post?post_id=' + postId;
+    });
+
+    $(".user-post-title").click(function() {
+        var postId = $(this).data("postid");
+        console.log(postId);
         window.location.href = '/post?post_id=' + postId;
     });
         

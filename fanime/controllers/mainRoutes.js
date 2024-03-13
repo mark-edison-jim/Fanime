@@ -79,26 +79,47 @@ function add(server){
             });
     });
 
-    // server.get('/profile', function(req, resp){
-    //         let userData = data.users[data.loggedIn.username];   
-    //         let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
-    //         let profileBanner = userData['profile-banner'] || 'https://wikitravel.org/upload/shared//6/6a/Default_Banner.jpg';
-    //         let userBio = userData['user-bio'] || 'Default bio';
-    //         let favAnime = userData['fav-anime'] || [];
-    //         let favManga = userData['fav-manga'] || [];
-    //         let posts = userData['posts'];
-    //             resp.render('profile', {
-    //                 layout: 'profileIndex',
-    //                 title: 'Profile Page',
-    //                 username: data.loggedIn.username,
-    //                 pfp: profilePic,
-    //                 banner: profileBanner,
-    //                 bio: userBio,
-    //                 favAnime: favAnime,
-    //                 favManga: favManga,
-    //                 posts: posts
-    //             });
-    // });
+    server.get('/profile', function(req, resp){
+        const searchQuery = {user : data.loggedIn.username};
+
+        userModel.findOne(searchQuery).lean().then(function(account){
+            const postQuery = {username: account.user};
+            postModel.find(postQuery).lean().then(function(posts){
+                console.log('Loading User data');
+                console.log(posts);
+                let userpost = new Array();
+                let usercomment = new Array();
+                for(const post of posts){
+                    postModel.find(searchQuery).lean().then(function(posts){
+                        usercomment.push({
+                            _id : post._id.toString(),
+                            title: post.title
+                        })
+                    });
+                    userpost.push({
+                        _id : post._id.toString(),
+                        title: post.title
+                    });
+                }
+                const userdata = {
+                    username: account.user,
+                    pfp: account.profilepicture,
+                    banner: account.profilebanner,
+                    bio: account.userbio,
+                    favAnime: account.favAnime,
+                    favManga: account.favManga,
+                    posts: userpost,
+                    comments: usercomment
+                }
+                resp.render('profile', {
+                    layout: 'profileIndex',
+                    title: 'Profile Page',
+                    account: userdata
+                });
+            })
+        });
+
+    });
 
     server.post('/newPost', function(req,resp){
         // const { title, date, genre, description, image} = req.body;
@@ -145,6 +166,7 @@ function add(server){
                         layout: 'index',
                         title: 'Post Page',
                         post: post_data,
+                        loggedusername: data.loggedIn.username,
                         loggedprofilepicture: data.loggedIn.profilepicture
                     });
                 })
