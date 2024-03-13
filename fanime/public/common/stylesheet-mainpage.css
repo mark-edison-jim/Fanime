@@ -294,9 +294,15 @@
             }
             .topic{
                 display: flex;
+                width: 90%;
                 align-items: center; /* y-axis */ 
                 margin-top: 10px;
                 margin-left: 10px;
+                transition: 0.3s all;
+            }
+            .topic:hover{
+                background-color: #4652ff;
+                border-radius: 10px;
             }
             .topic > img{
                 width: 50px;
@@ -465,9 +471,6 @@
         
         }
 
-
-
-        
         /*Content of post*/
         .post{
             background-color: #2649a9;
@@ -484,7 +487,7 @@
             border-width: 2px solid;
         }
         /*Profile pic name etc*/
-        .post-header{
+        .post-header, .post-head{
             width: 100%;
             height: 40px;
             display: flex;

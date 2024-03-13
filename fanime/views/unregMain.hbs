@@ -9,12 +9,13 @@
             <div class="post-area">
                 {{#each posts}}
                 <div class="post">
-                    <div class="post-header">
+                    <div class="post-head">
                         <div class="post-title">
                             <h2>{{title}}</h2>
                         </div>
+                            <h4>{{genre}}</h4>
                         <div class="post-profile">
-                            <img src={{post-profile}}>
+                            <img src={{profilepicture}}>
                         </div>
                         <h4>{{username}}</h4>
                         <h6>{{date}}</h6>
@@ -23,19 +24,19 @@
                     <div class="post-img">
                         <img src={{image}}>
                     </div>
-                    <div class="post-action">
-                        <i class="fa fa-thumbs-up" id="like"></i>{{like}}
-                        <i class="fa fa-thumbs-down" id="dislike"></i>{{dislike}}
+                    <div class="post-action"><!--To be tested for like might remove like and dislike if logged out-->
+                        <i class="fa fa-thumbs-up like" data-post-id="{{_id}}">{{like}}</i>
+                        <i class="fa fa-thumbs-down dislike" id="{{_id}}">{{dislike}}</i>
                         <button class="toggle-comment-section">Comments</button>
                     </div>
                     <div id="comment-section" class="comment-section">
                         <div class="comment-container">
-                            {{#each post-comments}}
+                            {{#each comments}}
                             <div class="comment-text">
                                 <div class="comment-user">
-                                    <p>{{commentUser}}</p>
+                                    <p>{{this.user}}</p>
                                 </div>
-                                <p>{{comment}}</p>
+                                <p>{{this.text}}</p>
                             </div>
                         {{/each}}
                         </div>

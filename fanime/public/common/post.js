@@ -11,12 +11,13 @@ $(document).ready(function(){
         console.log("hi");
         $.post('create_post', postData,
         function(data, status){
-          if(status === 'success'){
+          if(status === 'success'){//change post header to something else so it wont loop
             let post_content = `<div class="post">
                 <div class="post-header">
                     <div class="post-title">
                         <h2>${data.title}</h2>
                     </div>
+                    <h4>${data.genre}</h4>
                     <div class="post-profile">
                         <img src={{post-profile}}>
                     </div>
@@ -25,18 +26,12 @@ $(document).ready(function(){
                 </div>
                 <div class="post-body">${data.description}</div>
                 <div class="post-img">
-                    <img src=${data.file}>
+                    <img src=${data.image}>
                 </div>
                 <div class="post-action">
-                    <i class="fa fa-thumbs-up">0</i>
-                    <i class="fa fa-thumbs-down">0</i>
+                    <i class="fa fa-thumbs-up like" data-post-id="${data._id}">${data.like}</i>
+                    <i class="fa fa-thumbs-down dislike" id="${data._id}">${data.dislike}</i>
                     <button class="toggle-comment-section">Comments</button>
-                </div>
-                <div class="comment">
-                    <form class="comment-form">
-                        <textarea placeholder="Write your comment here..."></textarea>
-                        <button type="submit"><h4>Comment</h4></button>
-                    </form>
                 </div>
                 <div class="comment-section" id="comment-section">
                 </div>
@@ -45,4 +40,20 @@ $(document).ready(function(){
           }//if
         });//fn+post
     });//btn
+
+    $(".post-header").click(function() {
+        var postId = $(this).data("postid"); // Accessing data-postId attribute using jQuery
+        window.location.href = '/post?post_id=' + postId;
+    });
+        
+    $(".topic").click(function() {
+        var topic = $(this).find("strong").text();
+        window.location.href = '/genrefilter?topic=' + topic;
+    });
+
+    $(".filter-button").click(function() {
+        var filter = $(this).find("h3").text();
+        window.location.href = '/postfilter?filter=' + filter;
+    });
+
 });//doc
