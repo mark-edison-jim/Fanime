@@ -9,7 +9,7 @@
             <div class="post-area">
                 {{#each posts}}
                 <div class="post">
-                    <div class="post-header">
+                    <div class="post-head">
                         <div class="post-title">
                             <h2>{{title}}</h2>
                         </div>
@@ -31,12 +31,12 @@
                     </div>
                     <div id="comment-section" class="comment-section">
                         <div class="comment-container">
-                            {{#each post-comments}}
+                            {{#each comments}}
                             <div class="comment-text">
                                 <div class="comment-user">
-                                    <p>{{commentUser}}</p>
+                                    <p>{{this.user}}</p>
                                 </div>
-                                <p>{{comment}}</p>
+                                <p>{{this.text}}</p>
                             </div>
                         {{/each}}
                         </div>

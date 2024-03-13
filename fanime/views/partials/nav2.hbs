@@ -7,18 +7,18 @@
         </div>
     </a>
     <div class="website-search-bar">
-        <form>
-            <input type="text" id="search-field" placeholder="Search Fanime..."/>
+        <form action="search" method="post">
+            <input type="text" name="search" id="search-field" placeholder="Search Fanime..."/>
             <input type="submit" id="search-button" value="Search" />
         </form>
     </div>
     <div class="website-user-profile" id="webprof">
-        <img src="https://i.pinimg.com/564x/ba/a3/dd/baa3ddd24a354d10df6d795f012a3370.jpg" id="profpic" onclick="toggleDropdown()"/>
+        <img src="{{loggedprofilepicture}}" id="profpic" onclick="toggleDropdown()"/>
         <div class="dropdown-wrap" id="drop">
             <div class="dropdown">
                 <div class="userdd">
                     <img src="https://cdn3.iconfinder.com/data/icons/accounting-1/80/Account-22-512.png">
-                    <h2>{{username}}</h2>
+                    <h2>{{loggedusername}}</h2>
                 </div>
                 <div class="linksdd">
                     <ul id="d_links">

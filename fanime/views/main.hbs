@@ -40,13 +40,13 @@
                 </div>
                 {{#each posts}}
                 <div class="post">
-                    <div class="post-header" onclick="window.location.href = '/post/{{_id}}';">
+                    <div class="post-header" data-postId="{{_id}}">
                         <div class="post-title">
                             <h2>{{title}}</h2>
                         </div>
                             <h4>{{genre}}</h4>
                         <div class="post-profile">
-                            <img src={{post-profile}}>
+                            <img src="{{profilepicture}}">
                         </div>
                         <h4>{{username}}</h4>
                         <h6>{{date}}</h6>
@@ -62,12 +62,12 @@
                     </div>
                     <div id="comment-section"  class="comment-section">
                         <div class="comment-container">
-                            {{#each post-comments}}
+                            {{#each comments}}
                             <div class="comment-text">
                                 <div class="comment-user">
-                                    <p>{{commentUser}}</p>
+                                    <p>{{user}}</p>
                                 </div>
-                                <p>{{comment}}</p>
+                                <p>{{text}}</p>
 
                             </div>
                         {{/each}}
