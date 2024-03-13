@@ -338,7 +338,8 @@
                 width: 100%;
                 height: 150px;
                 object-fit: cover;
-                object-position: 0px -180px;
+                object-position: 0px -130px;
+          
             }
     
            /*For margin and entire body of posts*/

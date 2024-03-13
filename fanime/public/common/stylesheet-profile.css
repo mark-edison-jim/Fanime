@@ -109,7 +109,7 @@ body{
 .favs-body {
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content:space-evenly;
     margin-top: 30px;
     align-items:baseline;
     width: 100%;

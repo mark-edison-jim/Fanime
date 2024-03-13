@@ -150,21 +150,36 @@ server.post('/login', function(req, resp){
 });
 
 server.get('/main', function(req, resp){
+    let userData = data.users[data.loggedIn.username];  
+    let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
     resp.render('main',{
         layout: 'index',
         title: 'Main Page',
         username: data.loggedIn.username,
-        posts: data.posts
+        posts: data.posts,
+        pfp: profilePic
      });
 });
 
 server.get('/profile', function(req, resp){
-    resp.render('profile', {
-        layout: 'profileIndex',
-        title: 'Profile Page',
-        username: data.loggedIn.username,
-        user: data.users.person1
-    });
+        let userData = data.users[data.loggedIn.username];   
+        let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
+        let profileBanner = userData['profile-banner'] || 'https://wikitravel.org/upload/shared//6/6a/Default_Banner.jpg';
+        let userBio = userData['user-bio'] || 'Default bio';
+        let favAnime = userData['fav-anime'] || [];
+        let favManga = userData['fav-manga'] || [];
+            
+            resp.render('profile', {
+                layout: 'profileIndex',
+                title: 'Profile Page',
+                username: data.loggedIn.username,
+                pfp: profilePic,
+                banner: profileBanner,
+                bio: userBio,
+                favAnime: favAnime,
+                favManga: favManga
+                
+            });
 });
 
 //will fix this to get desired page
