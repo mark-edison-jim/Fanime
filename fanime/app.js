@@ -67,7 +67,10 @@ server.get('/', function(req, resp){
                 dislike: post.dislike.length
             });
         }
-
+        //get all the post titles
+        //foreach them
+        //check if .includes(search query from search bar) wowowowoowow
+        //make a server.post('/search', function...);
         resp.render('unregMain', {
             layout: 'index',
             title: 'Unregistered Page',
@@ -167,7 +170,8 @@ server.get('/main', function(req, resp){
             resp.render('main', {
                 layout: 'index',
                 title: 'Unregistered Page',
-                posts: vals
+                posts: vals,
+                username: data.loggedIn.username
             });
         });
 });
@@ -253,9 +257,8 @@ server.post('/create_post', function(req, resp){
 
 //will edit this to add comments into db
 server.post('/create_comment', function(req, resp){
-    const {comment} = req.body;
+    const comment = req.body.comment;
     console.log("comment ");
-    console.log(comment);
     const responseData = {
         user: data.loggedIn.username,
         comment: comment
