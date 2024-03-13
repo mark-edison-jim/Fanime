@@ -294,9 +294,15 @@
             }
             .topic{
                 display: flex;
+                width: 90%;
                 align-items: center; /* y-axis */ 
                 margin-top: 10px;
                 margin-left: 10px;
+                transition: 0.3s all;
+            }
+            .topic:hover{
+                background-color: #4652ff;
+                border-radius: 10px;
             }
             .topic > img{
                 width: 50px;
