@@ -83,14 +83,16 @@ function add(server){
             user: req.body.user,
             email: req.body.email,
             pass: req.body.pass,
-            profilepicture: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
+            profilepicture: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
+            profilebanner : 'https://wikitravel.org/upload/shared//6/6a/Default_Banner.jpg',
+            userbio : 'Feel free to write your bio here!'
         });
         const searchQuery = { email : req.body.email };
         userModel.findOne(searchQuery).then(function(user){
         if(user != undefined && user._id != null){
             resp.redirect('/registerFailed');
         }else{
-            setLogIn(req.body.user, req.body.email);
+            setLogIn(req.body.user, req.body.email, userInstance.profilepicture);
             userInstance.save().then(function(user) {
                 console.log('User created');
                 resp.redirect('/main');
