@@ -79,31 +79,57 @@ function add(server){
             });
     });
 
-    server.get('/profile', function(req, resp){
-        const searchQuery = {user : data.loggedIn.username};
-
-        userModel.findOne(searchQuery).lean().then(function(account){
-            const postQuery = {username: account.user};
-            postModel.find(postQuery).lean().then(function(posts){
-                console.log('Loading User data');
-                let userpost = new Array();
-                let usercomments = new Array();
+    async function findUserPost(postQuery){
+        const posts = await postModel.find(postQuery).lean();
+        let userpost = new Array();
                 for(const post of posts){
-                    let usercomment = new Array();
-                    post.comments.forEach(function(comment) {
-                        if(comment.user === data.loggedIn.username) {
-                            usercomment.push({
-                                _id : post._id.toString(),
-                                title: post.title
-                            })
-                        }
-                    });
-                    usercomments = usercomments.concat(usercomment);
                     userpost.push({
                         _id : post._id.toString(),
                         title: post.title
                     });
                 }
+                console.log("func", userpost);
+                return userpost;
+
+        // postModel.find(postQuery).lean().then(function(posts){//i need to loop through all posts
+        //         console.log('Loading User data');
+        //         let userpost = new Array();
+        //         for(const post of posts){
+        //             userpost.push({
+        //                 _id : post._id.toString(),
+        //                 title: post.title
+        //             });
+        //         }
+        //         console.log("func", userpost);
+        //         return userpost;
+        //     });
+    }
+
+    server.get('/profile', function(req, resp){
+        const searchQuery = {user : data.loggedIn.username};
+
+        userModel.findOne(searchQuery).lean().then(function(account){
+            postModel.find({}).lean().then(function(posts){
+                console.log(posts)
+                const commentArr = new Array();
+                for(let i=0; i<posts.length; i++){
+                    console.log('post', posts[i])
+                    console.log('comments', posts[i].comments)
+                    for(let j=0; j<posts[i].comments.length; j++){
+                        if(posts[i].comments[j].user === account.user){
+                            commentArr.push({
+                                _id : posts[i]._id.toString(),
+                                title: posts[i].title
+                            })
+                        }
+                    }
+                }
+                const postsArr = new Array();
+                for(let i=0; i<posts.length; i++){
+                    if(posts[i].username === account.user)
+                        postsArr.push(posts[i]);
+                }
+                console.log(commentArr)
                 const userdata = {
                     username: account.user,
                     pfp: account.profilepicture,
@@ -111,20 +137,57 @@ function add(server){
                     bio: account.userbio,
                     favAnime: account.favAnime,
                     favManga: account.favManga,
-                    posts: userpost,
-                    comments: usercomments,
+                    posts: postsArr,
+                    comments: commentArr,
                     loggedprofilepicture: account.profilepicture
-                }
-                resp.render('profile', {
-                    layout: 'profileIndex',
-                    title: 'Profile Page',
-                    account: userdata
-                });
+                }    
+                    resp.render('profile', {
+                        layout: 'profileIndex',
+                        title: 'Profile Page',
+                        account: userdata
+                    });
             });
         });
 
     });
-
+    //let usercomments = new Array();
+    // let userpost = findUserPost(postQuery).then(function(posts){
+    //     let arr = new Array;
+    //     for(const post of posts){
+    //         arr.push({
+    //             _id : post._id.toString(),
+    //             title: post.title
+    //         });
+    //     }
+    //     console.log(arr);
+    //     return arr;
+    // });
+    // console.log("hi");
+    // console.log(userpost);
+    // postModel.find({}).lean().then(function(allpost){
+    //     for(const post of allpost){
+    //         for(const comment of post.comments){
+    //             if(post.comments === account.user){
+    //                 usercomments.push({
+    //                     _id : post._id.toString(),
+    //                     title: post.title
+    //                 });
+    //             }
+    //         }
+    //     }
+        
+    // });
+    // const userdata = {
+    //         username: account.user,
+    //         pfp: account.profilepicture,
+    //         banner: account.profilebanner,
+    //         bio: account.userbio,
+    //         favAnime: account.favAnime,
+    //         favManga: account.favManga,
+    //         posts: userpost,
+    //         comments: usercomments,
+    //         loggedprofilepicture: account.profilepicture
+    //     }
     server.post('/newPost', function(req,resp){
         // const { title, date, genre, description, image} = req.body;
         const title = req.body['post-title'];
