@@ -54,10 +54,15 @@ $(document).ready(function(){
     //     resetPostInputs();
     // });//btn
 
-    $(".post-header").click(function() {
-        var postId = $(this).data("postid");
-        window.location.href = '/post?post_id=' + postId;
+    $(".post").click(function(event) {
+        if (!$(event.target).closest('.post-action').length) {
+            let postId = $(this).data("post-id");
+            window.location.href = '/post?post_id=' + postId;
+        }
     });
+    
+    
+    
 
     $(".user-post-title").click(function() {
         var postId = $(this).data("postid");

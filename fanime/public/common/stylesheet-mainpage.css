@@ -283,26 +283,29 @@
                 flex-direction: column;
                 padding-left: 20px;
                 border-bottom: 1px solid rgba(21, 20, 20, 0.972);
-        
+                box-sizing: border-box;
          
                 height:70%;
             }
-            .topics-segment > p {
-                color: black; 
-                font-size: 17px; 
-                font-family: 'Times New Roman', Times, serif, sans-serif; 
+
+            .topics-segment > h2 {
+                margin-bottom: 2px;
+                margin-top:6px;
             }
             .topic{
                 display: flex;
                 width: 90%;
+                height:9%;
                 align-items: center; /* y-axis */ 
-                margin-top: 10px;
-                margin-left: 10px;
+                margin-top: 2px;
+                padding-left: 10px;
                 transition: 0.3s all;
+
             }
             .topic:hover{
                 background-color: #4652ff;
                 border-radius: 10px;
+                margin:5px;
             }
             .topic > img{
                 width: 50px;
@@ -316,12 +319,21 @@
                 flex-direction: column;
                 padding-left: 20px;       
                 height: 15%;
+                align-content: center;
+                justify-content: space-around;
+            
             }
             .about-tag{
                 display: flex;
                 align-items: center; /* y-axis */ 
                 margin-top: 10px;
                 margin-left: 10px;
+            
+            }
+
+            .about-tag >a{
+                text-decoration: none;
+            
             }
             .about-tag > img{
                 width: 50px;
@@ -472,22 +484,22 @@
         }
 
         /*Content of post*/
-        .post{
+        .post, .noclick-post {
             background-color: #2649a9;
             width: 95.5%;
             margin: 1% 2%;
             height: auto;
             border-radius: 15px;
             flex-direction: column;
-            border: 2px solid transparent;
-            border-bottom-right-radius: 0px;
+            box-shadow: 0 0 0 2px transparent; /* Set initial transparent outline */
         }
-        .post:hover {
-            border-color: white;
-            border-width: 2px solid;
+        
+        .post:hover, .noclick-post:hover{
+            box-shadow: 0 0 0 2px white; /* Change outline color on hover */
         }
+        
         /*Profile pic name etc*/
-        .post-header, .post-head{
+        .post-header{
             width: 100%;
             height: 40px;
             display: flex;
