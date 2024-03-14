@@ -241,25 +241,24 @@ function add(server){
     });
 
     server.get('/editpost', function(req, resp){
-        let userData = data.users[data.loggedIn.username];  
-        let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
-        resp.render('editpost', {
+       resp.render('editpost', {
             layout: 'index',
             title: 'Edit Post Page',
             username: data.loggedIn.username,
-            pfp: profilePic
+            pfp: data.loggedIn.profilePic,
+            loggedusername: data.loggedIn.username,
+            loggedprofilepicture: data.loggedIn.profilepicture
         });
         
     });
 
     server.get('/editcomment', function(req, resp){
-        let userData = data.users[data.loggedIn.username];  
-        let profilePic = userData['profile-pic'] || 'https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg';
+        
         resp.render('editcomment', {
             layout: 'index',
             title: 'Edit Comment Page',
             username: data.loggedIn.username,
-            pfp: profilePic
+            pfp: data.loggedprofilepicture
         });
         
     });
