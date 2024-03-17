@@ -227,7 +227,8 @@ let users = {
 
 let loggedIn = {
     'username' : "",
-    'email' : ""
+    'email' : "",
+    'profilepicture': ""
 }
 
 module.exports.posts = posts;

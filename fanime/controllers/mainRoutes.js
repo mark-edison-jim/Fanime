@@ -1,6 +1,7 @@
 const responder = require('../models/Responder');
 const userModel = responder.userModel;
 const postModel = responder.postModel;
+const upload = responder.upload;
 const data = require('../data');
 
 function errorFn(err){
@@ -105,6 +106,24 @@ function add(server){
         //     });
     }
 
+    function setProfilePic(pfp){
+        data.loggedIn.profilepicture = pfp;
+    }
+
+    server.post('/upload', upload.fields([{ name: 'pfp', maxCount: 1 }, { name: 'profile-banner', maxCount: 8 }]), (req,resp) =>{
+        const searchQuery = { email : data.loggedIn.email};
+         setProfilePic(req.files['pfp'][0].filename);
+        // console.log(req.files['profile-banner'][0].filename)
+        userModel.findOne(searchQuery).then(function(user) {
+            console.log('Update successful');
+            user.profilepicture = req.files['pfp'][0].filename;
+            user.profilebanner = req.files['profile-banner'][0].filename;
+            user.save().then(function (result) {
+                resp.redirect('/profile');
+            }).catch(errorFn);
+        }).catch(errorFn);
+    })
+
     server.get('/profile', function(req, resp){
         const searchQuery = {user : data.loggedIn.username};
 
@@ -140,12 +159,13 @@ function add(server){
                     posts: postsArr,
                     comments: commentArr,
                     loggedprofilepicture: account.profilepicture
-                }    
-                    resp.render('profile', {
-                        layout: 'profileIndex',
-                        title: 'Profile Page',
-                        account: userdata
-                    });
+                } 
+                console.log(account.profilepicture)
+                resp.render('profile', {
+                    layout: 'profileIndex',
+                    title: 'Profile Page',
+                    account: userdata
+                });    
             });
         });
 
@@ -188,14 +208,14 @@ function add(server){
     //         comments: usercomments,
     //         loggedprofilepicture: account.profilepicture
     //     }
-    server.post('/newPost', function(req,resp){
+    server.post('/newPost', upload.single('postimg'), function(req,resp){
         // const { title, date, genre, description, image} = req.body;
         const title = req.body['post-title'];
         const date = "5hrs ago";
         const genre = req.body['post-tag'];
         const description = req.body.postDesc;
-        const image = "https://cdn.pixabay.com/photo/2023/12/07/11/11/girl-8435340_1280.png";
-
+        const image = req.file.filename;
+        
         const postInstance = postModel({
             title: title,
             username: data.loggedIn.username,
@@ -229,6 +249,7 @@ function add(server){
                     dislike: post.dislike.length,
                     profilepicture: account.profilepicture
                     };
+                    console.log(account.profilepicture)
                     resp.render('post', {
                         layout: 'index',
                         title: 'Post Page',
