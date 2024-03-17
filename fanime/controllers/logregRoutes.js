@@ -83,8 +83,8 @@ function add(server){
             user: req.body.user,
             email: req.body.email,
             pass: req.body.pass,
-            profilepicture: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
-            profilebanner : 'https://wikitravel.org/upload/shared//6/6a/Default_Banner.jpg',
+            profilepicture: 'defaultpfp.jpg',
+            profilebanner : 'defaultbanner.jpg',
             userbio : 'Feel free to write your bio here!'
         });
         const searchQuery = { email : req.body.email };

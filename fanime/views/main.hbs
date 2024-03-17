@@ -7,7 +7,7 @@
         <div class="post-margin">
             <div class="post-area" id="post-area">
                 <div class="post-create">
-                    <form action="newPost" method="post">
+                    <form action="newPost" method="post" enctype="multipart/form-data">
                         <div class="post-form">
                             <div class="post-texts">
                                 <input type="text" name="post-title" id="post-title" class="enter-post-title" placeholder="Title" required>
@@ -33,7 +33,7 @@
                                     <label for="file-input" class="post-image">
                                         <img id="filepic" src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png"/>
                                         </label>
-                                        <input id="file-input" type="file"/>
+                                        <input id="file-input" name="postimg" type="file"/>
                                         <button type="submit" id="submit-post">Post</button>
                                 </div>
                             </div>

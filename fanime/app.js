@@ -1,11 +1,10 @@
 const express = require('express');
 const server = express();
-const data = require('./data');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/fanimeDB');
 
 const bodyParser = require('body-parser')
-server.use(express.json()); 
+server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 const handlebars = require('express-handlebars');
@@ -16,6 +15,7 @@ server.engine('hbs', handlebars.engine({
 
 server.use(express.static('public'));
 server.use(express.static('Assets'));
+server.use(express.static('Images'));
 
 const controllers = ['logregRoutes', 'mainRoutes', 'filterRoutes'];
 for(var i=0; i<controllers.length; i++){
