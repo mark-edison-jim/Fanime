@@ -86,26 +86,25 @@ function add(server){
         if(user != undefined && user._id != null){
             resp.redirect('/registerFailed');
         }else{
-            let encrypted_pass = "";
+            
             bcrypt.hash(req.body.pass, saltRounds, function(err, hash) {
-                encrypted_pass = hash;
+                let encrypted_pass = String(hash);
                 console.log("Encrypted pass: "+encrypted_pass);
-            });
-
-            const userInstance = userModel({
-                user: req.body.user,
-                email: req.body.email,
-                pass: encrypted_pass,
-                profilepicture: 'defaultpfp.jpg',
-                profilebanner : 'defaultbanner.jpg',
-                userbio : 'Feel free to write your bio here!'
-            });
-            setLogIn(req.body.user, req.body.email, userInstance.profilepicture);
-            userInstance.save().then(function(user) {
-                console.log('User created');
-                resp.redirect('/main');
-                }).catch(errorFn);
-            }
+                const userInstance = userModel({
+                    user: req.body.user,
+                    email: req.body.email,
+                    pass: encrypted_pass,
+                    profilepicture: 'defaultpfp.jpg',
+                    profilebanner : 'defaultbanner.jpg',
+                    userbio : 'Feel free to write your bio here!'
+                });
+                setLogIn(req.body.user, req.body.email, userInstance.profilepicture);
+                userInstance.save().then(function(user) {
+                    console.log('User created');
+                    resp.redirect('/main');
+                    }).catch(errorFn);
+                })
+            };
         });
     });
 
@@ -113,7 +112,7 @@ function add(server){
         const searchQuery = {email : req.body.email};
         userModel.findOne(searchQuery).then(function(user){
             if(user != undefined && user._id != null){
-                bcrypt.compare(req.body.vpass, encrypted_pass, function(err, result) {
+                bcrypt.compare(req.body.pass, user.pass, function(err, result) {
                     if(result){
                         setLogIn(user.user, req.body.email, user.profilepicture);
                         resp.redirect('/main');
