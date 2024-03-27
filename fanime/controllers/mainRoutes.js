@@ -3,115 +3,90 @@ const userModel = responder.userModel;
 const postModel = responder.postModel;
 const upload = responder.upload;
 const data = require('../data');
+const session = responder.session;
+const mongoStore = responder.mongoStore;
 
 function errorFn(err){
     console.log('Error found. Please trace!');
     console.error(err);
 }
 
-function resetLogIn(){
-    data.loggedIn.username = '';
-    data.loggedIn.email = '';
-    data.loggedIn.profilepicture = '';
-}
-
 function add(server){
     server.get('/', function(req, resp){
-        resetLogIn();
-        postModel.find({}).lean().then(function(posts){
-        console.log('Loading posts from database');
-        let vals = new Array();
-            for(const post of posts){
-                const searchQuery = { user: post.username}
-                userModel.findOne(searchQuery).lean().then(function(account){
-                    vals.push({
-                        _id : post._id.toString(),
-                        username: post.username,
-                        date: post.date,
-                        title: post.title,
-                        genre: post.genre,
-                        description: post.description,
-                        image: post.image,
-                        comments: post.comments,
-                        like: post.like.length,
-                        dislike: post.dislike.length,
-                        profilepicture: account.profilepicture
+        if(req.session.login_user_id == undefined){
+            postModel.find({}).lean().then(function(posts){
+                console.log('Loading posts from database');
+                let vals = new Array();
+                    for(const post of posts){
+                        const searchQuery = { user: post.username}
+                        userModel.findOne(searchQuery).lean().then(function(account){
+                            vals.push({
+                                _id : post._id.toString(),
+                                username: post.username,
+                                date: post.date,
+                                title: post.title,
+                                genre: post.genre,
+                                description: post.description,
+                                image: post.image,
+                                comments: post.comments,
+                                like: post.like.length,
+                                dislike: post.dislike.length,
+                                profilepicture: account.profilepicture
+                            });
+                        });
+                    }
+                    resp.render('unregMain', {
+                        layout: 'index',
+                        title: 'Unregistered Page',
+                        posts: vals,
+                        msg: 'Welcome to Fanime! Please Login or Sign Up to view/filter Posts!'
                     });
                 });
-            }
-            resp.render('unregMain', {
-                layout: 'index',
-                title: 'Unregistered Page',
-                posts: vals
-            });
-        });
+        }else{
+            resp.redirect('/main');
+        }
     });
 
     server.get('/main', function(req, resp){
-        postModel.find({}).lean().then(function(posts){
-            console.log('Loading posts from database');
-            let vals = new Array();
-                for(const post of posts){
-                    const searchQuery = {user: post.username};
-                    userModel.findOne(searchQuery).lean().then(function(account){
-                    vals.push({
-                        _id : post._id.toString(),
-                        username: post.username,
-                        date: post.date,
-                        title: post.title,
-                        genre: post.genre,
-                        description: post.description,
-                        image: post.image,
-                        comments: post.comments,
-                        like: post.like.length,
-                        dislike: post.dislike.length,
-                        profilepicture: account.profilepicture
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
+            postModel.find({}).lean().then(function(posts){
+                console.log('Loading posts from database');
+                let vals = new Array();
+                    for(const post of posts){
+                        const searchQuery = {user: post.username};
+                        userModel.findOne(searchQuery).lean().then(function(account){
+                        vals.push({
+                            _id : post._id.toString(),
+                            username: post.username,
+                            date: post.date,
+                            title: post.title,
+                            genre: post.genre,
+                            description: post.description,
+                            image: post.image,
+                            comments: post.comments,
+                            like: post.like.length,
+                            dislike: post.dislike.length,
+                            profilepicture: account.profilepicture
+                        });
+                        })
+                    }
+                    console.log(req.session.profilepicture);
+                    resp.render('main', {
+                        layout: 'index',
+                        title: 'Main Page',
+                        posts: vals,
+                        loggedprofilepicture: req.session.profilepicture,
+                        loggedusername: req.session.username
                     });
-                    })
-                }
-                console.log(data.loggedIn.profilepicture);
-                resp.render('main', {
-                    layout: 'index',
-                    title: 'Main Page',
-                    posts: vals,
-                    loggedprofilepicture: data.loggedIn.profilepicture,
-                    loggedusername: data.loggedIn.username
                 });
-            });
+            }
     });
 
-    async function findUserPost(postQuery){
-        const posts = await postModel.find(postQuery).lean();
-        let userpost = new Array();
-                for(const post of posts){
-                    userpost.push({
-                        _id : post._id.toString(),
-                        title: post.title
-                    });
-                }
-                console.log("func", userpost);
-                return userpost;
-
-        // postModel.find(postQuery).lean().then(function(posts){//i need to loop through all posts
-        //         console.log('Loading User data');
-        //         let userpost = new Array();
-        //         for(const post of posts){
-        //             userpost.push({
-        //                 _id : post._id.toString(),
-        //                 title: post.title
-        //             });
-        //         }
-        //         console.log("func", userpost);
-        //         return userpost;
-        //     });
-    }
-
-    function setProfilePic(pfp){
-        data.loggedIn.profilepicture = pfp;
-    }
-
     server.post('/upload', upload.fields([{ name: 'pfp', maxCount: 1 }, { name: 'profile-banner', maxCount: 8 }]), (req,resp) =>{
-        const searchQuery = { email : data.loggedIn.email};
+        const searchQuery = { email : req.session.email};
          setProfilePic(req.files['pfp'][0].filename);
         // console.log(req.files['profile-banner'][0].filename)
         userModel.findOne(searchQuery).then(function(user) {
@@ -125,7 +100,7 @@ function add(server){
     })
 
     server.get('/profile', function(req, resp){
-        const searchQuery = {user : data.loggedIn.username};
+        const searchQuery = {user : req.session.username};
 
         userModel.findOne(searchQuery).lean().then(function(account){
             postModel.find({}).lean().then(function(posts){
@@ -218,7 +193,7 @@ function add(server){
         
         const postInstance = postModel({
             title: title,
-            username: data.loggedIn.username,
+            username: req.session.username,
             date: date,
             genre: genre,
             description: description,
@@ -254,8 +229,8 @@ function add(server){
                         layout: 'index',
                         title: 'Post Page',
                         post: post_data,
-                        loggedusername: data.loggedIn.username,
-                        loggedprofilepicture: data.loggedIn.profilepicture
+                        loggedusername: req.session.username,
+                        loggedprofilepicture: req.session.profilepicture
                     });
                 })
         })
@@ -265,10 +240,10 @@ function add(server){
        resp.render('editpost', {
             layout: 'index',
             title: 'Edit Post Page',
-            username: data.loggedIn.username,
-            pfp: data.loggedIn.profilePic,
-            loggedusername: data.loggedIn.username,
-            loggedprofilepicture: data.loggedIn.profilepicture
+            username: req.session.username,
+            pfp: req.session.profilePic,
+            loggedusername: req.session.username,
+            loggedprofilepicture: req.session.profilepicture
         });
         
     });
@@ -278,7 +253,7 @@ function add(server){
         resp.render('editcomment', {
             layout: 'index',
             title: 'Edit Comment Page',
-            username: data.loggedIn.username,
+            username: req.session.username,
             pfp: data.loggedprofilepicture
         });
         
@@ -289,7 +264,7 @@ function add(server){
 
     //     const responseData = {
     //         title: title,
-    //         username: data.loggedIn.username,
+    //         username: req.session.username,
     //         date: date,
     //         genre: genre,
     //         description: description,
@@ -300,7 +275,7 @@ function add(server){
 
     //     const postInstance = postModel({
     //         title: title,
-    //         username: data.loggedIn.username,
+    //         username: req.session.username,
     //         date: date,
     //         genre: genre,
     //         description: description,
@@ -321,7 +296,7 @@ function add(server){
 
         console.log(postId);
         const responseData = {
-            user: data.loggedIn.username,
+            user: req.session.username,
             comment: comment
         };
 
@@ -330,7 +305,7 @@ function add(server){
         postModel.findById(searchQuery).then(function(post){
             
             const commentData = {
-                user: data.loggedIn.username,
+                user: req.session.username,
                 text: comment
             }
             post.comments.push(commentData);
@@ -348,12 +323,12 @@ function add(server){
     server.post('/like', function(req, resp){
         const {postId} = req.body;
         console.log(data.loggedIn);
-        if(data.loggedIn.username === ''){
+        if(req.session.username === ''){
             console.log("not logged in, cant like");
         }else{
             const searchPost = {_id: postId};
             postModel.findOne(searchPost).then(function(post){
-                const searchUser = {user: data.loggedIn.username};
+                const searchUser = {user: req.session.username};
                 console.log("likes: ",post.like);
                 const userLiked = post.like.some(like => like.user === searchUser.user);
                 if (userLiked) {
@@ -377,12 +352,12 @@ function add(server){
     server.post('/dislike', function(req, resp){
         const {postId} = req.body;
         console.log(data.loggedIn);
-        if(data.loggedIn.username === ''){
+        if(req.session.username === ''){
             console.log("not logged in, cant dislike");
         }else{
             const searchPost = {_id: postId};
             postModel.findOne(searchPost).then(function(post){
-                const searchUser = {user: data.loggedIn.username};
+                const searchUser = {user: req.session.username};
                 console.log("dislikes: ", post.dislike);
                 const userDisliked = post.dislike.some(dislike => dislike.user === searchUser.user);
                 if (userDisliked) {
