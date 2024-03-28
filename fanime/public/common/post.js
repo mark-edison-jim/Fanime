@@ -8,7 +8,6 @@ $(document).ready(function(){
 
     $("#unregButton").click(function(){
         window.alert("Please Login First to access certain features! :)");
-
     });
 
     // $("#submit-post").click(function(){
@@ -59,7 +58,7 @@ $(document).ready(function(){
     //     resetPostInputs();
     // });//btn
 
-    $(".post").click(function() {
+    $(".post-header").click(function() {
         var postId = $(this).data("postid");
         window.location.href = '/post?post_id=' + postId;
     });
