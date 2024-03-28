@@ -57,9 +57,11 @@ const imgPath = '../Images/';
 
 const userModel = mongoose.model('user', userSchema);
 const postModel = mongoose.model('post', postSchema);
+const sessionModel = mongoose.connection.collection("mySession");
 
 module.exports.userModel = userModel;
 module.exports.postModel = postModel;
+module.exports.sessionModel = sessionModel;
 module.exports.session = session;
 module.exports.mongoStore = mongoStore;
 module.exports.upload = upload;

@@ -1,6 +1,7 @@
 const responder = require('../models/Responder');
 const userModel = responder.userModel;
 const postModel = responder.postModel;
+const sessionModel = responder.sessionModel;
 const session = responder.session;
 const mongoStore = responder.mongoStore;
 const data = require('../data');
@@ -20,10 +21,10 @@ function add(server){
         store: new mongoStore({ 
           uri: 'mongodb://localhost:27017/fanimeDB',
           collection: 'mySession',
-          expires: 1000*60*60 // 1 hr
+          expires: 1000*60*60*24 // 1 day
         })
       }));
-
+      
     server.get('/loginFailed', function(req, resp){
         postModel.find({}).lean().then(function(posts){
         console.log('Loading posts from database');
@@ -126,19 +127,32 @@ function add(server){
         });
     });
 
+    function updateSession(req){
+        const newDate = new Date(Date.now() + 1000*60*60*24*7); //1 week
+        console.log(req.sessionID)
+        sessionModel.findOneAndUpdate({_id : req.session.login_id}, {$set: {expires: newDate}}).then(function(result){
+            console.log(result) 
+        }).catch(errorFn);
+    }
+
     server.post('/login', function(req, resp){
         const searchQuery = {email : req.body.email};
         userModel.findOne(searchQuery).then(function(user){
             if(user != undefined && user._id != null){
                 bcrypt.compare(req.body.pass, user.pass, function(err, result) {
                     if(result){
-                        // setLogIn(user.user, req.body.email, user.profilepicture);
                         req.session.login_user_id = user._id;
                         req.session.username = user.user;
                         req.session.email = req.body.email;
                         req.session.profilepicture = user.profilepicture;
                         req.session.login_id = req.sessionID;
-                        resp.redirect('/main');
+                        if(req.body.remember){
+                            setTimeout(()=>updateSession(req), 5000); //delay for session user info to be inserted before updating expire date
+                            resp.redirect('/main');
+                        }else{
+                            resp.redirect('/main');
+                        }
+                        // setLogIn(user.user, req.body.email, user.profilepicture);
                     }else{
                         resp.redirect('/loginFailed');
                     }
