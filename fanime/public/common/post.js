@@ -6,6 +6,10 @@ $(document).ready(function(){
         return !(title === "" || desc === "" || tag === null);
     }
 
+    $("#unregButton").click(function(){
+        window.alert("Please Login First to access certain features! :)");
+    });
+
     // $("#submit-post").click(function(){
     //     if(checkInputs()){
     //         var postData = {
@@ -66,13 +70,21 @@ $(document).ready(function(){
     });
         
     $(".topic").click(function() {
-        var topic = $(this).find("strong").text();
-        window.location.href = '/genrefilter?topic=' + topic;
+        if($(this).val()==="true"){
+            var topic = $(this).find("strong").text();
+            window.location.href = '/genrefilter?topic=' + topic;
+        }else{
+            window.alert("Please Login First to access certain features! :)");
+        }
     });
 
     $(".filter-button").click(function() {
-        var filter = $(this).find("h3").text();
-        window.location.href = '/postfilter?filter=' + filter;
+        if($(this).val()==="true"){
+            var filter = $(this).find("h3").text();
+            window.location.href = '/postfilter?filter=' + filter;
+        }else{
+            window.alert("Please Login First to access certain features! :)");
+        }
     });
 
 });//doc
