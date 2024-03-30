@@ -546,7 +546,7 @@
             padding:20px;
             background-color:#4564b9;
             border-radius: 15px;
-            margin:20px;
+            margin:15px;
         }
         .post-img{
             width: 85%;
@@ -565,17 +565,44 @@
             
         }
         .post-action{
-            width: 100%;
+            width: 95%;
             height: 20px;
-            padding: 2.5px 0px;
+            margin-top: 10px;
             display: flex;
-            padding-left: 20px;
+    
+            align-items: center;
+            margin-bottom: 20px;
+     
         }
-        .post-action > img, .post-action > label > img{
-            width: 20px;
-            height: 20px;
-            margin: 0px 5px;
+        .post-action .fa {
+            font-size: 25px; 
+            margin-left: 5px;
+            margin-right: 5px;
+            transition: transform 0.3s, color 0.1s; 
         }
+        
+        .post-action .fa:hover {
+            transform: scale(1.2); 
+        }
+        
+        .post-action .fa-thumbs-up:active{
+            color: rgb(14, 245, 210); /* Set color for thumbs-up icon */
+        }
+        
+        .post-action .fa-thumbs-down:active{
+            color: rgb(255, 74, 74); /* Set color for thumbs-down icon */
+        }
+        
+        .post-action > button{
+            border-radius: 15px;
+            background-color: rgb(61, 53, 81);
+            color: white;
+            padding: 10px;
+            margin-left: auto;
+            
+          
+        }
+
         .comment{
             width: 100%;
             height: auto;
