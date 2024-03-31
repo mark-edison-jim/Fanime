@@ -1,7 +1,8 @@
 const express = require('express');
 const server = express();
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/fanimeDB');
+mongoose.connect('mongodb+srv://markedisonjim:zVmeps6mAd5EIzaB@fanimecluster.11ce3sp.mongodb.net/fanimeDB');
+
 
 const bodyParser = require('body-parser')
 server.use(express.json());

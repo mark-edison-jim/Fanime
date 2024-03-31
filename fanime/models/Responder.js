@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/fanimeDB');
+const uri = 'mongodb+srv://markedisonjim:zVmeps6mAd5EIzaB@fanimecluster.11ce3sp.mongodb.net/fanimeDB';
+mongoose.connect(uri);
 const multer  = require('multer');
 const path = require('path');
 const session = require('express-session');
@@ -59,6 +60,7 @@ const userModel = mongoose.model('user', userSchema);
 const postModel = mongoose.model('post', postSchema);
 const sessionModel = mongoose.connection.collection("mySession");
 
+module.exports.uri = uri;
 module.exports.userModel = userModel;
 module.exports.postModel = postModel;
 module.exports.sessionModel = sessionModel;

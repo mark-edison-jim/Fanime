@@ -1,4 +1,5 @@
 const responder = require('../models/Responder');
+const uri = responder.uri;
 const userModel = responder.userModel;
 const postModel = responder.postModel;
 const sessionModel = responder.sessionModel;
@@ -19,7 +20,7 @@ function add(server){
         saveUninitialized: true, 
         resave: false,
         store: new mongoStore({ 
-          uri: 'mongodb://localhost:27017/fanimeDB',
+          uri: uri,
           collection: 'mySession',
           expires: 1000*60*60*24 // 1 day
         })
