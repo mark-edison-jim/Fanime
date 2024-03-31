@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/fanimeDB');
+const uri = 'mongodb+srv://markedisonjim:YqGKxAM3g14RY30M@fanimecluster.hrnnpr7.mongodb.net/fanimeDB';
+mongoose.connect(uri);
 const multer  = require('multer');
 const path = require('path');
 const session = require('express-session');
 const mongoStore = require('connect-mongodb-session')(session);
+const fs = require('fs')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) =>{
+        // const dir = './Images'
+        // fs.mkdir(dir, err => cb(err, dir))
         cb(null, './Images')
     },
     filename: (req, file, cb) =>{
@@ -59,6 +63,7 @@ const userModel = mongoose.model('user', userSchema);
 const postModel = mongoose.model('post', postSchema);
 const sessionModel = mongoose.connection.collection("mySession");
 
+module.exports.uri = uri;
 module.exports.userModel = userModel;
 module.exports.postModel = postModel;
 module.exports.sessionModel = sessionModel;
