@@ -87,7 +87,7 @@ function add(server){
 
     server.post('/upload', upload.fields([{ name: 'pfp', maxCount: 1 }, { name: 'profile-banner', maxCount: 8 }]), (req,resp) =>{
         const searchQuery = { email : req.session.email};
-         setProfilePic(req.files['pfp'][0].filename);
+        req.session.profilepicture = req.files['pfp'][0].filename;
         // console.log(req.files['profile-banner'][0].filename)
         userModel.findOne(searchQuery).then(function(user) {
             console.log('Update successful');
