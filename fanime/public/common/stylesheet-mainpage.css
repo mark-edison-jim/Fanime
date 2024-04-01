@@ -283,26 +283,29 @@
                 flex-direction: column;
                 padding-left: 20px;
                 border-bottom: 1px solid rgba(21, 20, 20, 0.972);
-        
+                box-sizing: border-box;
          
                 height:70%;
             }
-            .topics-segment > p {
-                color: black; 
-                font-size: 17px; 
-                font-family: 'Times New Roman', Times, serif, sans-serif; 
+
+            .topics-segment > h2 {
+                margin-bottom: 2px;
+                margin-top:6px;
             }
             .topic{
                 display: flex;
                 width: 90%;
+                height:9%;
                 align-items: center; /* y-axis */ 
-                margin-top: 10px;
-                margin-left: 10px;
+                margin-top: 2px;
+                padding-left: 10px;
                 transition: 0.3s all;
+
             }
             .topic:hover{
                 background-color: #4652ff;
                 border-radius: 10px;
+                margin:5px;
             }
             .topic > img{
                 width: 50px;
@@ -316,12 +319,21 @@
                 flex-direction: column;
                 padding-left: 20px;       
                 height: 15%;
+                align-content: center;
+                justify-content: space-around;
+            
             }
             .about-tag{
                 display: flex;
                 align-items: center; /* y-axis */ 
                 margin-top: 10px;
                 margin-left: 10px;
+            
+            }
+
+            .about-tag >a{
+                text-decoration: none;
+            
             }
             .about-tag > img{
                 width: 50px;
@@ -472,22 +484,25 @@
         }
 
         /*Content of post*/
-        .post{
+        .post, .noclick-post {
             background-color: #2649a9;
             width: 95.5%;
             margin: 1% 2%;
             height: auto;
             border-radius: 15px;
             flex-direction: column;
-            border: 2px solid transparent;
-            border-bottom-right-radius: 0px;
+            display: flex;
+            box-shadow: 0 0 0 2px transparent; /* Set initial transparent outline */
+            align-items: center;
+           
         }
-        .post:hover {
-            border-color: white;
-            border-width: 2px solid;
+        
+        .post:hover, .noclick-post:hover{
+            box-shadow: 0 0 0 2px white; /* Change outline color on hover */
         }
+        
         /*Profile pic name etc*/
-        .post-header, .post-head{
+        .post-header{
             width: 100%;
             height: 40px;
             display: flex;
@@ -523,33 +538,71 @@
 
 
         .post-body{
-            width: 100%;
+            
+            width: 80%;
             height: auto;
             margin-top: 5px;
             margin-bottom: 5px;
-            padding:10px;
+            padding:20px;
+            background-color:#4564b9;
+            border-radius: 15px;
+            margin:15px;
         }
         .post-img{
-            width: 100%;
+            width: 85%;
             display: flex;
             justify-content: center;
             margin-bottom: 15px;
+            background-color: #4564b9;
+            border-radius: 15px;
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
         .post-img > img{
-            width: 90%;
+            width: 70%;
+            border-radius: 15px;
+    
+            
         }
         .post-action{
-            width: 100%;
+            width: 95%;
             height: 20px;
-            padding: 2.5px 0px;
+            margin-top: 10px;
             display: flex;
-            padding-left: 10px;
+    
+            align-items: center;
+            margin-bottom: 20px;
+     
         }
-        .post-action > img, .post-action > label > img{
-            width: 20px;
-            height: 20px;
-            margin: 0px 5px;
+        .post-action .fa {
+            font-size: 25px; 
+            margin-left: 5px;
+            margin-right: 5px;
+            transition: transform 0.3s, color 0.1s; 
         }
+        
+        .post-action .fa:hover {
+            transform: scale(1.2); 
+        }
+        
+        .post-action .fa-thumbs-up:active{
+            color: rgb(14, 245, 210); /* Set color for thumbs-up icon */
+        }
+        
+        .post-action .fa-thumbs-down:active{
+            color: rgb(255, 74, 74); /* Set color for thumbs-down icon */
+        }
+        
+        .post-action > button{
+            border-radius: 15px;
+            background-color: rgb(61, 53, 81);
+            color: white;
+            padding: 10px;
+            margin-left: auto;
+            
+          
+        }
+
         .comment{
             width: 100%;
             height: auto;
