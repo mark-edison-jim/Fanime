@@ -197,14 +197,14 @@ function add(server){
     });
 
     server.get('/editpost', function(req, resp){
+        //profile edit button
         const searchQuery = req.query.post_id;
-        console.log("Search Query", searchQuery);
+        console.log("This is editpost Search Query", searchQuery);
         postModel.findById(searchQuery).lean().then(function(postInstance){
             const data = {
+                id: postInstance._id,
                 title: postInstance.title,
-                description: postInstance.description,
-                image: postInstance.image,
-                genre: postInstance.genre
+                description: postInstance.description
             }
             console.log(data);
             resp.render('editpost', {
@@ -212,14 +212,35 @@ function add(server){
                 title: 'Edit Post Page',
                 post: data,
                 username: req.session.username,
-                pfp: req.session.profilePic,
+                pfp: req.session.profilepicture,
                 loggedusername: req.session.username,
                 loggedprofilepicture: req.session.profilepicture
             });
+            console.log('hi');
         }).catch(errorFn);
         
     });
 
+    server.post('/submit_edit_post', function(req, resp){
+        const searchQuery = req.body.editBtn;
+        const title = req.body['post-title'];
+        const description = req.body.postDesc;
+        console.log(title,description);
+        console.log("Editing the Search Query", searchQuery);
+        postModel.findById(searchQuery).then(function(postInstance){
+            console.log("Post Instance", postInstance);
+            postInstance.title = title;
+            postInstance.description = description;
+            postInstance.save().then(function(){
+                resp.redirect("/profile");
+            })
+        }).catch(errorFn);
+    });
+
+    server.post('/delete_post',function(req, resp){
+        
+    });
+    
     server.get('/editcomment', function(req, resp){
         
         resp.render('editcomment', {
