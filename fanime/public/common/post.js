@@ -1,3 +1,16 @@
+function deletepost(button){
+        let text = "Are you sure you want to delete the post?";
+        if (confirm(text) == true) {
+            alert("You pressed OK!");
+
+            var postId = $(button).data("postid");
+            console.log(postId);
+            window.location.href = '/delete_post?post_id=' + postId;
+        } else {
+            alert("You canceled!");
+        }
+}
+
 $(document).ready(function(){
     function checkInputs(){
         const title = $("#post-title").val();
