@@ -140,6 +140,7 @@
         }
         .website-user-profile > img{
             border: 5px solid rgb(255, 255, 255);
+            height: 80px;   
             width: 80px;
             border-radius: 100%;
         }
