@@ -441,12 +441,13 @@
 
         label.post-image{
             width:50%;
-            
         }
+        
         #filepic {
             width:62%;
+            max-height: 100%;
             border: 1px solid black;
-            margin-left: 18px;
+            margin-left: 25%;
             background-color: #252744;
             color:white;
 

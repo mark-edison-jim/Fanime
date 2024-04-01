@@ -87,8 +87,7 @@ function add(server){
 
     server.post('/upload', upload.fields([{ name: 'pfp', maxCount: 1 }, { name: 'profile-banner', maxCount: 8 }]), (req,resp) =>{
         const searchQuery = { email : req.session.email};
-         setProfilePic(req.files['pfp'][0].filename);
-        // console.log(req.files['profile-banner'][0].filename)
+        req.session.profilepicture = req.files['pfp'][0].filename;
         userModel.findOne(searchQuery).then(function(user) {
             console.log('Update successful');
             user.profilepicture = req.files['pfp'][0].filename;
@@ -104,11 +103,10 @@ function add(server){
 
         userModel.findOne(searchQuery).lean().then(function(account){
             postModel.find({}).lean().then(function(posts){
-                console.log(posts)
                 const commentArr = new Array();
                 for(let i=0; i<posts.length; i++){
-                    console.log('post', posts[i])
-                    console.log('comments', posts[i].comments)
+                    // console.log('post', posts[i])
+                    // console.log('comments', posts[i].comments)
                     for(let j=0; j<posts[i].comments.length; j++){
                         if(posts[i].comments[j].user === account.user){
                             commentArr.push({
@@ -123,7 +121,6 @@ function add(server){
                     if(posts[i].username === account.user)
                         postsArr.push(posts[i]);
                 }
-                console.log(commentArr)
                 const userdata = {
                     username: account.user,
                     pfp: account.profilepicture,
@@ -145,44 +142,7 @@ function add(server){
         });
 
     });
-    //let usercomments = new Array();
-    // let userpost = findUserPost(postQuery).then(function(posts){
-    //     let arr = new Array;
-    //     for(const post of posts){
-    //         arr.push({
-    //             _id : post._id.toString(),
-    //             title: post.title
-    //         });
-    //     }
-    //     console.log(arr);
-    //     return arr;
-    // });
-    // console.log("hi");
-    // console.log(userpost);
-    // postModel.find({}).lean().then(function(allpost){
-    //     for(const post of allpost){
-    //         for(const comment of post.comments){
-    //             if(post.comments === account.user){
-    //                 usercomments.push({
-    //                     _id : post._id.toString(),
-    //                     title: post.title
-    //                 });
-    //             }
-    //         }
-    //     }
-        
-    // });
-    // const userdata = {
-    //         username: account.user,
-    //         pfp: account.profilepicture,
-    //         banner: account.profilebanner,
-    //         bio: account.userbio,
-    //         favAnime: account.favAnime,
-    //         favManga: account.favManga,
-    //         posts: userpost,
-    //         comments: usercomments,
-    //         loggedprofilepicture: account.profilepicture
-    //     }
+
     server.post('/newPost', upload.single('postimg'), function(req,resp){
         // const { title, date, genre, description, image} = req.body;
         const title = req.body['post-title'];
@@ -237,14 +197,26 @@ function add(server){
     });
 
     server.get('/editpost', function(req, resp){
-       resp.render('editpost', {
-            layout: 'index',
-            title: 'Edit Post Page',
-            username: req.session.username,
-            pfp: req.session.profilePic,
-            loggedusername: req.session.username,
-            loggedprofilepicture: req.session.profilepicture
-        });
+        const searchQuery = req.query.post_id;
+        console.log("Search Query", searchQuery);
+        postModel.findById(searchQuery).lean().then(function(postInstance){
+            const data = {
+                title: postInstance.title,
+                description: postInstance.description,
+                image: postInstance.image,
+                genre: postInstance.genre
+            }
+            console.log(data);
+            resp.render('editpost', {
+                layout: 'index',
+                title: 'Edit Post Page',
+                post: data,
+                username: req.session.username,
+                pfp: req.session.profilePic,
+                loggedusername: req.session.username,
+                loggedprofilepicture: req.session.profilepicture
+            });
+        }).catch(errorFn);
         
     });
 
@@ -254,41 +226,10 @@ function add(server){
             layout: 'index',
             title: 'Edit Comment Page',
             username: req.session.username,
-            pfp: data.loggedprofilepicture
+            pfp: req.session.profilepicture
         });
         
     });
-
-    // server.post('/create_post', function(req, resp){
-    //     const { title, date, genre, description, image} = req.body;
-
-    //     const responseData = {
-    //         title: title,
-    //         username: req.session.username,
-    //         date: date,
-    //         genre: genre,
-    //         description: description,
-    //         image: image,
-    //         like: 0,
-    //         dislike: 0
-    //     };
-
-    //     const postInstance = postModel({
-    //         title: title,
-    //         username: req.session.username,
-    //         date: date,
-    //         genre: genre,
-    //         description: description,
-    //         image: image
-    //     });
-
-    //     postInstance.save().then(function(login) {
-    //         console.log('Post created');
-    //     }).catch(errorFn);
-
-    //     console.log(responseData);
-    //     resp.send(responseData);
-    // });
 
     server.post('/create_comment', function(req, resp){
         const comment = req.body.comment;
