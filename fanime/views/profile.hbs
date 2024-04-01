@@ -9,7 +9,7 @@
             <div class="prf-side"></div>
             <div class="prf-middle">
                 <div class="profile-picture">
-                    <img src={{pfp}}>
+                    <img src={{loggedprofilepicture}}>
                    
                     </div> <!-- Profile picture div -->
                     <div class="profile-details">
@@ -23,9 +23,9 @@
                             <div class="popup-content">
                                 <!-- Edit Profile Form -->
                                 <h2>Edit Profile</h2>
-                                <form id="edit-profile-form">
+                                <form id="edit-profile-form" action="upload" method="post" enctype="multipart/form-data">
                                     <label for="profile-pic">Profile Picture:</label><br>
-                                    <input type="file" id="profile-pic" name="profile-pic"><br>
+                                    <input type="file" id="profile-pic" name="pfp" ><br>
                                     <label for="username">Username:</label><br>
                                     <input type="text" id="username" name="username"><br>
                                     <label for="profile-banner">Profile Banner:</label><br>
