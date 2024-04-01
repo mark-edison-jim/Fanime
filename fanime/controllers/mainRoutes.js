@@ -237,8 +237,11 @@ function add(server){
         }).catch(errorFn);
     });
 
-    server.post('/delete_post',function(req, resp){
-        
+    server.get('/delete_post',function(req, resp){
+        searchQuery = req.query.post_id;
+        postModel.deleteOne({_id: searchQuery}).then(function(){
+            resp.redirect('/profile');
+        }).catch(errorFn);
     });
     
     server.get('/editcomment', function(req, resp){
