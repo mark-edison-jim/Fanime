@@ -68,6 +68,13 @@ $(document).ready(function(){
         console.log(postId);
         window.location.href = '/post?post_id=' + postId;
     });
+
+    $(".edit-post").click(function(event) {
+        event.preventDefault();
+        var postId = $(this).data("postid");
+        console.log(postId);
+        window.location.href = '/editpost?post_id=' + postId;
+    });
         
     $(".topic").click(function() {
         if($(this).val()==="true"){
@@ -87,4 +94,4 @@ $(document).ready(function(){
         }
     });
 
-});//doc
+});

@@ -343,7 +343,6 @@ height: 80px;
 }
 
 .userposts {
-    height:80%;
     width:100%;
     overflow: auto;
 }
