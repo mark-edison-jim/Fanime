@@ -1,5 +1,5 @@
 {{#with account}}
-    {{>nav2}}     
+{{>nav2}}
 <div class="prf-main">
     <div class="prf-banner">
         <img src="{{banner}}">
@@ -89,30 +89,37 @@
                     <!-- Posts content here -->
                         <h1>Posts</h1>
                         <div class="userposts">
-                            {{#each posts}}
-                            <div class="user-post">
-                                <div class="user-post-title" data-postId="{{_id}}">
-                                    <h2>{{title}}</h2>
-                                </div>
-                                <button onclick="window.location.href = '/editpost';">Edit</button>
-                                <button>Delete</button>
-                            </div>
-                            {{/each}}
+                            {{#if posts}}
+                                {{#each posts}}
+                                    <div class="user-post">
+                                        <div class="user-post-title" data-postId="{{_id}}">
+                                            <h2>{{title}}</h2>
+                                        </div>
+                                        <button onclick="window.location.href = '/editpost';">Edit</button>
+                                        <button>Delete</button>
+                                    </div>
+                                {{/each}}
+                            {{else}}
+                                <p class="nonemsg">No posts yet.</p>
+                            {{/if}}
                         </div>
                 </div>
                 <div class="prf-posts">
                         <h1>Comments</h1>
                         <div class="userposts">
-                            {{#each comments}}
-                            <div class="user-post">
-                                <div class="user-post-title" data-postId="{{_id}}">
-                                    <h2>{{title}}</h2>
-                                </div>
-                                <button onclick="window.location.href = '/editcomment';">Edit</button>
-                                <button>Delete</button>
-                            </div>
-                            {{/each}}
-                      
+                        {{#if comments}}
+                                    {{#each comments}}
+                                        <div class="user-post">
+                                            <div class="user-post-title" data-postId="{{_id}}">
+                                                <h2>{{title}}</h2>
+                                            </div>
+                                            <button onclick="window.location.href = '/editcomment';">Edit</button>
+                                            <button>Delete</button>
+                                        </div>
+                                    {{/each}}
+                                {{else}}
+                                    <p class="nonemsg">No comments yet.</p>
+                                {{/if}}
                         </div>
                         {{/with}}
                 </div>

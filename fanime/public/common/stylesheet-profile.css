@@ -194,6 +194,56 @@ body{
     background-color: rgb(89, 100, 185); 
 }
 
+.user-post{
+    
+    width: 90%;
+    height: 40%;
+    margin: 2% 5%;
+    background-color: rgb(37, 39, 67);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+.user-post-title{
+    width: 80%;
+}
+.user-post > button{
+    width: 20%;
+    height: 80px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin: 15px;
+    font-size: larger;
+}
+.user-post:hover{
+    background-color: #4e4a69;
+    color: white;
+}
+.user-post > button:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+.userposts {
+
+    width:100%;
+    overflow: auto;
+    display: flex;
+
+    align-items: center;
+    flex-direction: column;
+}
+
+.nonemsg {
+    background-color: rgb(61, 64, 110);
+    width: 50%;
+    border-radius: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 36px;
+}
+
+
 .prf-edit {
     position: absolute;
     top: 15px;
@@ -312,39 +362,5 @@ height: 80px;
 .filter-user-post > button:hover {
     background-color: #3498db;
     color: white;
-}
-.user-post{
-    
-    width: 90%;
-    height: 20%;
-    margin: 2% 5%;
-    background-color: #181a28;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-}
-.user-post-title{
-    width: 80%;
-}
-.user-post > button{
-    width: 20%;
-    height: 70%;
-    border-radius: 10px;
-
-    margin: 15px;
-}
-.user-post:hover{
-    background-color: #4e4a69;
-    color: white;
-}
-.user-post > button:hover {
-    background-color: #3498db;
-    color: white;
-}
-
-.userposts {
-    height:80%;
-    width:100%;
-    overflow: auto;
 }
 
