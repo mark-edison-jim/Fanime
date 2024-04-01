@@ -116,7 +116,7 @@
             background-color: #252744;
             color: white;
         }
-        #search-button{
+        .search-button{
             border-radius: 20px;
             border-color: #AC3B61;
             background-color: #d6c4b0;

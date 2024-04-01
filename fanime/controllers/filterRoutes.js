@@ -2,6 +2,8 @@ const responder = require('../models/Responder');
 const userModel = responder.userModel;
 const postModel = responder.postModel;
 const data = require('../data');
+const session = responder.session;
+const mongoStore = responder.mongoStore;
 
 function add(server){
     server.post('/search', function(req, resp){
@@ -28,7 +30,7 @@ function add(server){
                     });
                 }
 
-                if(data.loggedIn.username === ''){
+                if(req.session.username === ''){
                     resp.render('unregMain', {
                     layout: 'index',
                     title: 'Unregistered Page',
@@ -39,8 +41,8 @@ function add(server){
                         layout: 'index',
                         title: 'Main Page',
                         posts: vals,
-                        loggedprofilepicture: data.loggedIn.profilepicture,
-                        loggedusername: data.loggedIn.usernamee
+                        loggedprofilepicture: req.session.profilepicture,
+                        loggedusername: req.session.usernamee
                     });
                 }
             });
@@ -71,7 +73,7 @@ function add(server){
                 });
                 }
 
-                if(data.loggedIn.username === ''){
+                if(req.session.username === ''){
                     resp.render('unregMain', {
                     layout: 'index',
                     title: 'Unregistered Page',
@@ -82,8 +84,8 @@ function add(server){
                         layout: 'index',
                         title: 'Main Page',
                         posts: vals,
-                        loggedprofilepicture: data.loggedIn.profilepicture,
-                        loggedusername: data.loggedIn.username
+                        loggedprofilepicture: req.session.profilepicture,
+                        loggedusername: req.session.username
                     });
                 }
                 
@@ -124,7 +126,7 @@ function add(server){
                     vals.reverse();
                 }
     
-                if(data.loggedIn.username === ''){
+                if(req.session.username === ''){
                     resp.render('unregMain', {
                         layout: 'index',
                         title: 'Unregistered Page',
@@ -135,8 +137,8 @@ function add(server){
                         layout: 'index',
                         title: 'Main Page',
                         posts: vals,
-                        loggedprofilepicture: data.loggedIn.profilepicture,
-                        loggedusername: data.loggedIn.username
+                        loggedprofilepicture: req.session.profilepicture,
+                        loggedusername: req.session.username
                     });
                 }
             });
