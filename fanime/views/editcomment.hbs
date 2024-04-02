@@ -7,12 +7,15 @@
         <div class="post-margin">
             <div class="post-area">
                 <div class="post-create">
+                    {{#with comment}}
                     <div class="comment">
-                        <div class="comment-form">
-                            <textarea placeholder="Write your comment here..."></textarea>
-                            <button type="submit"><h4>Comment</h4></button>
-                        </div>
+                        <form class="comment-form" action="submit_edit_comment" method="post">
+                            <textarea name="comment-text" placeholder="Write your comment here...">{{comment}}</textarea>
+                            <input type="hidden" name="post-id" value="{{id}}">
+                            <button type="submit" name="editBtn" value="{{idcomment}}"><h4>Comment</h4></button>
+                        </form>
                     </div>
+                    {{/with}}
                 </div>
             </div>
         </div>
