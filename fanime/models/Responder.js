@@ -37,7 +37,9 @@ const userSchema = new mongoose.Schema({
 
 const postSchema = new mongoose.Schema({
     username: { type: String },
+    userpfp: {type:String},
     date: { type: String},
+    email: {type:String},
     title: { type: String },
     genre: { type: String },
     description: { type: String},

@@ -29,24 +29,22 @@ function add(server){
         postModel.find({}).lean().then(function(posts){
         console.log('Loading posts from database');
         let vals = new Array();
-            for(const post of posts){
-                const searchQuery = { user: post.username}
-                userModel.findOne(searchQuery).lean().then(function(account){
-                    vals.push({
-                        _id : post._id.toString(),
-                        username: post.username,
-                        date: post.date,
-                        title: post.title,
-                        genre: post.genre,
-                        description: post.description,
-                        image: post.image,
-                        comments: post.comments,
-                        like: post.like.length,
-                        dislike: post.dislike.length,
-                        profilepicture: account.profilepicture
-                    });
-                });
-            }
+        for(const post of posts){
+            
+            vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length,
+                    profilepicture: post.userpfp
+            })
+        }
             resp.render('unregMain', {
                 layout: 'index',
                 title: 'Unregistered Page',
@@ -60,24 +58,22 @@ function add(server){
         postModel.find({}).lean().then(function(posts){
         console.log('Loading posts from database');
         let vals = new Array();
-            for(const post of posts){
-                const searchQuery = { user: post.username}
-                userModel.findOne(searchQuery).lean().then(function(account){
-                    vals.push({
-                        _id : post._id.toString(),
-                        username: post.username,
-                        date: post.date,
-                        title: post.title,
-                        genre: post.genre,
-                        description: post.description,
-                        image: post.image,
-                        comments: post.comments,
-                        like: post.like.length,
-                        dislike: post.dislike.length,
-                        profilepicture: account.profilepicture
-                    });
-                });
-            }
+        for(const post of posts){
+            
+            vals.push({
+                    _id : post._id.toString(),
+                    username: post.username,
+                    date: post.date,
+                    title: post.title,
+                    genre: post.genre,
+                    description: post.description,
+                    image: post.image,
+                    comments: post.comments,
+                    like: post.like.length,
+                    dislike: post.dislike.length,
+                    profilepicture: post.userpfp
+            })
+        }
             resp.render('unregMain', {
                 layout: 'index',
                 title: 'Unregistered Page',
