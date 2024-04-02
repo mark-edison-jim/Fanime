@@ -4,7 +4,7 @@ $(document).ready(function(){
     }
     $("#submit-comment").click(function(){
         if(checkInputs()){
-            var postId = $(".post-head").data('post-id');
+            var postId = $(".noclick-post").data('post-id');
             var commentData = {
                 comment: $("#comment-data").val(),
                 id: postId
@@ -17,9 +17,11 @@ $(document).ready(function(){
                     <div class="comment-user">
                         <p>${data.user}</p>
                     </div>
-                    <p>${data.comment}</p>
+                    <div class="comment-body">${data.comment}</div>
                 </div>`;
                 $('.comment-container').append(comment);
+                let textarea = document.getElementById('comment-data');
+                textarea.value = '';
             }//if
             });//fn+post
         }else{

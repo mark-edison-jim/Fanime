@@ -31,7 +31,7 @@
                     <div class="comment">
                         <div class="comment-form">
                             <textarea placeholder="Write your comment here..." id="comment-data"></textarea>
-                            <button type="button" id="submit-comment"><h4>Comment</h4></button>
+                            <button type="button" id="submit-comment" onclick="clearTextarea()" >Comment</button>
                         </div>
                     </div>
                     <div class="comment-section">
@@ -41,7 +41,7 @@
                                 <div class="comment-user">
                                     <p>{{user}}</p>
                                 </div>
-                                <p>{{text}}</p>
+                                  <div class="comment-body">{{text}}</div>
                             </div>
                         {{/each}}
                         </div>

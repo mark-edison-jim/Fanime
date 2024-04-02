@@ -2,16 +2,16 @@ document.body.style.transform = 'scale(1)';
 
 $(document).ready(function(){
   $(".toggle-comment-section").click(function() {
-      $(this).closest('.post').find(".comment").toggle();
       $(this).closest('.post').find(".comment-section").toggle();
+      $(this).closest('.noclick-post').find(".comment-section").toggle();
   });
   
   $('.notification').hide();
-  if($('.notification #notiMsgDiv').text() != ''){
+  if ($('.notification #notiMsgDiv').text() != '') {
     $('.notification').show();
-    $("#exit-noti").click(function(){
-      $(".notification").toggle();
-    })
+    $("#exit-noti").click(function () {
+      $(".notification").fadeOut('fast');
+    });
   }
 
   let curForm = 'register';

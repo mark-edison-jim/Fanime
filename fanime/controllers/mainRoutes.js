@@ -39,7 +39,7 @@ function add(server){
                         layout: 'index',
                         title: 'Unregistered Page',
                         posts: vals,
-                        msg: 'Welcome to Fanime! Please Login or Sign Up to view/filter Posts!'
+                        msg: 'Welcome to Fanime! Login or Sign Up to view/filter Posts!'
                     });
                 });
         }else{

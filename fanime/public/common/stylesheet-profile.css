@@ -234,15 +234,23 @@ body{
     flex-direction: column;
 }
 
-.nonemsg {
+.nonemsg, .nonemsg2 {
     background-color: rgb(61, 64, 110);
-    width: 50%;
     border-radius: 15px;
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+.nonemsg {
+    width: 50%;
     font-size: 36px;
 }
 
+.nonemsg2 {
+    width: 80%;
+    font-size: 20px;
+    text-align: center;
+}
 
 .prf-edit {
     position: absolute;
