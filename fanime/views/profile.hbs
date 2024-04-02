@@ -103,7 +103,7 @@
                                             <h2>{{title}}</h2>
                                         </div>
                                         <button class="edit-post" data-postId="{{_id}}">Edit</button>
-                                        <button>Delete</button>
+                                        <button onclick="deletepost(this)" data-postId="{{_id}}">Delete</button>
                                     </div>
                                 {{/each}}
                             {{else}}
@@ -120,8 +120,8 @@
                                             <div class="user-post-title" data-postId="{{_id}}">
                                                 <h2>{{title}}</h2>
                                             </div>
-                                            <button onclick="window.location.href = '/editcomment';">Edit</button>
-                                            <button>Delete</button>
+                                            <button class="edit-comment" data-commentId="{{_idcomment}}">Edit</button>
+                                            <button onclick="deletecomment(this)" data-commentId="{{_idcomment}}">Delete</button>
                                         </div>
                                     {{/each}}
                                 {{else}}
