@@ -2,7 +2,6 @@ const responder = require('../models/Responder');
 const userModel = responder.userModel;
 const postModel = responder.postModel;
 const upload = responder.upload;
-const data = require('../data');
 const session = responder.session;
 const mongoStore = responder.mongoStore;
 
@@ -17,24 +16,22 @@ function add(server){
             postModel.find({}).lean().then(function(posts){
                 console.log('Loading posts from database');
                 let vals = new Array();
-                    for(const post of posts){
-                        const searchQuery = { user: post.username}
-                        userModel.findOne(searchQuery).lean().then(function(account){
-                            vals.push({
-                                _id : post._id.toString(),
-                                username: post.username,
-                                date: post.date,
-                                title: post.title,
-                                genre: post.genre,
-                                description: post.description,
-                                image: post.image,
-                                comments: post.comments,
-                                like: post.like.length,
-                                dislike: post.dislike.length,
-                                profilepicture: account.profilepicture
-                            });
-                        });
-                    }
+                for(const post of posts){
+                    
+                    vals.push({
+                        _id : post._id.toString(),
+                        username: post.username,
+                        date: post.date,
+                        title: post.title,
+                        genre: post.genre,
+                        description: post.description,
+                        image: post.image,
+                        comments: post.comments,
+                        like: post.like.length,
+                        dislike: post.dislike.length,
+                        profilepicture: post.userpfp
+                    })
+                }
                     resp.render('unregMain', {
                         layout: 'index',
                         title: 'Unregistered Page',
@@ -56,21 +53,19 @@ function add(server){
                 console.log('Loading posts from database');
                 let vals = new Array();
                     for(const post of posts){
-                        const searchQuery = {user: post.username};
-                        userModel.findOne(searchQuery).lean().then(function(account){
+                        
                         vals.push({
-                            _id : post._id.toString(),
-                            username: post.username,
-                            date: post.date,
-                            title: post.title,
-                            genre: post.genre,
-                            description: post.description,
-                            image: post.image,
-                            comments: post.comments,
-                            like: post.like.length,
-                            dislike: post.dislike.length,
-                            profilepicture: account.profilepicture
-                        });
+                                _id : post._id.toString(),
+                                username: post.username,
+                                date: post.date,
+                                title: post.title,
+                                genre: post.genre,
+                                description: post.description,
+                                image: post.image,
+                                comments: post.comments,
+                                like: post.like.length,
+                                dislike: post.dislike.length,
+                                profilepicture: post.userpfp
                         })
                     }
                     console.log(req.session.profilepicture);
@@ -91,10 +86,17 @@ function add(server){
         console.log("files: ", req.files)
         userModel.findOne(searchQuery).then(function(user) {
             console.log('Update successful');
-            user.profilepicture = req.files['pfp'] ? req.files['pfp'][0].filename : user.profilepicture;
-            user.profilebanner = req.files['profile-banner'] ? req.files['profile-banner'][0].filename : user.profilebanner;
+            const pfp = req.files['pfp'] ? req.files['pfp'][0].filename : user.profilepicture;
+            const profban = req.files['profile-banner'] ? req.files['profile-banner'][0].filename : user.profilebanner;
+            user.profilepicture = pfp;
+            user.profilebanner = profban;
             user.save().then(function (result) {
-                resp.redirect('/profile');
+                postModel.updateMany(searchQuery, { $set: { username: user.username }, $set: { userpfp: pfp }}).lean().then(function(doc){
+                    postModel.find(searchQuery).lean().then(function(posts){
+                        console.log("posts: ", posts)
+                        resp.redirect('/profile');
+                    })
+                })
             }).catch(errorFn);
         }).catch(errorFn);
     })
@@ -156,6 +158,8 @@ function add(server){
         const postInstance = postModel({
             title: title,
             username: req.session.username,
+            userpfp: req.session.profilepicture,
+            email: req.session.email,
             date: date,
             genre: genre,
             description: description,
