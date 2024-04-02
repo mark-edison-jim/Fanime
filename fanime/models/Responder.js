@@ -1,5 +1,6 @@
+require('dotenv').config({ path: "data.env" });
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/fanimeDB');
+mongoose.connect(process.env.MONGOURI);
 const multer  = require('multer');
 const path = require('path');
 const session = require('express-session');

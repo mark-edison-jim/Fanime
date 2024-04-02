@@ -1,7 +1,6 @@
 const responder = require('../models/Responder');
 const userModel = responder.userModel;
 const postModel = responder.postModel;
-const data = require('../data');
 const session = responder.session;
 const mongoStore = responder.mongoStore;
 
