@@ -65,23 +65,30 @@
                     <div class="favs-body">
                         <div class="favs-inner">
                             <h2>Anime</h2>
-                            {{#each favAnime}}
-                            <div class="tooltip">
-                                <img src={{animeIcon}}>
-                                <span class="tooltiptext">{{animeTitle}}</span>
-                            </div>
-                            {{/each}}
-
+                            {{#if favAnime}}
+                                {{#each favAnime}}
+                                <div class="tooltip">
+                                    <img src={{animeIcon}}>
+                                    <span class="tooltiptext">{{animeTitle}}</span>
+                                </div>
+                                {{/each}}
+                            {{else}}
+                                <p class="nonemsg2">No favorite anime yet.</p>
+                            {{/if}}
 
                         </div>
                         <div class="favs-inner">
                             <h2>Manga</h2>
+                           {{#if favManga}}
                             {{#each favManga}}
                             <div class="tooltip">
                                 <img src={{mangaIcon}}>
                                 <span class="tooltiptext">{{mangaTitle}}</span>
                             </div>
                             {{/each}}
+                        {{else}}
+                            <p class="nonemsg2">No favorite manga yet.</p>
+                        {{/if}}
                         </div>
                     </div>
                 </div> 

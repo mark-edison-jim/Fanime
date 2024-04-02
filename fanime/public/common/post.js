@@ -65,7 +65,27 @@ $(document).ready(function(){
         }
     });
     
+    $('#file-input').change(function() {
+        let filename = $(this).val().split('\\').pop(); // Get the filename
+        if (filename) {
+            $('.filename-text').text(filename); // Display filename if available
+            $('.tooltiptext').text("Change Image"); // Change tooltip text
+        } else {
+            $('.tooltiptext').text("Add Image"); // Change tooltip text
+        }
+    });
     
+    $('.image-upload').hover(
+        function() {
+            let filename = $('#file-input').val().split('\\').pop(); // Get the filename
+            if (filename) {
+                $('.filename-text').css('display', 'inline-block'); // Show filename text
+            }
+        },
+        function() {
+            $('.filename-text').css('display', 'none'); // Hide filename text when not hovering
+        }
+    );
     
 
     $(".user-post-title").click(function() {
