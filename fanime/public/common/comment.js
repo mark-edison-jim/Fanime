@@ -33,9 +33,11 @@ $(document).ready(function(){
                     <div class="comment-user">
                         <p>${data.user}</p>
                     </div>
-                    <p>${data.comment}</p>
+                    <div class="comment-body">${data.comment}</div>
                 </div>`;
                 $('.comment-container').append(comment);
+                let textarea = document.getElementById('comment-data');
+                textarea.value = '';
             }//if
             });//fn+post
         }else{

@@ -29,12 +29,23 @@
                                         <option>Mystery</option>
                                     </select>
                                 </div>
-                                <div class="post-buttons-bottom">
-                                    <label for="file-input" class="post-image">
+                                <div class="post-buttons-mid">
+                                    <!--
+                                        <label for="file-input" class="post-image">
                                         <img id="filepic" src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png"/>
                                         </label>
-                                        <input id="file-input" name="postimg" type="file"/>
-                                        <button type="submit" id="submit-post">Post</button>
+                                        <input id="" name="postimg" type="file"/>
+                                    -->
+                                   <label for="file-input" class="image-upload">
+                                    <img src="camera.png" alt="Add Image">
+                                    <input type="file" id="file-input" name="postimg" accept="image/*" style="display: none;" />
+                                    <span class="tooltiptext">Add Image</span>
+                                    <span class="filename-text"></span>
+                                </label>
+
+                                </div>
+                                <div class="post-buttons-bottom">
+                                    <button type="submit" id="submit-post">Post</button>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +80,7 @@
                                 <div class="comment-user">
                                     <p>{{user}}</p>
                                 </div>
-                                <p>{{text}}</p>
+                                <div class="comment-body">{{text}}</div>
 
                             </div>
                         {{/each}}
