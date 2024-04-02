@@ -111,6 +111,7 @@ function add(server){
                         if(posts[i].comments[j].user === account.user){
                             commentArr.push({
                                 _id : posts[i]._id.toString(),
+                                _idcomment : posts[i].comments[j]._id.toString(),
                                 title: posts[i].title
                             })
                         }
@@ -245,14 +246,59 @@ function add(server){
     });
     
     server.get('/editcomment', function(req, resp){
+        const searchPost = req.query.post_id;
+        const searchComment = req.query.comment_id;
+        console.log("This is Search Post", searchPost);
+        console.log("This is Search Query", searchComment);
+        postModel.findById(searchPost).lean().then(function(postInstance){
+            const index = postInstance.comments.findIndex(comment => comment._id.toString() === searchComment);
+            
+            const data = {
+                id: postInstance._id,
+                idcomment: searchComment,
+                comment: postInstance.comments[index].text
+            }
+            console.log(data);
+            resp.render('editcomment', {
+                layout: 'index',
+                title: 'Edit Comment Page',
+                comment: data,
+                username: req.session.username,
+                pfp: req.session.profilepicture,
+                loggedusername: req.session.username,
+                loggedprofilepicture: req.session.profilepicture
+            });
+        }).catch(errorFn);
         
-        resp.render('editcomment', {
-            layout: 'index',
-            title: 'Edit Comment Page',
-            username: req.session.username,
-            pfp: req.session.profilepicture
-        });
-        
+    });
+    
+    server.post('/submit_edit_comment', function(req, resp){
+        const searchPost = req.body['post-id'];
+        const searchQuery = req.body['editBtn'];
+        const text = req.body['comment-text'];
+        console.log(searchPost, searchQuery, text);
+
+        console.log("Editing the Search Query", searchQuery);
+        postModel.findById(searchPost).then(function(postInstance){
+
+            const index = postInstance.comments.findIndex(comment => comment._id.toString() === searchQuery);
+            postInstance.comments[index].text = text;
+            postInstance.save().then(function(){
+                resp.redirect("/profile");
+            })
+        }).catch(errorFn);
+    });
+
+    server.get('/delete_comment',function(req, resp){
+        searchComment = req.query.comment_id;
+        searchPost = req.query.post_id;
+        postModel.findById(searchPost).then(function(post){
+            const index = post.comments.findIndex(comment => comment._id.toString() === searchComment);
+            post.comments.splice(index, 1);
+            post.save().then(function(){
+                resp.redirect('/profile');
+            });
+        }).catch(errorFn);
     });
 
     server.post('/create_comment', function(req, resp){
