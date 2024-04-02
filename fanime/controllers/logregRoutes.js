@@ -1,10 +1,10 @@
+require('dotenv').config({ path: "data.env" });
 const responder = require('../models/Responder');
 const userModel = responder.userModel;
 const postModel = responder.postModel;
 const sessionModel = responder.sessionModel;
 const session = responder.session;
 const mongoStore = responder.mongoStore;
-const data = require('../data');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -19,7 +19,7 @@ function add(server){
         saveUninitialized: true, 
         resave: false,
         store: new mongoStore({ 
-          uri: 'mongodb://localhost:27017/fanimeDB',
+          uri: (process.env.MONGOURI),
           collection: 'mySession',
           expires: 1000*60*60*24 // 1 day
         })

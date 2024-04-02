@@ -1,7 +1,8 @@
+require('dotenv').config({ path: "data.env" });
 const express = require('express');
 const server = express();
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/fanimeDB');
+mongoose.connect(process.env.MONGOURI);
 
 const bodyParser = require('body-parser')
 server.use(express.json());

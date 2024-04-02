@@ -2,7 +2,6 @@ const responder = require('../models/Responder');
 const userModel = responder.userModel;
 const postModel = responder.postModel;
 const upload = responder.upload;
-const data = require('../data');
 const session = responder.session;
 const mongoStore = responder.mongoStore;
 
@@ -20,6 +19,7 @@ function add(server){
                     for(const post of posts){
                         const searchQuery = { user: post.username}
                         userModel.findOne(searchQuery).lean().then(function(account){
+                            
                             vals.push({
                                 _id : post._id.toString(),
                                 username: post.username,
@@ -58,7 +58,8 @@ function add(server){
                     for(const post of posts){
                         const searchQuery = {user: post.username};
                         userModel.findOne(searchQuery).lean().then(function(account){
-                        vals.push({
+                            console.log(account)
+                            vals.push({
                             _id : post._id.toString(),
                             username: post.username,
                             date: post.date,
