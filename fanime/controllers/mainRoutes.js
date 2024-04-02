@@ -104,11 +104,10 @@ function add(server){
 
         userModel.findOne(searchQuery).lean().then(function(account){
             postModel.find({}).lean().then(function(posts){
-                console.log(posts)
                 const commentArr = new Array();
                 for(let i=0; i<posts.length; i++){
-                    console.log('post', posts[i])
-                    console.log('comments', posts[i].comments)
+                    // console.log('post', posts[i])
+                    // console.log('comments', posts[i].comments)
                     for(let j=0; j<posts[i].comments.length; j++){
                         if(posts[i].comments[j].user === account.user){
                             commentArr.push({
@@ -123,7 +122,6 @@ function add(server){
                     if(posts[i].username === account.user)
                         postsArr.push(posts[i]);
                 }
-                console.log(commentArr)
                 const userdata = {
                     username: account.user,
                     pfp: account.profilepicture,
@@ -145,44 +143,7 @@ function add(server){
         });
 
     });
-    //let usercomments = new Array();
-    // let userpost = findUserPost(postQuery).then(function(posts){
-    //     let arr = new Array;
-    //     for(const post of posts){
-    //         arr.push({
-    //             _id : post._id.toString(),
-    //             title: post.title
-    //         });
-    //     }
-    //     console.log(arr);
-    //     return arr;
-    // });
-    // console.log("hi");
-    // console.log(userpost);
-    // postModel.find({}).lean().then(function(allpost){
-    //     for(const post of allpost){
-    //         for(const comment of post.comments){
-    //             if(post.comments === account.user){
-    //                 usercomments.push({
-    //                     _id : post._id.toString(),
-    //                     title: post.title
-    //                 });
-    //             }
-    //         }
-    //     }
-        
-    // });
-    // const userdata = {
-    //         username: account.user,
-    //         pfp: account.profilepicture,
-    //         banner: account.profilebanner,
-    //         bio: account.userbio,
-    //         favAnime: account.favAnime,
-    //         favManga: account.favManga,
-    //         posts: userpost,
-    //         comments: usercomments,
-    //         loggedprofilepicture: account.profilepicture
-    //     }
+
     server.post('/newPost', upload.single('postimg'), function(req,resp){
         // const { title, date, genre, description, image} = req.body;
         const title = req.body['post-title'];
@@ -237,58 +198,63 @@ function add(server){
     });
 
     server.get('/editpost', function(req, resp){
-       resp.render('editpost', {
-            layout: 'index',
-            title: 'Edit Post Page',
-            username: req.session.username,
-            pfp: req.session.profilePic,
-            loggedusername: req.session.username,
-            loggedprofilepicture: req.session.profilepicture
-        });
+        //profile edit button
+        const searchQuery = req.query.post_id;
+        console.log("This is editpost Search Query", searchQuery);
+        postModel.findById(searchQuery).lean().then(function(postInstance){
+            const data = {
+                id: postInstance._id,
+                title: postInstance.title,
+                description: postInstance.description
+            }
+            console.log(data);
+            resp.render('editpost', {
+                layout: 'index',
+                title: 'Edit Post Page',
+                post: data,
+                username: req.session.username,
+                pfp: req.session.profilepicture,
+                loggedusername: req.session.username,
+                loggedprofilepicture: req.session.profilepicture
+            });
+            console.log('hi');
+        }).catch(errorFn);
         
     });
 
+    server.post('/submit_edit_post', function(req, resp){
+        const searchQuery = req.body.editBtn;
+        const title = req.body['post-title'];
+        const description = req.body.postDesc;
+        console.log(title,description);
+        console.log("Editing the Search Query", searchQuery);
+        postModel.findById(searchQuery).then(function(postInstance){
+            console.log("Post Instance", postInstance);
+            postInstance.title = title;
+            postInstance.description = description;
+            postInstance.save().then(function(){
+                resp.redirect("/profile");
+            })
+        }).catch(errorFn);
+    });
+
+    server.get('/delete_post',function(req, resp){
+        searchQuery = req.query.post_id;
+        postModel.deleteOne({_id: searchQuery}).then(function(){
+            resp.redirect('/profile');
+        }).catch(errorFn);
+    });
+    
     server.get('/editcomment', function(req, resp){
         
         resp.render('editcomment', {
             layout: 'index',
             title: 'Edit Comment Page',
             username: req.session.username,
-            pfp: data.loggedprofilepicture
+            pfp: req.session.profilepicture
         });
         
     });
-
-    // server.post('/create_post', function(req, resp){
-    //     const { title, date, genre, description, image} = req.body;
-
-    //     const responseData = {
-    //         title: title,
-    //         username: req.session.username,
-    //         date: date,
-    //         genre: genre,
-    //         description: description,
-    //         image: image,
-    //         like: 0,
-    //         dislike: 0
-    //     };
-
-    //     const postInstance = postModel({
-    //         title: title,
-    //         username: req.session.username,
-    //         date: date,
-    //         genre: genre,
-    //         description: description,
-    //         image: image
-    //     });
-
-    //     postInstance.save().then(function(login) {
-    //         console.log('Post created');
-    //     }).catch(errorFn);
-
-    //     console.log(responseData);
-    //     resp.send(responseData);
-    // });
 
     server.post('/create_comment', function(req, resp){
         const comment = req.body.comment;
