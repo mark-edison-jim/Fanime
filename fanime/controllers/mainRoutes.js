@@ -85,13 +85,14 @@ function add(server){
             }
     });
 
-    server.post('/upload', upload.fields([{ name: 'pfp', maxCount: 1 }, { name: 'profile-banner', maxCount: 8 }]), (req,resp) =>{
+    server.post('/upload', upload.fields([{ name: 'pfp', maxCount: 1 }, { name: 'profile-banner', maxCount: 1 }]), (req,resp) =>{
         const searchQuery = { email : req.session.email};
-        req.session.profilepicture = req.files['pfp'][0].filename;
+        req.session.profilepicture = req.files['pfp'] ? req.files['pfp'][0].filename : req.session.profilepicture;
+        console.log("files: ", req.files)
         userModel.findOne(searchQuery).then(function(user) {
             console.log('Update successful');
-            user.profilepicture = req.files['pfp'][0].filename;
-            user.profilebanner = req.files['profile-banner'][0].filename;
+            user.profilepicture = req.files['pfp'] ? req.files['pfp'][0].filename : user.profilepicture;
+            user.profilebanner = req.files['profile-banner'] ? req.files['profile-banner'][0].filename : user.profilebanner;
             user.save().then(function (result) {
                 resp.redirect('/profile');
             }).catch(errorFn);
@@ -287,7 +288,7 @@ function add(server){
 
     server.post('/like', function(req, resp){
         const {postId} = req.body;
-        console.log(data.loggedIn);
+        console.log(req.session);
         if(req.session.username === ''){
             console.log("not logged in, cant like");
         }else{
@@ -316,7 +317,7 @@ function add(server){
 
     server.post('/dislike', function(req, resp){
         const {postId} = req.body;
-        console.log(data.loggedIn);
+        console.log(req.session);
         if(req.session.username === ''){
             console.log("not logged in, cant dislike");
         }else{
