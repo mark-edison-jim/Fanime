@@ -139,6 +139,14 @@ function add(server){
             });
         });
     });
+
+    server.get('/about', function(req, resp){
+        resp.render('about', {
+                    layout: 'index',
+                    title: 'About Page',
+        });
+    });
+    
 }
 
 module.exports.add = add;

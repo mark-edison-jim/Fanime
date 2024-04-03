@@ -21,7 +21,8 @@ function add(server){
                     vals.push({
                         _id : post._id.toString(),
                         username: post.username,
-                        date: post.date,
+                        date: post.datePosted,
+                        editDate: post.dateEdited,
                         title: post.title,
                         genre: post.genre,
                         description: post.description,
@@ -53,11 +54,11 @@ function add(server){
                 console.log('Loading posts from database');
                 let vals = new Array();
                     for(const post of posts){
-                        
                         vals.push({
                                 _id : post._id.toString(),
                                 username: post.username,
-                                date: post.date,
+                                date: post.datePosted,
+                                editDate: post.dateEdited,
                                 title: post.title,
                                 genre: post.genre,
                                 description: post.description,
@@ -205,10 +206,24 @@ function add(server){
         });
     });
 
+    function getDate(){
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // Months start at 0!
+        let dd = today.getDate();
+        
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+        
+        const formattedToday = dd + '/' + mm + '/' + yyyy;
+        return formattedToday;
+    }
+
     server.post('/newPost', upload.single('postimg'), function(req,resp){
         // const { title, date, genre, description, image} = req.body;
+        
         const title = req.body['post-title'];
-        const date = "5hrs ago";
+        const date = getDate();
         const genre = req.body['post-tag'];
         const description = req.body.postDesc;
         let image = '';
@@ -222,7 +237,7 @@ function add(server){
             username: req.session.username,
             userpfp: req.session.profilepicture,
             email: req.session.email,
-            date: date,
+            datePosted: date,
             genre: genre,
             description: description,
             image: image
@@ -240,7 +255,8 @@ function add(server){
                     const post_data = {
                     _id : post._id.toString(),
                     username: post.username,
-                    date: post.date,
+                    date: post.datePosted,
+                    editDate: post.dateEdited,
                     email: post.email,
                     title: post.title,
                     genre: post.genre,
@@ -297,6 +313,7 @@ function add(server){
             console.log("Post Instance", postInstance);
             postInstance.title = title;
             postInstance.description = description;
+            postInstance.dateEdited = getDate();
             postInstance.save().then(function(){
                 resp.redirect("/profile");
             })
