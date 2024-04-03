@@ -122,6 +122,16 @@
             background-color: #d6c4b0;
             padding:10px;
         }
+
+        .search-button:hover{
+        background-color: #AC3B61;
+        color:white;
+        }
+        
+        .search-button:active{
+            background-color: rgb(255, 204, 109);
+            color:black;
+            }
         .website-logout{
             width: 15%;
             display: flex;
@@ -225,6 +235,14 @@
             border-color: #AC3B61;
             background-color:#eeeae8;
             text-decoration: none;
+            color: black;
+        }
+        #signup:hover{
+            background-color: #AC3B61;
+            color: white;
+        }
+        #signup:active{
+            background-color: #eeeae8;
             color: black;
         }
         .website-user-profile button{
@@ -382,10 +400,11 @@
             margin: 0.5% 2%;
             padding: 0.5% 0.25%;
             height: auto;
+            min-height: 150px;
             border-radius: 5px;
         }
         .post-form{
-            height: auto;
+            height: 150px;
             display: flex;
         }
         .post-texts{
@@ -402,11 +421,11 @@
             flex-direction: column;
             margin-bottom: 5px;
             margin-top: 5px;
-
+            align-items: center;
         }
         .enter-post-desc{
             margin-top:10px;
-            height: 50%;
+            height: 80%;
             border-radius: 15px;
             resize: none;
             padding:10px;
@@ -418,9 +437,7 @@
 
 
         }
-        #file-input{
-            display: none;
-        }
+
         .enter-post-title{
             height: 20%;
             border-radius: 15px;
@@ -433,9 +450,10 @@
         }
 
         .post-buttons-top {
-            height: 50%;
+            height: 35%;
             display: flex;
             justify-content: center;
+            width: 100%;
         }
 
         #post-genre{
@@ -446,12 +464,76 @@
             text-align: center;
 
         }
+        .post-buttons-mid {
+            width: 100%;
+            height: 30%;
+            display: flex;
+            align-items: center; /* Center items vertically */
+            margin-bottom: 10px;
+        }
+        
+        .image-upload {
+            display: flex;
+            justify-content: center;
+            position: relative; /* Add relative positioning */
+            height: 100%; /* Set height to 100% */
+        }
+        
+        .image-upload img {
+            cursor: pointer;
+            width: 30%;
+        }
+  
+        .image-upload .tooltiptext {
+            visibility: hidden;
+            width: 100px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 5%;
+            left: 115%;
+            margin-left: -75px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .image-upload:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+          
+        }
+        
+        .filename-text {
+            display: none;
+            background-color: black;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 5px;
+            position: absolute;
+            overflow: hidden;
+            max-width: 50%;
+            max-height: 50px;
+            text-overflow: ellipsis; /* Add text-overflow property */
+            
+            bottom: -5%;
+            left: 0%;
+            transform: translateX(-50%);
+            transition: opacity 0.3s;
+        }
+
+
         .post-buttons-bottom {
-            height: 50%;
+            justify-content: center;
+            height: 40%;
+            width:100%;
             display: flex;
             
         }
-
+/*
         label.post-image{
             width:50%;
         }
@@ -466,9 +548,9 @@
 
         }
 
-
+*/
         .post-buttons-bottom > button{
-            width:40%;
+            width: 80%;
             border: 1px solid black;
             background-color: #252744;
             color:white;
@@ -491,11 +573,12 @@
             width: 95.5%;
             margin: 1% 2%;
             height: auto;
-            border-radius: 15px;
+            border-radius: 15px 15px 0 15px;
             flex-direction: column;
             display: flex;
             box-shadow: 0 0 0 2px transparent; /* Set initial transparent outline */
             align-items: center;
+
            
         }
         
@@ -580,19 +663,23 @@
             font-size: 25px; 
             margin-left: 5px;
             margin-right: 5px;
-            transition: transform 0.3s, color 0.1s; 
+           transition: transform 0.2s ease 0s, color 0.5ms ;
+
         }
-        
+
         .post-action .fa:hover {
             transform: scale(1.2); 
         }
         
-        .post-action .fa-thumbs-up:active{
+
+        .post-action .fa-thumbs-up:active {
             color: rgb(14, 245, 210); /* Set color for thumbs-up icon */
+         
         }
         
-        .post-action .fa-thumbs-down:active{
+        .post-action .fa-thumbs-down:active {
             color: rgb(255, 74, 74); /* Set color for thumbs-down icon */
+
         }
         
         .post-action > button{
@@ -611,13 +698,22 @@
             padding:10px;
             box-sizing: border-box;
         }
-        toggle-comment-section{
+        .toggle-comment-section > button{
             margin-left: 10px;
+        }
+        .post-action > button:hover{
+            background-color: #1d202f;
+            color: white;
+        }
+        .post-action > button:active{
+            background-color: #7481db;
+            color: black;
         }
         .comment-form{
             height: 100%;
             display: flex;
             margin-top: 5px;
+            
         }
         .comment-form textarea{
             width: 85%;
@@ -625,18 +721,35 @@
             height: auto;
             resize: none;
             padding:10px;
+            color: white;
+            background-color: #252744;
+            margin-right: 10px;
         }
         .comment-form > button{
+            padding:15px;
+            background-color: #252744;
+            font-size: large;
             width: 15%;
             height: 100%;
             border-radius: 10px;
             margin: 0px 0px;
             vertical-align: middle;
+            color: white
         }
+
         .comment-section {
             width: 100%;
-            height: 100px; /* Set the height of the comment box */
-           
+            height: 200px; /* Set the height of the comment box */
+            padding-bottom: 15px;
+        }
+        .comment-form > button:hover {
+            background-color: #8ea2f6; /* Change color on hover */
+            color:black;
+        }
+        
+        .comment-form > button:active {
+            background-color: #2a25ae; /* Change color on click */
+            color: white;
         }
         
         .comment-container {
@@ -644,6 +757,7 @@
             height: 100%;
             overflow-y: auto; /* Enable vertical scrollbar */
             overflow-x: hidden; /* Hide horizontal scrollbar */
+            box-sizing: border-box;
            
         }
         
@@ -652,14 +766,31 @@
             padding:10px;
             display: flex;
             padding-right: 5px;
+            width:100%;
+            display: flex;
+            display: flex;
+            align-items: center;
+
+            
         }
         
         .comment-user{
-            width: 20%;
+            width: 10%;
             height: auto;
-            margin: 0.1%;
-            padding-right: 5px;
+            margin: 5px;
+
+            text-align: center;
+
+
         }
+        .comment-body {
+            height: auto;
+            width: 80%;
+            background-color: #4564b9;
+            padding:15px;
+            border-radius: 15px;
+        }
+        
         .hidden {
             display: none;
         }
@@ -697,9 +828,12 @@
 .notification{
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 15px;
+    margin-left: 15px;
+    padding:10px;
+    padding-top:5px;
     width: 85%;
-    height: 65%;
+    height: 70%;
     background-color: rgb(126, 126, 255);
     border: 1px solid black;
     border-radius: 10px;
@@ -727,7 +861,8 @@
     cursor: pointer;
     border: none;
     background: transparent;
-    margin-right: 10px;
+    margin-right: 5px;
+ 
     font-size: 20px;
 }
 
