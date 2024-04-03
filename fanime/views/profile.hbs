@@ -57,22 +57,30 @@
                     <div class="favs-body">
                         <div class="favs-inner">
                             <h2>Anime</h2>
-                            {{#with favAnime}}
-                            <div class="tooltip">
-                                <img src={{animeIcon}}>
-                                <span class="tooltiptext">{{animeTitle}}</span>
-                            </div>
-                            {{/with}}
+                            {{#if favAnime}}
+                                {{#with favAnime}}
+                                <div class="tooltip">
+                                    <img src={{animeIcon}}>
+                                    <span class="tooltiptext">{{animeTitle}}</span>
+                                </div>
+                                {{/with}}
+                            {{else}}
+                                <p class="nonemsg2">No favorite anime yet.</p>
+                            {{/if}}
 
                         </div>
                         <div class="favs-inner">
                             <h2>Manga</h2>
-                            {{#with favManga}}
-                            <div class="tooltip">
-                                <img src={{mangaIcon}}>
-                                <span class="tooltiptext">{{mangaTitle}}</span>
-                            </div>
-                            {{/with}}
+                            {{#if favManga}}
+                                {{#with favManga}}
+                                <div class="tooltip">
+                                    <img src={{mangaIcon}}>
+                                    <span class="tooltiptext">{{mangaTitle}}</span>
+                                </div>
+                                {{/with}}
+                            {{else}}
+                                <p class="nonemsg2">No favorite manga yet.</p>
+                            {{/if}}
                         </div>
                     </div>
                 </div> 

@@ -36,7 +36,7 @@ function add(server){
                         layout: 'index',
                         title: 'Fanime',
                         posts: vals,
-                        msg: 'Welcome to Fanime! Please Login or Sign Up to view/filter Posts!'
+                        msg: 'Welcome to Fanime! Login or Sign Up to view/filter Posts!'
                     });
                 });
         }else{
@@ -355,20 +355,49 @@ function add(server){
                 const searchUser = {user: req.session.username};
                 console.log("likes: ",post.like);
                 const userLiked = post.like.some(like => like.user === searchUser.user);
+                const userDisliked = post.dislike.some(dislike => dislike.user === searchUser.user);
                 if (userLiked) {
                     console.log("Post was already liked by this user");
-                    return; // will do a remove user from array if pressed again
-                }
-                post.like.push(searchUser);
-                post.save().then(function(savedPost) {
-                    console.log('Post liked by user:', searchUser);
-                    const responseData = {
-                        likes: savedPost.like.length,
-                        post_id: postId
-                    };
-                    console.log("Response data:",responseData);
-                    resp.send(responseData);
-                });      
+                    const userLikedIndex = post.like.findIndex(like => like.user === searchUser.user);
+                    post.like.splice(userLikedIndex, 1);
+                    post.save().then(function(savedPost) {
+                        console.log('Post unliked by user:', searchUser);
+                        const responseData = {
+                            likes: savedPost.like.length,
+                            dislikes: savedPost.dislike.length,
+                            post_id: postId
+                        };
+                        console.log("Response data:", responseData);
+                        resp.send(responseData);
+                    });
+
+                } else if (userDisliked) {
+                    console.log("Changing dislike to like");
+                    const userDislikedIndex = post.dislike.findIndex(dislike => dislike.user === searchUser.user);
+                    post.dislike.splice(userDislikedIndex, 1);
+                    post.like.push(searchUser);
+                    post.save().then(function(savedPost) {
+                        const responseData = {
+                            likes: savedPost.like.length,
+                            dislikes: savedPost.dislike.length,
+                            post_id: postId
+                        };
+                        console.log("Response data:", responseData);
+                        resp.send(responseData);
+                    });
+                }else{
+                    post.like.push(searchUser);
+                    post.save().then(function(savedPost) {
+                        console.log('Post liked by user:', searchUser);
+                        const responseData = {
+                            likes: savedPost.like.length,
+                            dislikes: savedPost.dislike.length,
+                            post_id: postId
+                        };
+                        console.log("Response data:",responseData);
+                        resp.send(responseData);
+                    });       
+                }  
             });
         }
     });
@@ -383,23 +412,49 @@ function add(server){
             postModel.findOne(searchPost).then(function(post){
                 const searchUser = {user: req.session.username};
                 console.log("dislikes: ", post.dislike);
+                const userLiked = post.like.some(like => like.user === searchUser.user);
                 const userDisliked = post.dislike.some(dislike => dislike.user === searchUser.user);
                 if (userDisliked) {
-                    console.log("Post was already liked by this user");
-                    return; // will do a remove user from array if pressed again
+                    console.log("Post was already disliked by this user");
+                    const userDislikedIndex = post.dislike.findIndex(dislike => dislike.user === searchUser.user);
+                    post.dislike.splice(userDislikedIndex, 1);
+                    post.save().then(function(savedPost) {
+                        console.log('Post unliked by user:', searchUser);
+                        const responseData = {
+                            dislikes: savedPost.dislike.length,
+                            post_id: postId
+                        };
+                        console.log("Response data:", responseData);
+                        resp.send(responseData);
+                    });
+                } else if (userLiked) {
+                    console.log("Changing like to dislike");
+                    const userLikedIndex = post.like.findIndex(like => like.user === searchUser.user);
+                    post.like.splice(userLikedIndex, 1);
+                    post.dislike.push(searchUser);
+                    post.save().then(function(savedPost) {
+                        const responseData = {
+                            likes: savedPost.like.length,
+                            dislikes: savedPost.dislike.length,
+                            post_id: postId
+                        };
+                        console.log("Response data:", responseData);
+                        resp.send(responseData);
+                    });
+                }else{
+                    post.dislike.push(searchUser);
+                    post.save().then(function(savedPost) {
+                        console.log('Post disliked by user:', searchUser);
+                        const responseData = {
+                            likes: savedPost.like.length,
+                            dislikes: savedPost.dislike.length,
+                            post_id: postId
+                        };
+                        resp.send(responseData);
+                    });   
                 }
-                if (!post.dislike) {
-                    post.dislike = []; // If not, initialize it
-                }
-                post.dislike.push(searchUser);
-                post.save().then(function(savedPost) {
-                    console.log('Post disliked by user:', searchUser);
-                    const responseData = {
-                        dislikes: savedPost.dislike.length,
-                        post_id: postId
-                    };
-                    resp.send(responseData);
-                });      
+
+                   
             });
         }
     });
