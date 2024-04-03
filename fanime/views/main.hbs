@@ -9,10 +9,10 @@
                 <div class="post-create">
                     <form action="newPost" method="post" enctype="multipart/form-data">
                         <div class="post-form">
-                            <div class="post-texts">
-                                <input type="text" name="post-title" id="post-title" class="enter-post-title" placeholder="Title" required>
-                                <textarea name="postDesc" rows="2" cols="50" id="post-description" class="enter-post-desc" placeholder="Write your post here..." required></textarea>
-                            </div>
+                                        <div class="post-texts">
+                                    <input type="text" name="post-title" id="post-title" class="enter-post-title" placeholder="Title (Max 30 Characters)" required maxlength="30"> <!-- Maximum of 100 characters -->
+                                    <textarea name="postDesc" rows="2" cols="50" id="post-description" class="enter-post-desc" placeholder="Write your post here... (Max 500 Characters)" required maxlength="500"></textarea> <!-- Maximum of 500 characters -->
+                                </div>
                             <div class="post-buttons">
                                 <div class="post-buttons-top">
                                     <select name="post-tag" id="post-genre" required>
@@ -78,9 +78,9 @@
                     <div class="post-action">
                         <i class="fa fa-thumbs-up like" data-post-id="{{_id}}">{{like}}</i>
                         <i class="fa fa-thumbs-down dislike" data-post-id="{{_id}}">{{dislike}}</i>
-                        <button class="toggle-comment-section">Comments</button>
+                        <button class="toggle-comment-section" >Comments</button>
                     </div>
-                    <div id="comment-section"  class="comment-section">
+                    <div id="comment-section"  class="comment-section" style="display: none;">
                         <div class="comment-container">
                             {{#each comments}}
                             <div class="comment-text">
