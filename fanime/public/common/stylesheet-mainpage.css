@@ -361,6 +361,7 @@
             }
     
             .content{
+                max-width: 1000px;
                 flex-direction: column;
                 background-color: #252744;
             
@@ -606,6 +607,9 @@
             padding-left: 12px;
             padding-top: 5px;
             font-size: 12px;
+            overflow: hidden;
+            margin-right: 20px;
+            box-sizing: border-box;
         }
         .post-profile{
             display: flex;
@@ -626,7 +630,7 @@
         .post-body{
             
             width: 80%;
-            max-height: 1000px;
+            max-height: 250px;
             overflow: auto;
             height: auto;
             margin-top: 5px;
@@ -635,6 +639,7 @@
             background-color:#4564b9;
             border-radius: 15px;
             margin:15px;
+            word-wrap: break-word; 
         }
 
         .post-img{
