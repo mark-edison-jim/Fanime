@@ -103,6 +103,17 @@ function add(server){
             user.profilebanner = profban;
             user.favAnime.animeIcon = profFavAnime;
             user.favManga.mangaIcon = profFavManga;
+
+            if(req.body['favAnime-text'])
+            {
+                user.favAnime.animeTitle = req.body['favAnime-text'];
+            }
+            if(req.body['favManga-text'])
+            {
+                user.favManga.mangaTitle = req.body['favManga-text'];
+            }
+         
+            
             user.save().then(function(result) {
                 postModel.updateMany(searchQuery, { $set: { userpfp: pfp, username: newUsername }}).lean().then(function(doc){
                     postModel.find({}).lean().then(function(posts){

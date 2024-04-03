@@ -573,12 +573,13 @@
             width: 95.5%;
             margin: 1% 2%;
             height: auto;
+            max-height: 1000px;
             border-radius: 15px 15px 0 15px;
             flex-direction: column;
             display: flex;
             box-shadow: 0 0 0 2px transparent; /* Set initial transparent outline */
             align-items: center;
-
+            overflow: auto;
            
         }
         
@@ -625,6 +626,8 @@
         .post-body{
             
             width: 80%;
+            max-height: 1000px;
+            overflow: auto;
             height: auto;
             margin-top: 5px;
             margin-bottom: 5px;
