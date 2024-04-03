@@ -7,7 +7,7 @@ const session = require('express-session');
 const mongoStore = require('connect-mongodb-session')(session);
 const fs = require('fs');
 
-
+/*
 fs.readdir('./Images', (err, files) => { //Resets Images folder
     console.log(files)
     if (err) {
@@ -21,7 +21,7 @@ fs.readdir('./Images', (err, files) => { //Resets Images folder
         }
     });
 });
-
+*/
 const storage = multer.diskStorage({
     destination: (req, file, cb) =>{
         cb(null, './Images')

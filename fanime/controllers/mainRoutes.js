@@ -68,6 +68,7 @@ function add(server){
                                 profilepicture: post.userpfp
                         })
                     }
+             
                     console.log(req.session.profilepicture);
                     resp.render('main', {
                         layout: 'index',
@@ -80,7 +81,8 @@ function add(server){
             }
     });
 
-    server.post('/upload', upload.fields([{ name: 'pfp', maxCount: 1 },
+    server.post('/upload', upload.fields([
+                                        { name: 'pfp', maxCount: 1 },
                                         { name: 'profile-banner', maxCount: 1 },
                                         { name: 'favAnime-img', maxCount: 1 },
                                         { name: 'favManga-img', maxCount: 1 }]), (req,resp) =>{
@@ -88,17 +90,33 @@ function add(server){
         req.session.profilepicture = req.files['pfp'] ? req.files['pfp'][0].filename : req.session.profilepicture;
         console.log("files: ", req.files)
         userModel.findOne(searchQuery).then(function(user) {
+           
             const pfp = req.files['pfp'] ? req.files['pfp'][0].filename : user.profilepicture;
             const profban = req.files['profile-banner'] ? req.files['profile-banner'][0].filename : user.profilebanner;
             const profFavAnime = req.files['favAnime-img'] ? req.files['favAnime-img'][0].filename : user.favAnime.animeIcon;
             const profFavManga = req.files['favManga-img'] ? req.files['favManga-img'][0].filename : user.favManga.mangaIcon;
+            const newUsername = req.body.username;
+
+
+            if(newUsername){
+                user.user = newUsername;
+             
+            }           
+           
+            user.userbio = req.body.bio || user.userbio;
             user.profilepicture = pfp;
             user.profilebanner = profban;
             user.favAnime.animeIcon = profFavAnime;
             user.favManga.mangaIcon = profFavManga;
+        
+
             user.save().then(function (result) {
-                postModel.updateMany(searchQuery, { $set: { username: user.username }, $set: { userpfp: pfp }}).lean().then(function(doc){
+                console.log("bro gango: "+user.user);
+                postModel.updateMany(searchQuery, { $set: { username: user.user }, $set: { userpfp: pfp }}).lean().then(function(doc){
                     postModel.find(searchQuery).lean().then(function(posts){
+    
+                        console.log(user.user);
+                        console.log(user.userbio);
                         console.log('Update successful');
                         console.log("posts: ", posts)
                         resp.redirect('/profile');
@@ -106,10 +124,10 @@ function add(server){
                 })
             }).catch(errorFn);
         }).catch(errorFn);
-    })
+    });
 
     server.get('/profile', function(req, resp){
-        const searchQuery = {user : req.session.username};
+        const searchQuery = {email : req.session.email};
 
         userModel.findOne(searchQuery).lean().then(function(account){
             postModel.find({}).lean().then(function(posts){
@@ -129,7 +147,7 @@ function add(server){
                 }
                 const postsArr = new Array();
                 for(let i=0; i<posts.length; i++){
-                    if(posts[i].username === account.user)
+                    if(posts[i].email === account.email)
                         postsArr.push(posts[i]);
                 }
                 const userdata = {
@@ -143,6 +161,7 @@ function add(server){
                     comments: commentArr,
                     loggedprofilepicture: account.profilepicture
                 } 
+                
                 console.log(account.profilepicture)
                 console.log("favAnime", account.favAnime, "favManga", account.favManga)
                 resp.render('profile', {
@@ -186,12 +205,13 @@ function add(server){
     server.get('/post', function(req, resp){
         const searchQuery = req.query.post_id;
         postModel.findById(searchQuery).lean().then(function(post){
-            const searchQuery = {user: post.username};
+            const searchQuery = {email: post.email};
                 userModel.findOne(searchQuery).lean().then(function(account){
                     const post_data = {
                     _id : post._id.toString(),
-                    username: post.username,
+                    username: account.user,
                     date: post.date,
+                    email: account.email,
                     title: post.title,
                     genre: post.genre,
                     description: post.description,
@@ -201,6 +221,7 @@ function add(server){
                     dislike: post.dislike.length,
                     profilepicture: account.profilepicture
                     };
+                    console.log("THIS IS THE IGN WAHAHAHA: " +  account.user)
                     console.log(account.profilepicture)
                     resp.render('post', {
                         layout: 'index',
