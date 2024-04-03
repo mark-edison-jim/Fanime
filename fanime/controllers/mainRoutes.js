@@ -34,7 +34,7 @@ function add(server){
                 }
                     resp.render('unregMain', {
                         layout: 'index',
-                        title: 'Unregistered Page',
+                        title: 'Fanime',
                         posts: vals,
                         msg: 'Welcome to Fanime! Login or Sign Up to view/filter Posts!'
                     });

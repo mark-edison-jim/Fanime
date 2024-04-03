@@ -15,7 +15,7 @@ function errorFn(err){
 
 function add(server){
     server.use(session({
-        secret: 'i was today years old when i found out fanime stood for forum anime',
+        secret: process.env.SessionSecret,
         saveUninitialized: true, 
         resave: false,
         store: new mongoStore({ 
