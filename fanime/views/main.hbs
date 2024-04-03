@@ -64,10 +64,14 @@
                         <h4>{{username}}</h4>
                         <h6>{{date}}</h6>
                     </div>
+                    {{#if image}}
                     <div class="post-body">{{description}}</div>
                     <div class="post-img">
                         <img src={{image}}>
                     </div>
+                    {{else}}
+                    <div class="post-body">{{description}}</div>
+                    {{/if}}
                     <div class="post-action">
                         <i class="fa fa-thumbs-up like" data-post-id="{{_id}}">{{like}}</i>
                         <i class="fa fa-thumbs-down dislike" data-post-id="{{_id}}">{{dislike}}</i>
