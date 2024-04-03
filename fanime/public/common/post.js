@@ -39,6 +39,7 @@ $(document).ready(function(){
         }
     });
     
+    
     $('.image-upload').hover(
         function() {
             let filename = $('#file-input').val().split('\\').pop(); // Get the filename
