@@ -32,22 +32,14 @@
                                     <input type="file" id="profile-banner" name="profile-banner"><br>
                                     <label for="bio">Bio:</label><br>
                                     <textarea id="bio" name="bio"></textarea><br>
-                                    <label for="fav-img1">Favorite Anime 1 (Icon):</label><br>
-                                    <input type="file" id="fav-img1" name="fav-img1"><br>
-                                    <label for="fav-text1">Favorite Anime 1 (Title):</label><br>
-                                    <input type="text" id="fav-text1" name="fav-text1"><br>
-                                    <label for="fav-img1">Favorite Anime 2 (Icon):</label><br>
-                                    <input type="file" id="fav-img1" name="fav-img1"><br>
-                                    <label for="fav-text1">Favorite Anime 2 (Title):</label><br>
-                                    <input type="text" id="fav-text1" name="fav-text1"><br>
-                                    <label for="fav-img1">Favorite Manga 1 (Icon):</label><br>
-                                    <input type="file" id="fav-img1" name="fav-img1"><br>
-                                    <label for="fav-text1">Favorite Manga 1 (Title):</label><br>
-                                    <input type="text" id="fav-text1" name="fav-text1"><br>
-                                    <label for="fav-img1">Favorite Manga 2 (Icon):</label><br>
-                                    <input type="file" id="fav-img1" name="fav-img1"><br>
-                                    <label for="fav-text1">Favorite Manga 2 (Title):</label><br>
-                                    <input type="text" id="fav-text1" name="fav-text1"><br>
+                                    <label for="favAnime-img">Favorite Anime (Icon):</label><br>
+                                    <input type="file" id="favAnime-img" name="favAnime-img"><br>
+                                    <label for="favAnime-text">Favorite Anime (Title):</label><br>
+                                    <input type="text" id="favAnime-text" name="favAnime-text"><br>
+                                    <label for="favManga-img">Favorite Manga (Icon):</label><br>
+                                    <input type="file" id="favManga-img" name="favManga-img"><br>
+                                    <label for="favManga-text">Favorite Manga (Title):</label><br>
+                                    <input type="text" id="favManga-text" name="favManga-text"><br>
                                     <!-- Repeat for each favorite -->
                                     <input type="submit" value="Submit">
                                 </form>
@@ -65,23 +57,22 @@
                     <div class="favs-body">
                         <div class="favs-inner">
                             <h2>Anime</h2>
-                            {{#each favAnime}}
+                            {{#with favAnime}}
                             <div class="tooltip">
                                 <img src={{animeIcon}}>
                                 <span class="tooltiptext">{{animeTitle}}</span>
                             </div>
-                            {{/each}}
-
+                            {{/with}}
 
                         </div>
                         <div class="favs-inner">
                             <h2>Manga</h2>
-                            {{#each favManga}}
+                            {{#with favManga}}
                             <div class="tooltip">
                                 <img src={{mangaIcon}}>
                                 <span class="tooltiptext">{{mangaTitle}}</span>
                             </div>
-                            {{/each}}
+                            {{/with}}
                         </div>
                     </div>
                 </div> 
