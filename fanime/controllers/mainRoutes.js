@@ -80,19 +80,26 @@ function add(server){
             }
     });
 
-    server.post('/upload', upload.fields([{ name: 'pfp', maxCount: 1 }, { name: 'profile-banner', maxCount: 1 }]), (req,resp) =>{
+    server.post('/upload', upload.fields([{ name: 'pfp', maxCount: 1 },
+                                        { name: 'profile-banner', maxCount: 1 },
+                                        { name: 'favAnime-img', maxCount: 1 },
+                                        { name: 'favManga-img', maxCount: 1 }]), (req,resp) =>{
         const searchQuery = { email : req.session.email};
         req.session.profilepicture = req.files['pfp'] ? req.files['pfp'][0].filename : req.session.profilepicture;
         console.log("files: ", req.files)
         userModel.findOne(searchQuery).then(function(user) {
-            console.log('Update successful');
             const pfp = req.files['pfp'] ? req.files['pfp'][0].filename : user.profilepicture;
             const profban = req.files['profile-banner'] ? req.files['profile-banner'][0].filename : user.profilebanner;
+            const profFavAnime = req.files['favAnime-img'] ? req.files['favAnime-img'][0].filename : user.favAnime.animeIcon;
+            const profFavManga = req.files['favManga-img'] ? req.files['favManga-img'][0].filename : user.favManga.mangaIcon;
             user.profilepicture = pfp;
             user.profilebanner = profban;
+            user.favAnime.animeIcon = profFavAnime;
+            user.favManga.mangaIcon = profFavManga;
             user.save().then(function (result) {
                 postModel.updateMany(searchQuery, { $set: { username: user.username }, $set: { userpfp: pfp }}).lean().then(function(doc){
                     postModel.find(searchQuery).lean().then(function(posts){
+                        console.log('Update successful');
                         console.log("posts: ", posts)
                         resp.redirect('/profile');
                     })
@@ -137,6 +144,7 @@ function add(server){
                     loggedprofilepicture: account.profilepicture
                 } 
                 console.log(account.profilepicture)
+                console.log("favAnime", account.favAnime, "favManga", account.favManga)
                 resp.render('profile', {
                     layout: 'profileIndex',
                     title: 'Profile Page',

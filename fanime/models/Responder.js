@@ -41,14 +41,14 @@ const userSchema = new mongoose.Schema({
     profilepicture: { type: String },
     profilebanner: { type: String},
     userbio: { type: String },
-    favAnime: [{
+    favAnime: {
         animeIcon: {type: String},
         animeTitle: {type: String}
-    }],
-    favManga: [{
+    },
+    favManga: {
         mangaIcon: {type: String},
         mangaTitle: {type: String}
-    }]
+    }
   },{ versionKey: false });
 
 const postSchema = new mongoose.Schema({
