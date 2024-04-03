@@ -72,7 +72,7 @@ function add(server){
                     console.log(req.session.profilepicture);
                     resp.render('main', {
                         layout: 'index',
-                        title: 'Main Page',
+                        title: 'Fanime',
                         posts: vals,
                         loggedprofilepicture: req.session.profilepicture,
                         loggedusername: req.session.username
@@ -81,13 +81,13 @@ function add(server){
             }
     });
 
-    server.post('/upload', upload.fields([
-                                        { name: 'pfp', maxCount: 1 },
+    server.post('/upload', upload.fields([{ name: 'pfp', maxCount: 1 },
                                         { name: 'profile-banner', maxCount: 1 },
                                         { name: 'favAnime-img', maxCount: 1 },
                                         { name: 'favManga-img', maxCount: 1 }]), (req,resp) =>{
         const searchQuery = { email : req.session.email};
         req.session.profilepicture = req.files['pfp'] ? req.files['pfp'][0].filename : req.session.profilepicture;
+        req.session.username = req.body.username === "" ? req.session.username : req.body.username;
         console.log("files: ", req.files)
         userModel.findOne(searchQuery).then(function(user) {
            
@@ -95,27 +95,53 @@ function add(server){
             const profban = req.files['profile-banner'] ? req.files['profile-banner'][0].filename : user.profilebanner;
             const profFavAnime = req.files['favAnime-img'] ? req.files['favAnime-img'][0].filename : user.favAnime.animeIcon;
             const profFavManga = req.files['favManga-img'] ? req.files['favManga-img'][0].filename : user.favManga.mangaIcon;
-     
-       
-            user.user = req.body.username || user.user;
-            req.session.username = req.body.username || user.user;
             user.userbio = req.body.bio || user.userbio;
+            const newUsername = req.body.username === "" ? user.user : req.body.username;
+            const oldUserName = user.user;
+            user.user = newUsername;
             user.profilepicture = pfp;
             user.profilebanner = profban;
             user.favAnime.animeIcon = profFavAnime;
             user.favManga.mangaIcon = profFavManga;
-        
+            user.save().then(function(result) {
+                postModel.updateMany(searchQuery, { $set: { userpfp: pfp, username: newUsername }}).lean().then(function(doc){
+                    postModel.find({}).lean().then(function(posts){
+                        if(req.body.username === ""){
 
-            user.save().then(function (result) {
-                console.log("bro gango: "+user.user);
-                postModel.updateMany(searchQuery,{ $set: { userpfp: pfp, username: req.body.username || user.user }}).lean().then(function(doc){
-                    postModel.find(searchQuery).lean().then(function(posts){
-    
-                        console.log(user.user);
-                        console.log(user.userbio);
-                        console.log('Update successful');
-                        console.log("posts: ", posts)
-                        resp.redirect('/profile');
+                        }else{
+                            for(const post of posts){
+                                const newComments = new Array();
+                                for(const com of post.comments){
+                                    if(com.user === oldUserName){
+                                        com.user = newUsername;
+                                    }
+                                    console.log("loop", com, com.user, newUsername)
+                                    newComments.push(com);
+                                }
+                                const newLikes = new Array();
+                                for(const l of post.like){
+                                    if(l.user === oldUserName){
+                                        l.user = newUsername;
+                                    }
+                                    newLikes.push(l);
+                                }
+                                const newDisikes = new Array();
+                                for(const dl of post.dislike){
+                                    if(dl.user === oldUserName){
+                                        dl.user = newUsername;
+                                    }
+                                    newDisikes.push(dl);
+                                }
+                                console.log(post)
+                                console.log("com", newComments)
+                                postModel.findOneAndUpdate({_id: post._id}, {$set: {comments: newComments, like: newLikes, dislike: newDisikes}}).then(function(doc){
+                                    console.log("test",doc)
+                                });
+                            }
+                        }
+                            console.log('Update successful');
+                            console.log("posts: ", posts);
+                            resp.redirect('/profile');
                     })
                 })
             }).catch(errorFn);
@@ -124,7 +150,6 @@ function add(server){
 
     server.get('/profile', function(req, resp){
         const searchQuery = {email : req.session.email};
-
         userModel.findOne(searchQuery).lean().then(function(account){
             postModel.find({}).lean().then(function(posts){
                 const commentArr = new Array();

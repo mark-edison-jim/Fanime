@@ -7,21 +7,21 @@ const session = require('express-session');
 const mongoStore = require('connect-mongodb-session')(session);
 const fs = require('fs');
 
-/*
-fs.readdir('./Images', (err, files) => { //Resets Images folder
-    console.log(files)
-    if (err) {
-        console.log(err);
-    }
-    files.forEach(file => {
-        const fileDir = path.join('./Images', file);
 
-        if (file !== 'defaultpfp.jpg' && file !== 'defaultbanner.jpg') {
-            fs.unlinkSync(fileDir);
-        }
-    });
-});
-*/
+// fs.readdir('./Images', (err, files) => { //Resets Images folder
+//     console.log(files)
+//     if (err) {
+//         console.log(err);
+//     }
+//     files.forEach(file => {
+//         const fileDir = path.join('./Images', file);
+
+//         if (file !== 'defaultpfp.jpg' && file !== 'defaultbanner.jpg') {
+//             fs.unlinkSync(fileDir);
+//         }
+//     });
+// });
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) =>{
         cb(null, './Images')
