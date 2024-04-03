@@ -1,0 +1,76 @@
+.about-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a2e;
+    color: #e94560;
+}
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+header {
+    background: #16213e;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #e94560 3px solid;
+}
+header a {
+    color: #e94560;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+header li {
+    float: left;
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+header #branding {
+    float: left;
+}
+header #branding h1 {
+    margin: 0;
+    font-family: "Gagalin-Regular", Helvetica, sans-serif;
+}
+header nav {
+    float: right;
+    margin-top: 10px;
+}
+header .highlight, header .current a {
+    color: #e94560;
+    font-weight: bold;
+}
+header a:hover {
+    color: #ffffff;
+    font-weight: bold;
+}
+.about-section {
+    color: #fff;
+    background: #0f3460;
+    padding: 20px;
+    margin: 20px 0;
+}
+.about-section h1, .about-section p {
+    text-align: center;
+}
+.npm-packages {
+    background: #16213e;
+    padding: 20px;
+    margin: 20px 0;
+}
+.npm-packages h2, .npm-packages ul {
+    text-align: left;
+}
+.npm-packages li {
+    color: #e94560;
+    font-size: 1.2em;
+}
+footer {
+    background: #16213e;
+    color: #e94560;
+    text-align: center;
+    padding: 10px 0;
+}

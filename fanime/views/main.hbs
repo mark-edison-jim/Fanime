@@ -62,7 +62,10 @@
                             <img src="{{profilepicture}}">
                         </div>
                         <h4>{{username}}</h4>
-                        <h6>{{date}}</h6>
+                        <h6>Posted on {{date}}</h6>
+                        {{#if editDate}}
+                        <h6>Edited on {{editDate}}</h6>
+                        {{/if}}
                     </div>
                     {{#if image}}
                     <div class="post-body">{{description}}</div>
