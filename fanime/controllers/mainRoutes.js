@@ -95,14 +95,10 @@ function add(server){
             const profban = req.files['profile-banner'] ? req.files['profile-banner'][0].filename : user.profilebanner;
             const profFavAnime = req.files['favAnime-img'] ? req.files['favAnime-img'][0].filename : user.favAnime.animeIcon;
             const profFavManga = req.files['favManga-img'] ? req.files['favManga-img'][0].filename : user.favManga.mangaIcon;
-            const newUsername = req.body.username;
-
-
-            if(newUsername){
-                user.user = newUsername;
-             
-            }           
-           
+     
+       
+            user.user = req.body.username || user.user;
+            req.session.username = req.body.username || user.user;
             user.userbio = req.body.bio || user.userbio;
             user.profilepicture = pfp;
             user.profilebanner = profban;
@@ -112,7 +108,7 @@ function add(server){
 
             user.save().then(function (result) {
                 console.log("bro gango: "+user.user);
-                postModel.updateMany(searchQuery, { $set: { username: user.user }, $set: { userpfp: pfp }}).lean().then(function(doc){
+                postModel.updateMany(searchQuery,{ $set: { userpfp: pfp, username: req.body.username || user.user }}).lean().then(function(doc){
                     postModel.find(searchQuery).lean().then(function(posts){
     
                         console.log(user.user);
@@ -205,13 +201,11 @@ function add(server){
     server.get('/post', function(req, resp){
         const searchQuery = req.query.post_id;
         postModel.findById(searchQuery).lean().then(function(post){
-            const searchQuery = {email: post.email};
-                userModel.findOne(searchQuery).lean().then(function(account){
                     const post_data = {
                     _id : post._id.toString(),
-                    username: account.user,
+                    username: post.username,
                     date: post.date,
-                    email: account.email,
+                    email: post.email,
                     title: post.title,
                     genre: post.genre,
                     description: post.description,
@@ -219,10 +213,9 @@ function add(server){
                     comments: post.comments,
                     like: post.like.length,
                     dislike: post.dislike.length,
-                    profilepicture: account.profilepicture
+                    profilepicture: post.userpfp
                     };
-                    console.log("THIS IS THE IGN WAHAHAHA: " +  account.user)
-                    console.log(account.profilepicture)
+               
                     resp.render('post', {
                         layout: 'index',
                         title: 'Post Page',
@@ -230,7 +223,6 @@ function add(server){
                         loggedusername: req.session.username,
                         loggedprofilepicture: req.session.profilepicture
                     });
-                })
         })
     });
 
