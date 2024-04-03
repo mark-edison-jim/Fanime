@@ -152,7 +152,6 @@ function add(server){
                 });    
             });
         });
-
     });
 
     server.post('/newPost', upload.single('postimg'), function(req,resp){
@@ -161,8 +160,12 @@ function add(server){
         const date = "5hrs ago";
         const genre = req.body['post-tag'];
         const description = req.body.postDesc;
-        const image = req.file.filename;
-        
+        let image = '';
+
+        if (req.file) {
+            image = req.file.filename;
+        }
+    
         const postInstance = postModel({
             title: title,
             username: req.session.username,
