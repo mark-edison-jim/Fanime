@@ -165,6 +165,7 @@ function add(server){
         userModel.findOne(searchQuery).lean().then(function(account){
             postModel.find({}).lean().then(function(posts){
                 const commentArr = new Array();
+                const repliesArr = new Array();
                 for(let i=0; i<posts.length; i++){
                     // console.log('post', posts[i])
                     // console.log('comments', posts[i].comments)
@@ -176,6 +177,16 @@ function add(server){
                                 title: posts[i].title
                             })
                         }
+                        for(const reply of posts[i].comments[j].replies){
+                            if(reply.user === account.user){
+                                repliesArr.push({
+                                    _id : posts[i]._id.toString(),
+                                    _idcomment : posts[i].comments[j]._id.toString(),
+                                    _idreply : reply._id.toString(),
+                                    title: posts[i].title
+                                })
+                            }
+                        }
                     }
                 }
                 const postsArr = new Array();
@@ -183,6 +194,7 @@ function add(server){
                     if(posts[i].email === account.email)
                         postsArr.push(posts[i]);
                 }
+                
                 const userdata = {
                     username: account.user,
                     pfp: account.profilepicture,
@@ -192,9 +204,10 @@ function add(server){
                     favManga: account.favManga,
                     posts: postsArr,
                     comments: commentArr,
+                    replies: repliesArr,
                     loggedprofilepicture: account.profilepicture
                 } 
-                
+                console.log(repliesArr)
                 console.log(account.profilepicture)
                 console.log("favAnime", account.favAnime, "favManga", account.favManga)
                 resp.render('profile', {
@@ -321,7 +334,7 @@ function add(server){
     });
 
     server.get('/delete_post',function(req, resp){
-        searchQuery = req.query.post_id;
+        const searchQuery = req.query.post_id;
         postModel.deleteOne({_id: searchQuery}).then(function(){
             resp.redirect('/profile');
         }).catch(errorFn);
@@ -353,7 +366,54 @@ function add(server){
         }).catch(errorFn);
         
     });
+
+    server.get('/editreply', function(req, resp){
+        const searchPost = req.query.post_id;
+        const searchComment = req.query.comment_id;
+        const searchReply = req.query.reply_id;
+        console.log("This is Search Post", searchPost);
+        console.log("This is Search Query", searchComment);
+        postModel.findById(searchPost).lean().then(function(postInstance){
+            const comIndex = postInstance.comments.findIndex(comment => comment._id.toString() === searchComment);
+            const index = postInstance.comments[comIndex].replies.findIndex(reply => reply._id.toString() === searchReply);
+            const data = {
+                id: postInstance._id,
+                idcomment: searchComment,
+                idreply: searchReply,
+                reply: postInstance.comments[comIndex].replies[index].text
+            }
+            console.log(data);
+            resp.render('editreply', {
+                layout: 'index',
+                title: 'Edit Comment Page',
+                reply: data,
+                username: req.session.username,
+                pfp: req.session.profilepicture,
+                loggedusername: req.session.username,
+                loggedprofilepicture: req.session.profilepicture
+            });
+        }).catch(errorFn);
+        
+    });
     
+    server.post('/submit_edit_reply', function(req, resp){
+        const searchPost = req.body['post-id'];
+        const searchComment = req.body['comment-id'];
+        const searchQuery = req.body['editBtn'];
+        const text = req.body['reply-text'];
+        console.log(searchPost, searchComment, searchQuery, text);
+
+        console.log("Editing the Search Query", searchQuery);
+        postModel.findById(searchPost).then(function(postInstance){
+            const comIndex = postInstance.comments.findIndex(comment => comment._id.toString() === searchComment);
+            const index = postInstance.comments[comIndex].replies.findIndex(reply => reply._id.toString() === searchQuery);
+            postInstance.comments[comIndex].replies[index].text = text;
+            postInstance.save().then(function(){
+                resp.redirect("/profile");
+            })
+        }).catch(errorFn);
+    });
+
     server.post('/submit_edit_comment', function(req, resp){
         const searchPost = req.body['post-id'];
         const searchQuery = req.body['editBtn'];
@@ -362,7 +422,6 @@ function add(server){
 
         console.log("Editing the Search Query", searchQuery);
         postModel.findById(searchPost).then(function(postInstance){
-
             const index = postInstance.comments.findIndex(comment => comment._id.toString() === searchQuery);
             postInstance.comments[index].text = text;
             postInstance.save().then(function(){
@@ -372,8 +431,8 @@ function add(server){
     });
 
     server.get('/delete_comment',function(req, resp){
-        searchComment = req.query.comment_id;
-        searchPost = req.query.post_id;
+        const searchComment = req.query.comment_id;
+        const searchPost = req.query.post_id;
         postModel.findById(searchPost).then(function(post){
             const index = post.comments.findIndex(comment => comment._id.toString() === searchComment);
             post.comments.splice(index, 1);
@@ -383,20 +442,27 @@ function add(server){
         }).catch(errorFn);
     });
 
+    server.get('/delete_reply',function(req, resp){
+        const searchReply = req.query.reply_id;
+        const searchComment = req.query.comment_id;
+        const searchPost = req.query.post_id;
+        console.log("post", searchPost, "com", searchComment, "rep", searchReply)
+        postModel.findById(searchPost).then(function(post){
+            const comIndex = post.comments.findIndex(comment => comment._id.toString() === searchComment);
+            const index = post.comments[comIndex].replies.findIndex(reply => reply._id.toString() === searchReply);
+            post.comments[comIndex].replies.splice(index, 1);
+            post.save().then(function(){
+                resp.redirect('/profile');
+            });
+        }).catch(errorFn);
+    });
+
     server.post('/create_comment', function(req, resp){
-        const comment = req.body.comment;
-        const postId = req.body.id
-
+        const comment = req.body.commentData;
+        const postId = req.body['post-id'];
         console.log(postId);
-        const responseData = {
-            user: req.session.username,
-            comment: comment
-        };
-
         const searchQuery = postId;
-
         postModel.findById(searchQuery).then(function(post){
-            
             const commentData = {
                 user: req.session.username,
                 text: comment
@@ -405,12 +471,31 @@ function add(server){
 
             post.save().then(function(instance) {
                 console.log('Comment Added');
-                console.log(responseData);
-                resp.send(responseData);
+                resp.redirect('back');
             }).catch(errorFn);
         });
-        
+    });
+    
+    server.post('/create_reply', function(req, resp){
+        const reply = req.body.replyData;
+        const commentId = req.body['comment-id'];
+        const postId = req.body['post-id-inComment'];
+        console.log('post', postId, 'comment', commentId, 'reply', reply)
+        const searchQuery = postId;
+        postModel.findById(searchQuery).then(function(post){
+            console.log(post)
+            const index = post.comments.findIndex(comment => comment._id.toString() === commentId);
+            const replyData = {
+                user: req.session.username,
+                text: reply
+            }
+            post.comments[index].replies.push(replyData);
 
+            post.save().then(function(instance) {
+                console.log('Comment Added');
+                resp.redirect('back');
+            }).catch(errorFn);
+        });
     });
 
     server.post('/like', function(req, resp){
