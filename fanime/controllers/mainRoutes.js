@@ -119,13 +119,18 @@ function add(server){
                 postModel.updateMany(searchQuery, { $set: { userpfp: pfp, username: newUsername }}).lean().then(function(doc){
                     postModel.find({}).lean().then(function(posts){
                         if(req.body.username === ""){
-
+                            console.log("username not changed")
                         }else{
                             for(const post of posts){
                                 const newComments = new Array();
                                 for(const com of post.comments){
                                     if(com.user === oldUserName){
                                         com.user = newUsername;
+                                    }
+                                    for(const reply of com.replies){
+                                        if(reply.user === oldUserName){
+                                            reply.user = newUsername;
+                                        }
                                     }
                                     console.log("loop", com, com.user, newUsername)
                                     newComments.push(com);
