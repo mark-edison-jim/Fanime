@@ -19,6 +19,13 @@ $(document).ready(function(){
         return !(title === "" || desc === "" || tag === null);
     }
 
+        $(".show-replies").click(function() {
+            $(this).closest('.comment-text').find(".reply-container").toggle();
+        });
+        $(".reply-container").click(function(event) {
+            event.stopPropagation(); // Stop event propagation
+        });
+    
     $("#unregButton").click(function(){
         window.alert("Please Login First to access certain features! :)");
     });

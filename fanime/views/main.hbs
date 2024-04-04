@@ -80,19 +80,36 @@
                         <i class="fa fa-thumbs-down dislike" data-post-id="{{_id}}">{{dislike}}</i>
                         <button class="toggle-comment-section" >Comments</button>
                     </div>
-                    <div id="comment-section"  class="comment-section" style="display: none;">
+                    <div id="comment-section" class="comment-section" style="display: none;">
                         <div class="comment-container">
                             {{#each comments}}
-                            <div class="comment-text">
-                                <div class="comment-user">
-                                    <p>{{user}}</p>
+                            <div class="comment">
+                                <div class="comment-inner">
+                                    <div class="comment-user">
+                                        <p>{{user}}</p>
+                                    </div>
+                                    <div class="comment-body">{{text}}</div>
                                 </div>
-                                <div class="comment-body">{{text}}</div>
+                                <div class="reply-container">
+                                    {{#if replies.length}}
+                                    <div class="replies">
+                                        {{#each replies}}
+                                        <div class="reply">
+                                            <div class="reply-user">
+                                                <p>{{user}}</p>
+                                            </div>
+                                            <div class="reply-body">{{text}}</div>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                    {{/if}}
+                                </div>
 
                             </div>
-                        {{/each}}
+                            {{/each}}
                         </div>
                     </div>
+
                 </div>
                 {{/each}}
             </div>
