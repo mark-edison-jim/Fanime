@@ -104,9 +104,9 @@
                         </div>
                 </div>
                 <div class="prf-posts">
-                        <h1>Comments</h1>
-                        <div class="userposts">
-                        {{#if comments}}
+                    <h1>Comments</h1>
+                    <div class="userposts">
+                            {{#if comments}}
                                     {{#each comments}}
                                         <div class="user-post">
                                             <div class="user-post-title" data-postId="{{_id}}">
@@ -116,14 +116,33 @@
                                             <button onclick="deletecomment(this)" data-commentId="{{_idcomment}}">Delete</button>
                                         </div>
                                     {{/each}}
-                                {{else}}
+                            {{else}}
                                     <p class="nonemsg">No comments yet.</p>
-                                {{/if}}
+                            {{/if}}
                         </div>
-                        {{/with}}
+                </div>
+                <div class="prf-posts">
+                    <h1>Replies</h1>
+                    <div class="userposts">
+                            {{#if replies}}
+                                {{#each replies}}
+                                    <div class="user-post">
+                                        <div class="user-post-title" data-postId="{{_id}}" data-commentId="{{_idcomment}}">
+                                            <h2>{{title}}</h2>
+                                        </div>
+                                        <button class="edit-reply" data-replyId="{{_idreply}}">Edit</button>
+                                        <button onclick="deletereply(this)" data-replyId="{{_idreply}}">Delete</button>
+                                    </div>
+                                {{/each}}
+                            {{else}}
+                                <p class="nonemsg">No replies yet.</p>
+                            {{/if}}
+                    </div>
                 </div>
             </div>
+                
             <div class="prf-side"></div>
         </div>
     </div>
 </div>
+{{/with}}

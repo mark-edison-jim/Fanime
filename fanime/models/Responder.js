@@ -63,7 +63,11 @@ const postSchema = new mongoose.Schema({
     dateEdited: {type: String},
     comments: [{
         user: { type: String },
-        text: { type: String }
+        text: { type: String },
+        replies: [{
+            user: { type: String },
+            text: { type: String }
+        }]
     }],
     like: [{
         user: { type: String}

@@ -1,0 +1,26 @@
+<div class="main-website-structure">
+{{>nav2}}
+<div class="website-body">
+{{>topics}}
+    <div class="content"> <!--Posts to be added-->
+        {{>contentheader}}
+        <div class="post-margin">
+            <div class="post-area">
+                <div class="post-create">
+                    {{#with reply}}
+                    <div class="comment">
+                        <form class="comment-form" action="submit_edit_reply" method="post">
+                            <textarea name="reply-text" placeholder="Write your reply here...">{{reply}}</textarea>
+                            <input type="hidden" name="post-id" value="{{id}}">
+                            <input type="hidden" name="comment-id" value="{{idcomment}}">
+                            <button type="submit" name="editBtn" value="{{idreply}}"><h4>Reply</h4></button>
+                        </form>
+                    </div>
+                    {{/with}}
+                </div>
+            </div>
+        </div>
+    </div>
+{{>filterPosts}}
+</div>
+</div>
