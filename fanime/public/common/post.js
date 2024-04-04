@@ -3,7 +3,7 @@ function deletepost(button){
         if (confirm(text) == true) {
             alert("You pressed OK!");
 
-            var postId = $(button).data("postid");
+            const postId = $(button).data("postid");
             console.log(postId);
             window.location.href = '/delete_post?post_id=' + postId;
         } else {
@@ -61,7 +61,7 @@ $(document).ready(function(){
     
 
     $(".user-post-title").click(function() {
-        var postId = $(this).data("postid");
+        const postId = $(this).data("postid");
         console.log(postId);
         window.location.href = '/post?post_id=' + postId;
     });
@@ -82,7 +82,7 @@ $(document).ready(function(){
     $(".topic").click(function() {
         console.log("val", $(this).data("value"));
         if($(this).data("value")===true){
-            var topic = $(this).find("strong").text();
+            const topic = $(this).find("strong").text();
             window.location.href = '/genrefilter?topic=' + topic;
         }else{
             window.alert("Please Login First to access certain features! :)");
@@ -91,7 +91,7 @@ $(document).ready(function(){
 
     $(".filter-button").click(function() {
         if($(this).val()==="true"){
-            var filter = $(this).find("h3").text();
+            const filter = $(this).find("h3").text();
             window.location.href = '/postfilter?filter=' + filter;
         }else{
             window.alert("Please Login First to access certain features! :)");

@@ -19,7 +19,7 @@ server.use(express.static('Assets'));
 server.use(express.static('Images'));
 
 const controllers = ['logregRoutes', 'mainRoutes', 'filterRoutes'];
-for(var i=0; i<controllers.length; i++){
+for(let i=0; i<controllers.length; i++){
   const model = require('./controllers/'+controllers[i]);
   model.add(server);
 }
