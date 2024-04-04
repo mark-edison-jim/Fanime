@@ -3,8 +3,8 @@ function deletecomment(button){
     if (confirm(text) == true) {
         alert("You pressed OK!");
 
-        var commentId = $(button).data("commentid");
-        var postId = $(button).closest(".user-post").find(".user-post-title").data("postid");
+        const commentId = $(button).data("commentid");
+        const postId = $(button).closest(".user-post").find(".user-post-title").data("postid");
         console.log(commentId);
         console.log(postId);
         window.location.href = '/delete_comment?post_id=' + postId + '&comment_id=' + commentId;
