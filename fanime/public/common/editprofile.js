@@ -1,7 +1,7 @@
 // Get the button, popup, and overlay elements
-var btn = document.getElementById('edit-profile-btn');
-var popup = document.getElementById('edit-profile-popup');
-var overlay = document.querySelector('.popup-overlay');
+const btn = document.getElementById('edit-profile-btn');
+const popup = document.getElementById('edit-profile-popup');
+const overlay = document.querySelector('.popup-overlay');
 
 // When the user clicks on the button, open the popup
 btn.onclick = function() {
