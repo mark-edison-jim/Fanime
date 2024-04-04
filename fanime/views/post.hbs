@@ -34,6 +34,7 @@
                         <div class="post-action">
                             <i class="fa fa-thumbs-up like" data-post-id="{{_id}}">{{like}}</i>
                             <i class="fa fa-thumbs-down dislike" data-post-id="{{_id}}">{{dislike}}</i>
+                            <div class="expand-comment-section">Expand</div>
                         </div>
                             <input type="hidden" name="post-id" value="{{_id}}">
                             <div class="comment">
@@ -47,7 +48,7 @@
                         <div class="comment-container">
                             {{#each comments}}
                             <div class="comment-text show-replies"> <!-- Added 'clickable' class -->
-                                    <div class="comment-inner">
+                                    <div class="comment-inner in-post">
                                         <div class="comment-user">
                                             <p>{{user}}</p>
                                         </div>

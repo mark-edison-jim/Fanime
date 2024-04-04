@@ -1,22 +1,20 @@
 function deletecomment(button){
     let text = "Are you sure you want to delete this comment?";
     if (confirm(text) == true) {
-        alert("You pressed OK!");
+        alert("Successfully deleted the comment!");
 
         const commentId = $(button).data("commentid");
         const postId = $(button).closest(".user-post").find(".user-post-title").data("postid");
         console.log(commentId);
         console.log(postId);
         window.location.href = '/delete_comment?post_id=' + postId + '&comment_id=' + commentId;
-    } else {
-        alert("You canceled!");
     }
 }
 
 function deletereply(button){
     let text = "Are you sure you want to delete this reply?";
     if (confirm(text) == true) {
-        alert("You pressed OK!");
+        alert("Successfully deleted the reply!");
 
         const replyId = $(button).data("replyid");
         const commentId = $(button).closest(".user-post").find(".user-post-title").data("commentid");
@@ -25,8 +23,6 @@ function deletereply(button){
         console.log("com", commentId);
         console.log(postId);
         window.location.href = '/delete_reply?post_id=' + postId + '&comment_id=' + commentId + '&reply_id=' + replyId;
-    } else {
-        alert("You canceled!");
     }
 }
 
