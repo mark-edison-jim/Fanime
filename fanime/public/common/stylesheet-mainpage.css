@@ -354,6 +354,11 @@
                 text-decoration: none;
                 color: white;
             }
+            .about-tag > a:hover {
+                transform: scale(1.5);
+                margin-left:25px;
+            }
+            
             .about-tag > img{
                 width: 50px;
                 padding-right: 10px;
