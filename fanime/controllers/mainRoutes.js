@@ -230,6 +230,72 @@ function add(server){
         }
     });
 
+    server.post('/userDiffProfile', function(req, resp){
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
+        const searchQuery = {user : req.body.usernameToProfile};
+        console.log("email", req.body.usernameToProfile)
+        userModel.findOne(searchQuery).lean().then(function(account){
+            console.log(account)
+            postModel.find({}).lean().then(function(posts){
+                const commentArr = new Array();
+                const repliesArr = new Array();
+                for(let i=0; i<posts.length; i++){
+                    // console.log('post', posts[i])
+                    // console.log('comments', posts[i].comments)
+                    for(let j=0; j<posts[i].comments.length; j++){
+                        if(posts[i].comments[j].user === account.user){
+                            commentArr.push({
+                                _id : posts[i]._id.toString(),
+                                _idcomment : posts[i].comments[j]._id.toString(),
+                                title: posts[i].title
+                            })
+                        }
+                        for(const reply of posts[i].comments[j].replies){
+                            if(reply.user === account.user){
+                                repliesArr.push({
+                                    _id : posts[i]._id.toString(),
+                                    _idcomment : posts[i].comments[j]._id.toString(),
+                                    _idreply : reply._id.toString(),
+                                    title: posts[i].title
+                                })
+                            }
+                        }
+                    }
+                }
+                const postsArr = new Array();
+                for(let i=0; i<posts.length; i++){
+                    if(posts[i].email === account.email)
+                        postsArr.push(posts[i]);
+                }
+                
+                const userdata = {
+                    username: account.user,
+                    pfp: account.profilepicture,
+                    banner: account.profilebanner,
+                    bio: account.userbio,
+                    favAnime: account.favAnime,
+                    favManga: account.favManga,
+                    posts: postsArr,
+                    comments: commentArr,
+                    replies: repliesArr,
+                    loggedprofilepicture: account.profilepicture
+                } 
+                console.log(repliesArr)
+                console.log(account.profilepicture)
+                console.log("favAnime", account.favAnime, "favManga", account.favManga)
+                resp.render('userDiffProfile', {
+                    layout: 'profileIndex',
+                    title: 'Profile Page',
+                    account: userdata
+                });    
+            });
+        });
+        }
+    });
+
     function getDate(){
         const today = new Date();
         const yyyy = today.getFullYear();
