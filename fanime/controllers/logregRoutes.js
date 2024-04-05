@@ -21,10 +21,10 @@ function add(server){
         store: new mongoStore({ 
           uri: (process.env.MONGOURI),
           collection: 'mySession',
-          expires: new Date(Date.now() + 1000*60*60) // 1 day
+          expires: new Date(Date.now() + 1000*60*60) //1 hr
         }),
         cookie: {
-            maxAge: 1000*60*60 //30 secs
+            maxAge: 1000*60*60 //1 hr
         }
       }));
 
@@ -126,7 +126,7 @@ function add(server){
     });
 
     function updateSession(req){
-        const newDate = new Date(Date.now() + 1000*60*60*24*14); //2 week
+        const newDate = new Date(Date.now() + 1000*60*60*24*14); //2 weeks
         console.log(req.sessionID)
         sessionModel.findOneAndUpdate({_id : req.session.login_id}, {$set: {expires: newDate}}).then(function(result){
             console.log("session", result) 
@@ -146,7 +146,7 @@ function add(server){
                         req.session.login_id = req.sessionID;
                         if(req.body.remember){
                             setTimeout(()=>updateSession(req), 5000); //delay for session user info to be inserted before updating expire date
-                            req.session.cookie.maxAge = 1000*60*60*24*14;
+                            req.session.cookie.maxAge = 1000*60*60*24*14; //2 weeks
                             console.log("cookie", req.session)
                             resp.redirect('/main');
                         }else{
