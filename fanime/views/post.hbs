@@ -46,6 +46,7 @@
                         </form>
                     <div class="comment-section">
                         <div class="comment-container">
+                        {{#if comments}}
                             {{#each comments}}
                             <div class="comment-text show-replies"> <!-- Added 'clickable' class -->
                                     <div class="comment-inner in-post">
@@ -78,6 +79,9 @@
                                     </div>
                             </div>
                             {{/each}}
+                        {{else}}
+                            <p class="nonemsg">Wow such empty...</p>
+                        {{/if}}
                         </div>
 
                     </div>

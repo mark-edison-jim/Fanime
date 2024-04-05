@@ -841,8 +841,19 @@
         .in-post:hover {
             background-color: #203b84;
         }
-    
 
+        .nonemsg{
+            background-color: rgb(61, 64, 110);
+            border-radius: 15px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        
+        .nonemsg {
+            width: 100%;
+            font-size: 20px;
+            text-align: center;
+        }
         
         
         .comment-user, .reply-user{
