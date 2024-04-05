@@ -6,6 +6,28 @@ $(document).ready(function(){
       $(this).closest('.noclick-post').find(".comment-section").toggle();
   });
   
+  $(".expand-comment-section").click(function(event) {
+    event.stopPropagation(); // Stop event propagation
+
+    let commentSection = $(this).closest('.noclick-post').find(".comment-section");
+    let button = $(this);
+
+    // Toggle between "Expand" and "Condense"
+    if (button.text() === "Expand") {
+        button.text("Condense");
+        // Change functionality to condense
+        commentSection.css("height", "1000px");
+        commentSection.css("overflow", "auto");
+        // Additional functionality...
+    } else {
+        button.text("Expand");
+        // Change functionality back to expand
+        commentSection.css("height", "200px");
+        // Additional functionality...
+    }
+});
+
+
   $('.notification').hide();
   if ($('.notification #notiMsgDiv').text() != '') {
     $('.notification').show();
