@@ -1,0 +1,111 @@
+{{#with account}}
+{{>nav2}}
+<div class="prf-main">
+    <div class="prf-banner">
+        <img src="{{banner}}">
+    </div>
+    <div class="prf-box">
+        <div class="prf-container">
+            <div class="prf-side"></div>
+            <div class="prf-middle">
+                <div class="profile-picture">
+                    <img src={{loggedprofilepicture}}>
+                   
+                    </div> <!-- Profile picture div -->
+                    <div class="profile-details">
+                        <div class="username">{{username}}</div>
+                    </div> <!-- Content of the middle div -->
+       
+                <div class="bio-box">
+                    {{bio}}
+                </div>
+                <div class="prf-favs">
+                    <div class="favs-header">
+                        <h1>Favorites</h1>
+                    </div>
+                    <div class="favs-body">
+                        <div class="favs-inner">
+                            <h2>Anime</h2>
+                            {{#if favAnime}}
+                                {{#with favAnime}}
+                                <div class="tooltip">
+                                    <img src={{animeIcon}}>
+                                    <span class="tooltiptext">{{animeTitle}}</span>
+                                </div>
+                                {{/with}}
+                            {{else}}
+                                <p class="nonemsg2">No favorite anime yet.</p>
+                            {{/if}}
+
+                        </div>
+                        <div class="favs-inner">
+                            <h2>Manga</h2>
+                            {{#if favManga}}
+                                {{#with favManga}}
+                                <div class="tooltip">
+                                    <img src={{mangaIcon}}>
+                                    <span class="tooltiptext">{{mangaTitle}}</span>
+                                </div>
+                                {{/with}}
+                            {{else}}
+                                <p class="nonemsg2">No favorite manga yet.</p>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div> 
+                <div class="prf-posts">
+                    <!-- Posts content here -->
+                        <h1>Posts</h1>
+                        <div class="userposts">
+                            {{#if posts}}
+                                {{#each posts}}
+                                    <div class="user-post">
+                                        <div class="user-post-title" data-postId="{{_id}}">
+                                            <h2>{{title}}</h2>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            {{else}}
+                                <p class="nonemsg">No posts yet.</p>
+                            {{/if}}
+                        </div>
+                </div>
+                <div class="prf-posts">
+                    <h1>Comments</h1>
+                    <div class="userposts">
+                            {{#if comments}}
+                                    {{#each comments}}
+                                        <div class="user-post">
+                                            <div class="user-post-title" data-postId="{{_id}}">
+                                                <h2>{{title}}</h2>
+                                            </div>
+                                        </div>
+                                    {{/each}}
+                            {{else}}
+                                    <p class="nonemsg">No comments yet.</p>
+                            {{/if}}
+                        </div>
+                </div>
+                <div class="prf-posts">
+                    <h1>Replies</h1>
+                    <div class="userposts">
+                            {{#if replies}}
+                                {{#each replies}}
+                                    <div class="user-post">
+                                        <div class="user-post-title" data-postId="{{_id}}" data-commentId="{{_idcomment}}">
+                                            <h2>{{title}}</h2>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            {{else}}
+                                <p class="nonemsg">No replies yet.</p>
+                            {{/if}}
+                    </div>
+                </div>
+            </div>
+                
+            <div class="prf-side"></div>
+        </div>
+    </div>
+</div>
+{{/with}}

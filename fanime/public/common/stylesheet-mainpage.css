@@ -641,6 +641,19 @@
           
         }
 
+        #userDiffProfileBtn{
+            background-color:	#333333;
+            color: white;
+            font-size: 20px;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        #userDiffProfileBtn:hover{
+            background-color: #4652ff;
+            border-radius: 10px;
+            margin:5px;
+        }
 
         .post-title{
             display: flex;
@@ -736,15 +749,12 @@
             transform: scale(1.2); 
         }
         
-
+        
         .post-action .fa-thumbs-up:active {
             color: rgb(14, 245, 210); /* Set color for thumbs-up icon */
-         
         }
-        
         .post-action .fa-thumbs-down:active {
             color: rgb(255, 74, 74); /* Set color for thumbs-down icon */
-
         }
         
         .post-action > button, .expand-comment-section{

@@ -95,5 +95,4 @@ $(document).ready(function(){
             window.alert("Please Login First to access certain features! :)");
         }
     });
-
 });
