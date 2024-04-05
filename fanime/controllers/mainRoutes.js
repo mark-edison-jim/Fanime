@@ -12,6 +12,7 @@ function errorFn(err){
 
 function add(server){
     server.get('/', function(req, resp){
+        console.log(req._id)
         if(req.session.login_user_id == undefined){
             postModel.find({}).lean().then(function(posts){
                 console.log('Loading posts from database');
@@ -506,7 +507,7 @@ function add(server){
     server.post('/like', function(req, resp){
         const {postId} = req.body;
         console.log(req.session);
-        if(req.session.username === ''){
+        if(req.session.username === undefined){
             console.log("not logged in, cant like");
         }else{
             const searchPost = {_id: postId};
@@ -564,7 +565,7 @@ function add(server){
     server.post('/dislike', function(req, resp){
         const {postId} = req.body;
         console.log(req.session);
-        if(req.session.username === ''){
+        if(req.session.username === undefined){
             console.log("not logged in, cant dislike");
         }else{
             const searchPost = {_id: postId};

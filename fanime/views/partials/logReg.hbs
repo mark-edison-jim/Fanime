@@ -24,22 +24,22 @@
             <form name="regForm" action="register" method="post" onsubmit="return validateRegForm()" required>
                 <h1>Register Account</h1>
                 <div class='inputbox'>
-                    <input placeholder='Username' id='user' name="user"/>
+                    <input placeholder='Username' id='user' name="user" required/>
                     <!-- <FaUser class='icon'/> -->
                     <i class="fa fa-user" style="font-size:17px"></i>
                 </div>
                 <div class='inputbox'>
-                    <input type="email" placeholder='Email' id='email' name='email'/>
+                    <input type="email" placeholder='Email' id='email' name='email' required/>
                     <!-- <MdEmail  class='icon'/> -->
                     <i class="fa fa-envelope"></i>
                 </div>
                 <div class='inputbox'>
-                    <input type = "password" placeholder='Password' id='regpass' name="pass"/>
+                    <input type = "password" placeholder='Password' id='regpass' name="pass" required/>
                     <!-- "viewPass ? <FaRegEyeSlash onClick="() => setViewPass(!viewPass)" class='icon'/> : <FaRegEye onClick="() => setViewPass(!viewPass)" class='icon'/>" -->
                     <i id="regPassEye" class="fa fa-eye"></i>
                 </div>
                 <div class='inputbox'>
-                    <input type = "password" placeholder='Confirm Password' id='confirmpass' name="confirmpass"/>
+                    <input type = "password" placeholder='Confirm Password' id='confirmpass' name="confirmpass" required/>
                     <!-- "viewConPass ? <FaRegEyeSlash onClick="() => setViewConPass(!viewConPass)" class='icon'/> : <FaRegEye onClick="() => setViewConPass(!viewConPass)" class='icon'/>" -->
                     <i id="regConPassEye" class="fa fa-eye"></i>
                 </div>
