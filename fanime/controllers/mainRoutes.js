@@ -167,6 +167,10 @@ function add(server){
     });
 
     server.get('/profile', function(req, resp){
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
         const searchQuery = {email : req.session.email};
         userModel.findOne(searchQuery).lean().then(function(account){
             postModel.find({}).lean().then(function(posts){
@@ -223,6 +227,7 @@ function add(server){
                 });    
             });
         });
+        }
     });
 
     function getDate(){
@@ -269,6 +274,10 @@ function add(server){
     });
 
     server.get('/post', function(req, resp){
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
         const searchQuery = req.query.post_id;
         postModel.findById(searchQuery).lean().then(function(post){
                     const post_data = {
@@ -295,10 +304,15 @@ function add(server){
                         loggedprofilepicture: req.session.profilepicture
                     });
         })
+    }
     });
 
     server.get('/editpost', function(req, resp){
         //profile edit button
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
         const searchQuery = req.query.post_id;
         console.log("This is editpost Search Query", searchQuery);
         postModel.findById(searchQuery).lean().then(function(postInstance){
@@ -319,7 +333,7 @@ function add(server){
             });
             console.log('hi');
         }).catch(errorFn);
-        
+        }
     });
 
     server.post('/submit_edit_post', function(req, resp){
@@ -340,13 +354,22 @@ function add(server){
     });
 
     server.get('/delete_post',function(req, resp){
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
         const searchQuery = req.query.post_id;
         postModel.deleteOne({_id: searchQuery}).then(function(){
             resp.redirect('/profile');
         }).catch(errorFn);
+        }
     });
     
     server.get('/editcomment', function(req, resp){
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
         const searchPost = req.query.post_id;
         const searchComment = req.query.comment_id;
         console.log("This is Search Post", searchPost);
@@ -370,10 +393,14 @@ function add(server){
                 loggedprofilepicture: req.session.profilepicture
             });
         }).catch(errorFn);
-        
+        }
     });
 
     server.get('/editreply', function(req, resp){
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
         const searchPost = req.query.post_id;
         const searchComment = req.query.comment_id;
         const searchReply = req.query.reply_id;
@@ -399,7 +426,7 @@ function add(server){
                 loggedprofilepicture: req.session.profilepicture
             });
         }).catch(errorFn);
-        
+        }
     });
     
     server.post('/submit_edit_reply', function(req, resp){
@@ -437,6 +464,10 @@ function add(server){
     });
 
     server.get('/delete_comment',function(req, resp){
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
         const searchComment = req.query.comment_id;
         const searchPost = req.query.post_id;
         postModel.findById(searchPost).then(function(post){
@@ -446,9 +477,14 @@ function add(server){
                 resp.redirect('/profile');
             });
         }).catch(errorFn);
+    }
     });
 
     server.get('/delete_reply',function(req, resp){
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
         const searchReply = req.query.reply_id;
         const searchComment = req.query.comment_id;
         const searchPost = req.query.post_id;
@@ -461,9 +497,14 @@ function add(server){
                 resp.redirect('/profile');
             });
         }).catch(errorFn);
+    }
     });
 
     server.post('/create_comment', function(req, resp){
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
         const comment = req.body.commentData;
         const postId = req.body['post-id'];
         console.log(postId);
@@ -480,9 +521,14 @@ function add(server){
                 resp.redirect('back');
             }).catch(errorFn);
         });
+    }
     });
     
     server.post('/create_reply', function(req, resp){
+        if(req.session.login_user_id == undefined){
+            resp.redirect('/logout');
+            return;
+        }else{
         const reply = req.body.replyData;
         const commentId = req.body['comment-id'];
         const postId = req.body['post-id-inComment'];
@@ -502,6 +548,7 @@ function add(server){
                 resp.redirect('back');
             }).catch(errorFn);
         });
+    }
     });
 
     server.post('/like', function(req, resp){
@@ -613,8 +660,6 @@ function add(server){
                         resp.send(responseData);
                     });   
                 }
-
-                   
             });
         }
     });
