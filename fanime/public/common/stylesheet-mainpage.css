@@ -612,7 +612,7 @@
             width: 95.5%;
             margin: 1% 2%;
             height: auto;
-            max-height: 1000px;
+            max-height:min-content;
             border-radius: 15px 15px 10px 15px;
             flex-direction: column;
             display: flex;
@@ -842,8 +842,19 @@
         .in-post:hover {
             background-color: #203b84;
         }
-    
 
+        .nonemsg{
+            background-color: rgb(61, 64, 110);
+            border-radius: 15px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        
+        .nonemsg {
+            width: 100%;
+            font-size: 20px;
+            text-align: center;
+        }
         
         
         .comment-user, .reply-user{

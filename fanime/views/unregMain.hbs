@@ -38,7 +38,8 @@
                     </div>
                     <div id="comment-section" class="comment-section" style="display: none;">
                         <div class="comment-container">
-                            {{#each comments}}
+                        {{#if comments}}
+                        {{#each comments}}
                             <div class="comment">
                                 <div class="comment-inner">
                                     <div class="comment-user">
@@ -63,6 +64,9 @@
                                 
                             </div>
                             {{/each}}
+                        {{else}}
+                            <p class="nonemsg">Wow such empty...</p>
+                        {{/if}}
                         </div>
                     </div>
                 </div>
