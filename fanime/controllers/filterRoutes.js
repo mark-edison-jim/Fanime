@@ -111,7 +111,7 @@ function add(server){
                     profilepicture: accounts[index].profilepicture
                 }));
     
-                if(searchQuery === 'Mosted Liked'){
+                if(searchQuery === 'Most Liked'){
                     vals.sort((a, b) => b.like - a.like);
                 } else if(searchQuery === 'Most Discussed'){
                     vals.sort((a,b) => b.comments.length - a.comments.length);
