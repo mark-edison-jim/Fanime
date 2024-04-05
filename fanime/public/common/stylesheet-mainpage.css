@@ -612,7 +612,6 @@
             width: 95.5%;
             margin: 1% 2%;
             height: auto;
-            max-height:min-content;
             border-radius: 15px 15px 10px 15px;
             flex-direction: column;
             display: flex;
