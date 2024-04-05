@@ -61,7 +61,10 @@
                         <div class="post-profile">
                             <img src="{{profilepicture}}">
                         </div>
-                        <h4>{{username}}</h4>
+                        <form action="userDiffProfile" method="post">
+                            <input type="hidden" name="usernameToProfile" value="{{username}}">
+                            <h4><button type="submit" id="userDiffProfileBtn">{{username}}</button></h4>
+                        </form>
                         <h6>Posted on {{date}}</h6>
                         {{#if editDate}}
                         <h6>Edited on {{editDate}}</h6>
