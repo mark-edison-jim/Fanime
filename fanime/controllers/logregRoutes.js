@@ -16,21 +16,23 @@ function errorFn(err){
 function add(server){
     server.use(session({
         secret: process.env.SessionSecret,
-        saveUninitialized: true, 
+        saveUninitialized: false,
         resave: false,
         store: new mongoStore({ 
           uri: (process.env.MONGOURI),
           collection: 'mySession',
-          expires: 1000*60*60*24 // 1 day
-        })
+          expires: new Date(Date.now() + 1000*60*60) // 1 day
+        }),
+        cookie: {
+            maxAge: 1000*60*60 //30 secs
+        }
       }));
-      
+
     server.get('/loginFailed', function(req, resp){
         postModel.find({}).lean().then(function(posts){
         console.log('Loading posts from database');
         let vals = new Array();
         for(const post of posts){
-            
             vals.push({
                     _id : post._id.toString(),
                     username: post.username,
@@ -124,10 +126,10 @@ function add(server){
     });
 
     function updateSession(req){
-        const newDate = new Date(Date.now() + 1000*60*60*24*7); //1 week
+        const newDate = new Date(Date.now() + 1000*60*60*24*14); //2 week
         console.log(req.sessionID)
         sessionModel.findOneAndUpdate({_id : req.session.login_id}, {$set: {expires: newDate}}).then(function(result){
-            console.log(result) 
+            console.log("session", result) 
         }).catch(errorFn);
     }
 
@@ -144,8 +146,11 @@ function add(server){
                         req.session.login_id = req.sessionID;
                         if(req.body.remember){
                             setTimeout(()=>updateSession(req), 5000); //delay for session user info to be inserted before updating expire date
+                            req.session.cookie.maxAge = 1000*60*60*24*14;
+                            console.log("cookie", req.session)
                             resp.redirect('/main');
                         }else{
+                            console.log("session", req.session) 
                             resp.redirect('/main');
                         }
                         // setLogIn(user.user, req.body.email, user.profilepicture);
