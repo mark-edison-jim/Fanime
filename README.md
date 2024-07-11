@@ -1,4 +1,3 @@
-Mark Edison Jim
 Setting up the project and mongodb
     1. After cloning the repository change directory to fanime then change directory to fanime again
     2.After there would be a file mco2.json upload it to the mongodb database
